@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<link rel="stylesheet" href="../css/style.css" />
+
+		<style>
+			.input {
+				width: 160px;
+				height: 35px;
+				background: #fff;
+				color: #999;
+				padding-left: 10px;
+				padding-right: 10px;
+				border: none;
+				background: 150px center no-repeat #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="selectbox">
+			<div class="selemediv">
+				<input class="input" placeholder="关键词" v-model="keyword" />
+			</div>
+			<div class="selemediv">
+				<div class="selemenu">薪资</div>
+				<DIV class="citylist">
+					<span>菜单一</span>
+					<span>菜单二</span>
+					<span>菜单三</span>
+					<span>菜单四</span>
+				</div>
+			</div>
+			<div class="selemediv">
+				<div class="selemenu">学历</div>
+				<DIV class="citylist">
+					<span>菜单一</span>
+					<span>菜单二</span>
+					<span>菜单三</span>
+					<span>菜单四</span>
+				</div>
+			</div>
+			<div class="selemediv">
+				<div class="selemenu">年龄</div>
+				<DIV class="citylist">
+					<span>菜单一</span>
+					<span>菜单二</span>
+					<span>菜单三</span>
+					<span>菜单四</span>
+				</div>
+			</div>
+		</div>
+		<div class="selectbox">
+			<div class="selemediv">
+				<div class="selemenu">城市</div>
+				<DIV class="citylist">
+					<span>菜单一</span>
+					<span>菜单二</span>
+					<span>菜单三</span>
+					<span>菜单四</span>
+				</div>
+			</div>
+			<div class="selemediv">
+				<div class="selemenu">工作经验</div>
+				<DIV class="citylist">
+					<span>菜单一</span>
+					<span>菜单二</span>
+					<span>菜单三</span>
+					<span>菜单四</span>
+				</div>
+			</div>
+			<div class="selemediv">
+				<div class="selemenu">性别</div>
+				<DIV class="citylist">
+					<span>菜单一</span>
+					<span>菜单二</span>
+					<span>菜单三</span>
+					<span>菜单四</span>
+				</div>
+			</div>
+			<div class="selemediv">
+				<div class="selemenu">职称</div>
+				<DIV class="citylist">
+					<span>菜单一</span>
+					<span>菜单二</span>
+					<span>菜单三</span>
+					<span>菜单四</span>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		$(".selemenu").click(function() {
+			$(this).next().slideToggle();
+			$(this).parents().siblings().find(".citylist,.citylist2").slideUp();
+		})
+		$(".citylist span").click(function() {
+			var text = $(this).text();
+			$(this).parent().prev().html(text);
+			$(this).parent().prev().css("color", "#666")
+			$(this).parent().fadeOut();
+
+		})
+		$(".shangquan li").click(function() {
+			$(".shangquan li").removeClass("active")
+			$(this).addClass("active")
+			var text1 = $(this).text();
+			$(".sqinput").html(text1)
+		})
+		$(".chengshi li").click(function() {
+			$(".chengshi li").removeClass("active")
+			$(this).addClass("active")
+			var text2 = $(this).text();
+			$(".csinput").html("-" + text2)
+			$(".citylist2").slideUp();
+		})
+		$(function() {
+			$(document).not($(".selectbox")).click(function() {
+				$(".citylist,.citylist2").slideUp();
+			})
+			$(".selectbox").click(function(event) {
+				event.stopPropagation();
+			})
+		})
+	</script>
+
+</html>

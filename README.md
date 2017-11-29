@@ -1,2 +1,0 @@
-# TongBaoForPC
-仝宝
