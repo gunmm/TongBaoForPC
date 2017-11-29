@@ -1,0 +1,49 @@
+.content{
+    margin: 0 auto;
+    background: gray;
+    width: 1000px;
+}
+
+#yd_slider {
+	height: 200px;
+	
+}
+
+#yd_slider a,img{
+	height: 200px;
+	margin: 10px 40px;
+}
+
+.listarea_zixun {
+	width: 920px;
+	height: 50px;
+	margin: 10px 40px;
+	background: white;
+}
+
+.listarea {
+	width: 100%;
+	margin-top: 10px;
+	display:flex;
+}
+
+.listitem_left {
+	width: 500px;
+	background: white;
+	float: left;
+	margin: 10px;
+	margin-left: 40px;
+	margin-right: 20px;
+	
+}
+
+.listitem_right {
+	width: 500px;
+	background: white;
+	float: left;
+	margin: 10px;
+	margin-left: 20px;
+	margin-right: 40px;
+}
+
+
