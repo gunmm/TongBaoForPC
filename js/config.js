@@ -5,14 +5,14 @@ var provinceCity = '[{"deep":1,"name":"北京市","id":1,"sort":0,"parentId":0},
 
 var vm = new Vue();
 
-localStorage.userId = 837;
+localStorage.userId = 831;
 
 function asJump() {
 	as.jump();
 }
 
 var urlStr = window.location.href;
-if(urlStr.indexOf('userInfoJson=') > 0) {
+if (urlStr.indexOf('userInfoJson=') > 0) {
 	var str = decodeURI(urlStr);
 	var userInfo = JSON.parse(str.split('userInfoJson=')[1]);
 	localStorage.userId = userInfo.userId;
@@ -20,8 +20,8 @@ if(urlStr.indexOf('userInfoJson=') > 0) {
 }
 
 var sign = true;
-if(!localStorage.userId) {
-	if(isWx()) {
+if (!localStorage.userId) {
+	if (isWx()) {
 		wxAuthorization(window.location.href, function(data) {
 			window.location.replace(data.result);
 		})
@@ -40,7 +40,7 @@ log(localStorage.accessToken);
 function post(url, data, callback, callback1) {
 	data['userId'] = localStorage.userId;
 	data['requestToken'] = localStorage.accessToken;
-	vm.$dialog.loading.open('');
+//	vm.$dialog.loading.open('');
 	$.ajax({
 		type: "post",
 		url: ip + url,
@@ -49,12 +49,13 @@ function post(url, data, callback, callback1) {
 		data: data,
 		success: function(data) {
 			log(url + "==>>" + JSON.stringify(data));
-			vm.$dialog.loading.close();
-			if(data.result_code != 1) {
-				new Vue().$dialog.alert({
-					mes: data.reason
-				});
-				if(callback1 != null) {
+//			vm.$dialog.loading.close();
+			if (data.result_code != 1) {
+				//				new Vue().$dialog.alert({
+				//					mes: data.reason
+				//				});
+				alert(data.reason);
+				if (callback1 != null) {
 					callback1();
 				}
 				return;
@@ -62,9 +63,9 @@ function post(url, data, callback, callback1) {
 			callback(data);
 		},
 		error: function(data) {
-			vm.$dialog.loading.close();
-			if(data.status == 510) {
-				if(isWx() && sign) {
+			//			vm.$dialog.loading.close();
+			if (data.status == 510) {
+				if (isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -82,26 +83,27 @@ function post(url, data, callback, callback1) {
 function post1(url, async, data, callback) {
 	data['userId'] = localStorage.userId;
 	data['requestToken'] = localStorage.accessToken;
-	vm.$dialog.loading.open('');
+//	vm.$dialog.loading.open('');
 	$.ajax({
 		type: "post",
 		url: ip + url,
 		async: async,
 		data: data,
 		success: function(data) {
-			vm.$dialog.loading.close();
-			if(data.result_code != 1) {
-				new Vue().$dialog.alert({
-					mes: data.reason
-				});
+//			vm.$dialog.loading.close();
+			if (data.result_code != 1) {
+//				new Vue().$dialog.alert({
+//					mes: data.reason
+//				});
+				alert(data.reason);
 				return;
 			}
 			callback(data);
 		},
 		error: function(data) {
-			vm.$dialog.loading.close();
-			if(data.status == 510) {
-				if(isWx() && sign) {
+//			vm.$dialog.loading.close();
+			if (data.status == 510) {
+				if (isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -109,9 +111,10 @@ function post1(url, async, data, callback) {
 				}
 				return;
 			}
-			vm.$dialog.alert({
-				mes: '服务器连接失败!'
-			});
+			alert("服务器连接失败!");
+//			vm.$dialog.alert({
+//				mes: '服务器连接失败!'
+//			});
 		}
 	});
 }
@@ -122,9 +125,9 @@ function QueryString() {
 	var num = str.indexOf("?")
 	str = str.substr(num + 1);
 	var arrtmp = str.split("&");
-	for(i = 0; i < arrtmp.length; i++) {
+	for (i = 0; i < arrtmp.length; i++) {
 		num = arrtmp[i].indexOf("=");
-		if(num > 0) {
+		if (num > 0) {
 			name = arrtmp[i].substring(0, num);
 			value = arrtmp[i].substr(num + 1);
 			this[name] = value;
@@ -137,7 +140,7 @@ function QueryString() {
  * @param {Object} str
  */
 function strReplace(str) {
-	if(str) {
+	if (str) {
 		return str.replace(/\ /g, "&nbsp;").replace(/\n/g, "<br/>");
 	}
 }
@@ -147,10 +150,10 @@ function strReplace(str) {
  * @param {Object} str
  */
 function hideStr(str) {
-	if(str) {
+	if (str) {
 		var s = str[0];
-		for(var i = 0; i < str.length; i++) {
-			if(i > 0) {
+		for (var i = 0; i < str.length; i++) {
+			if (i > 0) {
 				s += '*';
 			}
 		}
@@ -159,15 +162,15 @@ function hideStr(str) {
 }
 
 Array.prototype.indexOf = function(val) {
-	for(var i = 0; i < this.length; i++) {
-		if(this[i] == val) return i;
+	for (var i = 0; i < this.length; i++) {
+		if (this[i] == val) return i;
 	}
 	return -1;
 };
 
 Array.prototype.remove = function(val) {
 	var index = this.indexOf(val);
-	if(index > -1) {
+	if (index > -1) {
 		this.splice(index, 1);
 	}
 };
@@ -181,22 +184,22 @@ function getCity(callback) {
 	var province = [];
 	var city = [];
 	var cityM = {};
-	for(var i = 0; i < list.length; i++) {
+	for (var i = 0; i < list.length; i++) {
 		var obj = list[i];
-		if(obj.deep == 1) {
+		if (obj.deep == 1) {
 			province.push(obj);
-		} else if(obj.deep == 2) {
+		} else if (obj.deep == 2) {
 			city.push(obj);
 		}
 	}
-	for(var i = 0; i < province.length; i++) {
+	for (var i = 0; i < province.length; i++) {
 		var array = [];
 		array.push({
 			'name': '全' + province[i].name,
 			'id': province[i].id
 		});
-		for(var j = 0; j < city.length; j++) {
-			if(city[j].parentId == i + 1) {
+		for (var j = 0; j < city.length; j++) {
+			if (city[j].parentId == i + 1) {
 				array.push(city[j]);
 				cityM['' + (i + 1)] = array;
 			}
@@ -256,7 +259,7 @@ function getCity(callback) {
 }
 
 function getDicTable(async, classId, callback) {
-	vm.$dialog.loading.open('');
+//	vm.$dialog.loading.open('');
 	$.ajax({
 		type: "post",
 		url: ip + '/webItem/ItemData',
@@ -267,19 +270,20 @@ function getDicTable(async, classId, callback) {
 			userId: localStorage.userId
 		},
 		success: function(data) {
-			vm.$dialog.loading.close();
-			if(data.result_code != 1) {
-				new Vue().$dialog.alert({
-					mes: data.reason
-				});
+//			vm.$dialog.loading.close();
+			if (data.result_code != 1) {
+//				new Vue().$dialog.alert({
+//					mes: data.reason
+//				});
+				alert(data.reason);
 				return;
 			}
 			callback(data);
 		},
 		error: function(data) {
-			vm.$dialog.loading.close();
-			if(data.status == 510) {
-				if(isWx() && sign) {
+//			vm.$dialog.loading.close();
+			if (data.status == 510) {
+				if (isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -287,16 +291,17 @@ function getDicTable(async, classId, callback) {
 				}
 				return;
 			}
-			vm.$dialog.alert({
-				mes: '服务器连接失败!'
-			});
+			alert("服务器连接失败!");
+//			vm.$dialog.alert({
+//				mes: '服务器连接失败!'
+//			});
 		}
 	});
 }
 
 //设备分类
 function getClassifyTable(async, classType, callback) {
-	vm.$dialog.loading.open('');
+//	vm.$dialog.loading.open('');
 	$.ajax({
 		type: "post",
 		url: ip + '/webItem/getCategoryList',
@@ -307,19 +312,20 @@ function getClassifyTable(async, classType, callback) {
 			userId: localStorage.userId
 		},
 		success: function(data) {
-			vm.$dialog.loading.close();
-			if(data.result_code != 1) {
-				new Vue().$dialog.alert({
-					mes: data.reason
-				});
+//			vm.$dialog.loading.close();
+			if (data.result_code != 1) {
+//				new Vue().$dialog.alert({
+//					mes: data.reason
+//				});
+				alert(data.reason);
 				return;
 			}
 			callback(data);
 		},
 		error: function(data) {
-			vm.$dialog.loading.close();
-			if(data.status == 510) {
-				if(isWx() && sign) {
+//			vm.$dialog.loading.close();
+			if (data.status == 510) {
+				if (isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -327,9 +333,10 @@ function getClassifyTable(async, classType, callback) {
 				}
 				return;
 			}
-			vm.$dialog.alert({
-				mes: '服务器连接失败!'
-			});
+			alert("服务器连接失败!");
+//			vm.$dialog.alert({
+//				mes: '服务器连接失败!'
+//			});
 		}
 	});
 }
@@ -340,7 +347,7 @@ function getClassifyTable(async, classType, callback) {
  * @param {Object} callback
  */
 function getUserInfo(userId, callback) {
-	if(userId) {
+	if (userId) {
 		post('/webUser/findUserMessage', {}, function(data) {
 			callback(data);
 		})
@@ -356,7 +363,7 @@ function wxAuthorization(url, callback) {
 }
 
 function log(str) {
-	if(true) {
+	if (true) {
 		console.log(str);
 	}
 }
@@ -372,7 +379,7 @@ function addressToLatlng(address, callback) {
 
 function isIPhone() {
 	var u = navigator.userAgent;
-	if(u.indexOf('iPhone') > -1) {
+	if (u.indexOf('iPhone') > -1) {
 		return true;
 	}
 	return false;
@@ -380,7 +387,7 @@ function isIPhone() {
 
 function isWx() {
 	var u = navigator.userAgent;
-	if(u.indexOf('MicroMessenger') > -1) {
+	if (u.indexOf('MicroMessenger') > -1) {
 		return true;
 	}
 	return false;
@@ -388,7 +395,7 @@ function isWx() {
 
 /**
  * 图片压缩，默认同比例压缩
- * @param {Object} path 
+ * @param {Object} path
  *   pc端传入的路径可以为相对路径，但是在移动端上必须传入的路径是照相图片储存的绝对路径
  * @param {Object} obj
  *   obj 对象 有 width， height， quality(0-1)
@@ -396,12 +403,12 @@ function isWx() {
  *   回调函数有一个参数，base64的字符串数据
  */
 function dealImage(path, obj, callback) {
-	if(path.length < 1 * 1024 * 1024) {
+	if (path.length < 1 * 1024 * 1024) {
 		callback(path);
 		return;
 	}
 
-	vm.$dialog.loading.open('');
+//	vm.$dialog.loading.open('');
 
 	setTimeout(function() {
 		var img = new Image();
@@ -427,18 +434,18 @@ function dealImage(path, obj, callback) {
 			canvas.setAttributeNode(anh);
 			ctx.drawImage(that, 0, 0, w, h);
 			// 图像质量
-			if(obj.quality && obj.quality <= 1 && obj.quality > 0) {
+			if (obj.quality && obj.quality <= 1 && obj.quality > 0) {
 				quality = obj.quality;
 			}
 			// quality值越小，所绘制出的图像越模糊
 			var base64 = canvas.toDataURL('image/jpeg', quality);
 
-			if(base64.length > 1 * 1024 * 1024) {
+			if (base64.length > 1 * 1024 * 1024) {
 				dealImage(base64, {
 					quality: 0.1
 				}, callback);
 			} else {
-				vm.$dialog.loading.close();
+//				vm.$dialog.loading.close();
 				callback(base64);
 			}
 		}
@@ -446,8 +453,8 @@ function dealImage(path, obj, callback) {
 }
 
 function getAvatar(url) {
-	if(url) {
-		if(url.indexOf('http') >= 0) {
+	if (url) {
+		if (url.indexOf('http') >= 0) {
 			return url;
 		} else {
 			return ip + url;

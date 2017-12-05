@@ -14,8 +14,11 @@ a{
 	text-decoration: none;
 }
 .header{
+	z-index:9999;
 	height: 50px;
 	background: black;
+	position: fixed;
+	width: 100%;
 }
 .header .nav{
 	width: 1000px;
@@ -34,6 +37,8 @@ a{
 }
 .header .nav li a{
 	color: #fff;
+	font-size: 16px;
+	font-weight: 800;
 }
 .header .nav li .second-nav{
 	width: 150px;
