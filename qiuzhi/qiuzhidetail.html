@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>求职详情</title>
+
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/ydui.js"></script>
+		<link rel="stylesheet" href="../static/css/mkui.css" />
+		<link rel="stylesheet" href="../static/css/ydui.rem.css" />
+		<link rel="stylesheet" href="../static/css/common.css" />
+
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../static/css/style.css" />
+
+		<script type="text/javascript" src="../js/config.js"></script>
+
+		<style>
+			.container {
+				width: 1000px;
+				margin: auto;
+				display: flex;
+				flex-direction: row;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			
+			.a {
+				width: 100%;
+				background-color: darkslategray;
+				color: whitesmoke;
+				font-size: 15px;
+				padding-bottom: 30px;
+			}
+			
+			.a1 {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+			}
+			
+			.a1-1 {
+				/*position: absolute;*/
+				margin-top: 20px;
+				font-size: 13px;
+			}
+			
+			.a1-2 {
+				/*position: absolute;*/
+				margin-top: 20px;
+				font-size: 25px;
+				display: flex;
+				text-align: center;
+				align-items: center;
+			}
+			
+			.a1-2 img {
+				width: 60px;
+				height: 60px;
+				border-radius: 360px;
+			}
+			
+			.a1-2 span {
+				line-height: 60px;
+				margin-left: 25px;
+			}
+			
+			.a1-2 .a1-2-2 {
+				font-size: 13px;
+				background-color: #EB5211;
+				border-radius: 50px;
+				padding: 2px 15px 2px 15px;
+				margin-left: 10px;
+			}
+			
+			.a1-3 {
+				margin-top: 20px;
+			}
+			
+			.a1-3 i {
+				width: 1px;
+				height: 12px;
+				border-right: 2px solid white;
+				margin-left: 18px;
+				margin-right: 10px;
+				display: inline-block;
+			}
+			
+			.a1-4 {
+				margin-top: 25px;
+			}
+			
+			.a1-4 span {
+				border: 1px solid white;
+				padding: 5px;
+				border-radius: 8px;
+			}
+			
+			.a2 {
+				width: 50%;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+			}
+			
+			.a2-1 {
+				float: right;
+				text-align: end;
+				margin-top: 59px;
+				font-size: 25px;
+			}
+			
+			.a2-2 {
+				float: right;
+				text-align: end;
+				margin-top: 20px;
+			}
+			
+			.a2-3 {
+				float: right;
+				text-align: end;
+				margin-top: 20px;
+			}
+			
+			.b {
+				width: 1000px;
+				margin: auto;
+				display: flex;
+			}
+			
+			.ba {
+				width: 70%;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			
+			.bb {
+				width: 30%;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			
+			.b h3 {
+				font-size: 20px;
+				margin-top: 30px;
+				margin-bottom: 20px;
+			}
+			
+			.b1 {
+				font-size: 16px;
+				margin-top: 20px;
+				margin-bottom: 30px;
+			}
+			
+			.b1 i {
+				width: 1px;
+				height: 12px;
+				border-right: 2px solid lightgray;
+				margin-left: 18px;
+				margin-right: 10px;
+				display: inline-block;
+			}
+			
+			.b2 {
+				width: 100%;
+				margin-top: 20px;
+				position: relative;
+				/*box-shadow: -2px -2px 10px 0px #ccc;*/
+			}
+			
+			.b2 .b2-1 {
+				display: flex;
+				align-items: center;
+			}
+			
+			.b2 .b2-1 img {
+				width: 10px;
+				height: 10px;
+			}
+			
+			.b2 .b2-1 span i {
+				width: 1px;
+				height: 12px;
+				border-right: 2px solid lightgray;
+				margin-left: 18px;
+				margin-right: 18px;
+				display: inline-block;
+			}
+			
+			.b2 iframe {
+				width: 100%;
+				height: 208px;
+				border: none;
+			}
+			
+			.b3 {
+				width: 100%;
+			}
+			
+			.b3 li {
+				float: left;
+			}
+			
+			.b3 li img {
+				width: 120px;
+				height: 120px;
+				border-radius: 10px;
+				margin-right: 20px;
+				margin-bottom: 20px;
+			}
+			
+			.b4 {
+				height: 40px;
+				margin-top: 30px;
+				display: flex;
+				flex-direction: row;
+				float: right;
+			}
+			
+			.b4-1 {
+				width: 120px;
+				display: inline-flex;
+				background-color: #CCCCCC;
+				align-items: center;
+			}
+			
+			.b4-img {
+				width: 22px;
+				height: 22px;
+				margin: auto;
+			}
+			
+			.b4-span {
+				margin: auto;
+			}
+			
+			.b4-2 {
+				width: 120px;
+				display: inline-flex;
+				background-color: #097ED8;
+				align-items: center;
+			}
+			
+			.b4-2 span {
+				color: white;
+			}
+			
+			.b4-3 span {
+				color: white;
+			}
+			
+			.b4-3 {
+				width: 120px;
+				display: inline-flex;
+				background-color: #128A28;
+				align-items: center;
+			}
+			
+			.i {
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				position: fixed;
+				top: 0;
+				z-index: 1000;
+				display: flex;
+			}
+			
+			.i .i1 {
+				position: absolute;
+				top: 50px;
+				right: 50px;
+			}
+			
+			.i .i2 {
+				margin: auto;
+				height: 80%;
+			}
+			
+			.bb1 {
+				font-size: 20px;
+			}
+			
+			.bb2 {
+				float: right;
+				color: gray;
+			}
+			
+			.bb2:hover {
+				color: black;
+			}
+			
+			a,
+			a:hover {
+				color: #080808;
+				text-decoration: none;
+			}
+			
+			.list1 {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+			
+			.tousu1 img {
+				width: 48px;
+				height: 48px;
+			}
+			
+			.sel:hover {
+				border: 3px solid transparent;
+			}
+			
+			.none {
+				display: none;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="header">
+			<ul class="nav">
+				<li>
+					<a href="#">首页</a>
+				</li>
+				<li>
+					<a href="#">发布</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">招聘发布</a>
+						</li>
+						<li>
+							<a href="#">招标发布</a>
+						</li>
+						<li>
+							<a href="#">供应发布</a>
+						</li>
+						<li>
+							<a href="#">求职发布</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">找信息</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">招聘信息</a>
+						</li>
+						<li>
+							<a href="#">招标信息</a>
+						</li>
+						<li>
+							<a href="#">供应信息</a>
+						</li>
+						<li>
+							<a href="#">求职信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">我的</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">收藏</a>
+						</li>
+						<li>
+							<a href="#">我的订阅</a>
+						</li>
+						<li>
+							<a href="#">我的发布</a>
+						</li>
+						<li>
+							<a href="#">我的投标</a>
+						</li>
+						<li>
+							<a href="#">意见反馈</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div id="app" style="margin-bottom: 200px;">
+			<div class="a">
+				<div class="container">
+					<div class="a1">
+						<span class="a1-1">最后更新时间：{{updated_at}}&nbsp;&nbsp;&nbsp;收藏：{{favourite}}次&nbsp;&nbsp;&nbsp;浏览：{{view}}人</span>
+						<div class="a1-2">
+							<img :src='avatar?ip+avatar:"../static/img/avatar_96x96.png"' />
+							<span>{{name}}</span>
+							<img class="ml-10" style="width: 15px; height: 15px;" :src="gender?'../static/img/ico-boy.png':'../static/img/ico-girl.png'" />
+							<!--<span class="a1-2-2">{{xinzi}}</span>-->
+						</div>
+						<div class="a1-3">
+							<span>{{age}}岁<i></i></span>
+							<span>{{jingyan}}工作经验<i></i></span>
+							<span>{{xueli}}学历</span>
+						</div>
+						<div class="a1-3">
+							<span>{{phone}}<i></i></span>
+							<span>{{email}}</span>
+						</div>
+					</div>
+					<!--<div class="a2">
+						<span class="mt-20" style="text-align: right;"></span>
+						<span class="a2-1"></span>
+						<span class="a2-2">规模：{{guimo}}</span>
+						<span class="a2-3">性质：{{xingzhi}}</span>
+						<span class="a2-3">联系电话：{{phone}}</span>
+					</div>-->
+				</div>
+			</div>
+			<div class="b">
+				<div class="ba">
+					<div class="b4" v-if="type!=1&&localStorage.userId!=userId">
+						<div class="b4-1" @click="shoucang()">
+							<img class="b4-img" v-if="isShoucang" src="../static/img/shoucang2.png" alt="" />
+							<img class="b4-img" v-else src="../static/img/shoucang1.png" alt="" />
+							<span id="shoucang" class="b4-span">收藏</span>
+						</div>
+						<div class="b4-2">
+							<img class="b4-img" src="../static/img/xiaoxi.png" />
+							<span class="b4-span">立即沟通</span>
+						</div>
+						<div class="b4-3">
+							<span v-if="isToudi" class="b4-span" @click="toudi()">已邀请面试</span>
+							<span v-else class="b4-span" @click="toudi()">邀请面试</span>
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+					<h3>求职意向</h3>
+					<div style="width: 20px; height: 3px; background-color: #097ED8;"></div>
+					<!--<p class="b1" v-html="zhiweimiaoshu"></p>-->
+					<div class="b1">
+						<span>{{gangwei}}<i></i></span>
+						<span>{{gongzuofangshi}}<i></i></span>
+						<span>{{targetprovince}}{{targetcity}}<i></i></span>
+						<span>{{targetxinzi}}<i></i></span>
+						<span>目前状态: {{onduty==1?'在职':'离职'}}&nbsp;&nbsp;{{jointime}}</span>
+					</div>
+					<h3>自我评价</h3>
+					<div style="width: 20px; height: 3px; background-color: #097ED8;"></div>
+					<p class="b1" v-html="evaluation"></p>
+					<h3>工作经历</h3>
+					<div style="width: 20px; height: 3px; background-color: #097ED8;"></div>
+					<div class="b2" v-for="work in worklist">
+						<div style="top: 18px; left: 5px; border-left: 1px dashed lightgray; height: 100%; position: absolute;z-index: -1;"></div>
+						<div class="b2-1">
+							<img src="../static/img/ico-round.png" />
+							<span class="f-18 ml-15" style="width: 70%;">{{showcompanyname?work.companyname:'*****'}}</span>
+							<span class="f-10" style="width: 30%; text-align: end;">{{work.startdate}}至{{work.enddate}}</span>
+						</div>
+						<div class="b2-1 mt-10">
+							<span style="width: 6px; height: 6px;margin-left: 2px; background-color: lightgray; border-radius: 360px;"></span>
+							<span class="f-16 ml-15">{{work.gangwei}}</span>
+						</div>
+						<div class="b2-1 mt-10">
+							<span style="width: 6px; height: 6px;margin-left: 2px; background-color: lightgray; border-radius: 360px;"></span>
+							<span class="f-16 ml-15">工作内容</span>
+						</div>
+						<p class="mt-10 ml-25" style="color: gray;">{{work.brief}}</p>
+					</div>
+					<h3>教育经历</h3>
+					<div style="width: 20px; height: 3px; background-color: #097ED8;"></div>
+					<div class="b2" v-for="study in studylist">
+						<div style="top: 18px; left: 5px; border-left: 1px dashed lightgray; height: 100%; position: absolute;z-index: -1;"></div>
+						<div class="b2-1">
+							<img src="../static/img/ico-round.png" />
+							<span class="f-18 ml-15" style="width: 70%;">{{study.schoolname}}</span>
+							<span class="f-10" style="width: 30%; text-align: end;">{{study.graduationyear}}年毕业</span>
+						</div>
+						<div class="b2-1 mt-10">
+							<span style="width: 6px; height: 6px;margin-left: 2px; background-color: lightgray; border-radius: 360px;"></span>
+							<span class="f-16 ml-15">{{study.major}}<i></i>{{getXueli(study.xueli)}}</span>
+						</div>
+					</div>
+					<div v-if="localStorage.userId!=userId" style="margin-top: 30px;" class="tousu1">
+						<img class="fr sel" src="../img/ic_tousu.png" onclick="tousu()" />
+					</div>
+				</div>
+				<div style="width: 1px;box-shadow: rgb(243, 238, 238) -1px 20px 1px 0px;"></div>
+				<div class="bb">
+					<div style="margin-top: 30px;height: 26px;line-height: 26px;">
+						<span class="bb1">相似求职</span>
+						<a class="bb2" href="zhaopinlist.html" target="_blank">更多求职信息</a>
+					</div>
+					<ul class="pt-8 pm-8">
+						<li v-for="item in zuixinqiuzhis">
+							<a class="pt-10 pb-10 border-b" style="width: 100%;" target="_blank" :href='"qiuzhidetail.html?id="+item.id'>
+								<div class="list1">
+									<div style="line-height: 24px;">
+										<span class="f-16">{{item.title}}</span>
+										<span class="fr" style="color: #EB5211; font-weight: bold;">{{item.salary}}</span>
+									</div>
+									<span class="mt-5" style="color: gray;">{{item.showfullname==1?item.orgName:hideStr(item.orgName)}} · {{item.city}}</span>
+									<span class="mt-5" style="color: gray;">{{item.gender}}&ensp;&nbsp;{{item.experience}}&ensp;&nbsp;{{item.education}}</span>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="tousu" class="i none">
+				<div style="width: 600px;height: 380px;margin: auto; background-color: white; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">
+					<div style="margin: 30px 20px 30px 20px;">
+						<div style="display: flex; align-items: center;" class="mb-10">
+							<img src="../img/ic_tousu.png" />
+							<span class="f-16">{{name}}</span>
+						</div>
+						<textarea v-model="ts_content" class="mt-10" placeholder="请填写投诉内容"></textarea>
+					</div>
+					<div style="margin-right: 20px;">
+						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;" onclick="confirmTousu()">确认投诉</span>
+						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;" onclick="$('#tousu').addClass('none')">取消</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--<div id="show_img" class="i none">
+			<img class="i1" src="../static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png" onclick="$('#show_img').addClass('none')" />
+			<img class="i2" src="" />
+		</div>-->
+	</body>
+
+	<script type="text/javascript">
+		var qs = new QueryString();
+		var id = parseInt(qs['id']) ? parseInt(qs['id']) : 2;
+
+		post('/webUser/addBrowser', {
+			userId: localStorage.userId,
+			articleId: id
+		}, function(data) {})
+
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				avatar: '',
+				name: '',
+				gender: null,
+				updated_at: '',
+				favourite: 0,
+				view: '',
+				phone: '',
+				email: '',
+				age: '',
+				xueli: '',
+				jingyan: '',
+				city: '',
+				zhicheng: '',
+				gangwei: '',
+				gongzuofangshi: '',
+				targetprovince: '',
+				targetcity: '',
+				targetxinzi: '',
+				onduty: '',
+				jointime: '',
+				worklist: [],
+				studylist: [],
+				evaluation: '',
+				showcompanyname: false,
+				type: 2,
+				isShoucang: false,
+				isToudi: false,
+				userId: '',
+				phone: '',
+				userInfo: '',
+				zuixinqiuzhis: [],
+				ts_content: ''
+			},
+			methods: {
+				showimg: function(src) {
+					$('#show_img').removeClass('none');
+					$('#show_img .i2').attr('src', src);
+				},
+				shoucang: function() {
+					if(vm.userInfo.regStatus != 1) {
+						window.location.href = '../../register/register.html';
+						return;
+					}
+					post('/webSc/favorite', {
+						userId: localStorage.userId,
+						id: id,
+						shoucang: !vm.isShoucang
+					}, function(data) {
+						vm.isShoucang = !vm.isShoucang;
+						if(vm.isShoucang) {
+							$('#shoucang').css('color', '#D58512');
+							$('#shoucang').html('已收藏');
+							vm.favourite += 1;
+						} else {
+							$('#shoucang').css('color', '#717171');
+							$('#shoucang').html('收藏');
+							vm.favourite -= 1;
+						}
+						vm.$dialog.toast({
+							mes: data.reason,
+							icon: 'success',
+							timeout: 1500,
+						});
+					})
+				},
+				toudi: function() {
+					if(vm.userInfo.regStatus != 1) {
+						window.location.href = '../../register/register.html';
+						return;
+					}
+					post('/webQz/Interview', {
+						userId: localStorage.userId,
+						id: id,
+						isYaoqing: !vm.isToudi
+					}, function(data) {
+						vm.isToudi = !vm.isToudi;
+						vm.$dialog.toast({
+							mes: data.reason,
+							icon: 'success',
+							timeout: 1500,
+						});
+					})
+				}
+			}
+		})
+
+		var xuelis;
+		getDicTable(true, "003", function(data) {
+			xuelis = data.result;
+
+			post('/webQz/QiuzhiById', {
+				id: id
+			}, function(data) {
+				var d = data.result;
+				if(d.showfullname == 1) {
+					vm.name = d.name;
+				} else {
+					vm.name = hideStr(d.name);
+				};
+				vm.avatar = d.touxiang;
+				vm.updated_at = d.gengxin;
+				vm.favourite = parseInt(d.shoucang);
+				vm.view = d.liulan;
+				vm.phone = d.phone;
+				vm.email = d.email;
+				vm.age = d.age;
+				vm.xueli = d.educational;
+				vm.jingyan = d.exprience;
+				vm.targetcity = d.targetcity;
+				vm.zhicheng = d.profession;
+				vm.evaluation = strReplace(d.evaluation);
+				vm.worklist = JSON.parse(d.experience);
+				vm.studylist = JSON.parse(d.education);
+				vm.gongzuofangshi = d.operationMode;
+				vm.onduty = d.onduty;
+				vm.jointime = d.jointime;
+				vm.gangwei = d.gangwei;
+				vm.city = d.city;
+				vm.targetprovince = d.targetprovince;
+				vm.targetxinzi = d.targetSalary;
+				vm.gender = d.sex == '男';
+				vm.showcompanyname = d.showcompanyname == 1;
+				vm.userId = d.userId;
+				if(d.admin) {
+					$('.b4-3').hide();
+				}
+
+				post('/webQz/Qiuzhi', {
+					pageNo: 1,
+					pageSize: 5,
+					targetPost: d.postCode
+				}, function(data) {
+					vm.zuixinqiuzhis = data.result;
+				})
+			})
+		})
+
+		getUserInfo(localStorage.userId, function(data) {
+			vm.userInfo = data.result;
+			vm.type = data.result.type;
+		})
+
+		post('/webSc/isFavorite', {
+			id: id,
+			userId: localStorage.userId
+		}, function(data) {
+			vm.isShoucang = data.result;
+			if(data.result) {
+				$('#shoucang').css('color', '#D58512');
+				$('#shoucang').html('已收藏');
+			}
+		})
+
+		post('/webQz/isInterview', {
+			id: id,
+			userId: localStorage.userId
+		}, function(data) {
+			vm.isToudi = data.result;
+		})
+
+		function getXueli(id) {
+			for(var i = 0; i < xuelis.length; i++) {
+				if(xuelis[i].itemCode == id) {
+					return xuelis[i].itemName;
+				}
+			}
+		}
+
+		function tousu() {
+			$('#tousu').removeClass('none');
+		}
+
+		function confirmTousu() {
+			if(vm.ts_content == '') {
+				alert('请填写投诉内容')
+				return
+			}
+			post('/webTs/tousu', {
+				userId: localStorage.userId,
+				publishId: id,
+				content: vm.ts_content,
+				//				tousuImg: vm.img
+			}, function(data) {
+				vm.$dialog.toast({
+					mes: "感谢您的支持和理解我们会尽快对信息进行核实与处理。",
+					icon: 'success',
+					timeout: 1500,
+					callback: function() {
+						$('#tousu').addClass('none');
+					}
+				});
+			})
+		}
+
+		$(function() {
+			var _this1 = null;
+			$('.nav>li').hover(function() {
+				_this1 = $(this);
+				_this1.find('.second-nav').show();
+				var _this2 = null;
+				_this1.find('.second-nav').find('li').hover(function() {
+					_this2 = $(this);
+					_this2.find('.third-nav').show();
+					_this2.find('.third-nav').hover(function() {
+						$(this).show();
+					}, function() {
+						$(this).hide();
+					});
+				}, function() {
+					_this2.find('.third-nav').hide();
+				});
+			}, function() {
+				_this1.find('.second-nav').hide();
+			});
+		});
+	</script>
+
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的收藏</title>
+
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/ydui.js"></script>
+		<link rel="stylesheet" href="../static/css/mkui.css" />
+		<link rel="stylesheet" href="../css/reset.css" />
+		<link rel="stylesheet" href="../css/pagination.css" />
+		<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+		<link rel="stylesheet" href="../static/css/ydui.rem.css" />
+		<link rel="stylesheet" href="../static/css/common.css" />
+		<link rel="stylesheet" href="../static/css/style.css" />
+		<script type="text/javascript" src="../js/config.js"></script>
+
+		<style>
+			.input {
+				width: 180px;
+				height: 35px;
+				background: #fff;
+				color: #999;
+				padding-left: 10px;
+				padding-right: 10px;
+				border: none;
+				font-size: 14px;
+				background: 150px center no-repeat #fff;
+			}
+			
+			.none {
+				display: none;
+			}
+			
+			.filter {
+				width: 1000px;
+				margin: auto;
+			}
+			
+			.filter-btn {
+				background: dodgerblue;
+				width: 120px;
+				float: left;
+				margin-top: -15px;
+				margin-left: 30px;
+				padding: 8px;
+				position: relative;
+				color: white;
+				text-align: center;
+				border-radius: 10px;
+			}
+			
+			.list1 {
+				width: 100%;
+				padding: 10px;
+				display: inline-flex;
+				background-color: darkslategray;
+			}
+			
+			.list1 div {
+				font-weight: bold;
+				font-size: 15px;
+				color: white;
+			}
+			
+			.list2 {
+				width: 100%;
+				padding: 10px;
+				display: inline-flex;
+				border-bottom: 1px solid lightgray;
+			}
+			
+			.list2:hover {
+				background: #eee;
+			}
+			
+			.title {
+				position: relative;
+				max-height: 50px;
+				font-size: 20px;
+				font-weight: bold;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header">
+			<ul class="nav">
+				<li>
+					<a href="../index.html">首页</a>
+				</li>
+				<li>
+					<a href="#">发布</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">招聘发布</a>
+						</li>
+						<li>
+							<a href="#">招标发布</a>
+						</li>
+						<li>
+							<a href="#">供应发布</a>
+						</li>
+						<li>
+							<a href="#">求职发布</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">找信息</a>
+					<ul class="second-nav">
+						<li>
+							<a target="_blank" href="../zhaopin/zhaopinlist.html">招聘信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="../zhaobiao/zhaobiaolist.html">招标信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="../gongying/gongyinglist.html">供应信息</a>
+						</li>
+						<li>
+							<a href="">求职信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">我的</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">收藏</a>
+							<ul class="third-nav">
+								<li id="sc_qiuzhi" hidden>
+									<a target="_blank" href="../qiuzhi/qiuzhicollection.html">求职</a>
+								</li>
+								<li id="sc_zhaopin" hidden>
+									<a target="_blank" href="../zhaopin/zhaopincollection.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="../zhaobiao/zhaobiaocollection.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../gongying/gongyingcollection.html">供应</a>
+								</li>
+								<li>
+									<a target="" href="">资讯</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">我的订阅</a>
+						</li>
+						<li>
+							<a href="#">我的发布</a>
+						</li>
+						<li>
+							<a href="#">我的投标</a>
+						</li>
+						<li>
+							<a href="#">意见反馈</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div id="app" style="padding-bottom: 100px;">
+			<div style="width: 1000px; margin: auto;background-color: darkslategray;padding: 30px 10px 80px 10px;">
+				<span style="color: white;font-size: 20px;font-weight: bold;">我的收藏-仝仝资讯</span>
+			</div>
+			<div style="width: 1000px; margin: auto;">
+				<ul>
+					<li v-for="item in datalist">
+						<a target="_blank" :href="'zixundetail.html?id='+item.id" style="width: 100%;display: flex;padding: 10px;">
+							<img style="width: 180px;height: 120px;" :src="ip+item.imgUrl" />
+							<div style="display: flex;flex-direction: row;width:780px;height: 120px;align-items: center;margin-left: 10px;">
+								<div style="display: flex;flex-direction: column;">
+									<p class="title" :title="item.title">{{item.title}}</p>
+									<p class="mt-10" style="color: #1B6D85;">{{item.category}}</p>
+									<span class="mt-10">{{item.updatedAt}}</span>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="pages">
+				<div id="Pagination"></div>
+				<div class="searchPage">
+					<span class="page-sum">共<strong class="allPage">1</strong>页</span>
+					<span class="page-go">跳转<input type="text">页</span>
+					<a href="javascript:;" class="page-btn">GO</a>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				page: 1,
+				pagesize: 5,
+				datalist: []
+			},
+			methods: {}
+		})
+
+		getUserInfo(localStorage.userId, function(data) {
+			userInfo = data.result;
+			if(userInfo.type == 1) {
+				$('#sc_zhaopin').show();
+			} else {
+				$('#sc_qiuzhi').show();
+			}
+		})
+
+		post('/webUser/Favorite', {
+			pageNo: vm.page,
+			pageSize: vm.pagesize,
+			messageType: 1
+		}, function(data) {
+			vm.datalist = data.result;
+			$('.allPage').html(Math.ceil(data.reason / vm.pagesize));
+			$("#Pagination").pagination(data.reason / vm.pagesize, {
+				callback: function(page) { // 回调函数
+					post('/webUser/Favorite', {
+						pageNo: page + 1,
+						pageSize: vm.pagesize,
+						messageType: 1
+					}, function(data) {
+						vm.datalist = data.result;
+					})
+				}
+			});
+		})
+
+		$(function() {
+			var _this1 = null;
+			$('.nav>li').hover(function() {
+				_this1 = $(this);
+				_this1.find('.second-nav').show();
+				var _this2 = null;
+				_this1.find('.second-nav').find('li').hover(function() {
+					_this2 = $(this);
+					_this2.find('.third-nav').show();
+					_this2.find('.third-nav').hover(function() {
+						$(this).show();
+					}, function() {
+						$(this).hide();
+					});
+				}, function() {
+					_this2.find('.third-nav').hide();
+				});
+			}, function() {
+				if(_this1) {
+					_this1.find('.second-nav').hide();
+				}
+			});
+		})
+	</script>
+
+</html>

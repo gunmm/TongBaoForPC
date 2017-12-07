@@ -1,23 +1,33 @@
-html,body,div,ul,li,a{
+html,
+body,
+div,
+ul,
+li,
+a {
 	margin: 0px;
 	padding: 0px;
 }
-body{
+
+body {
 	font-size: 14px;
 	font-family: "微软雅黑";
 	background: white;
 }
-ul{
+
+ul {
 	list-style: none;
 }
-a{
+
+a {
 	text-decoration: none;
 }
-.header{
+
+.header {
 	height: 50px;
 	background: black;
 }
-.header .nav{
+
+.header .nav {
 	width: 1000px;
 	height: 50px;
 	line-height: 50px;
@@ -25,23 +35,27 @@ a{
 	position: relative;
 	z-index: 111;
 }
-.header .nav li{
+
+.header .nav li {
 	float: left;
 	width: 25%;
 	height: 50px;
 	line-height: 50px;
 	text-align: center;
 }
-.header .nav li a{
+
+.header .nav li a {
 	color: #fff;
 }
-.header .nav li .second-nav{
+
+.header .nav li .second-nav {
 	width: 150px;
 	display: none;
 	position: relative;
 	margin-left: 50px;
 }
-.header .nav li .second-nav li{
+
+.header .nav li .second-nav li {
 	position: relative;
 	width: 100%;
 	height: 40px;
@@ -49,11 +63,12 @@ a{
 	background: black;
 	border-top: 0.5px solid white;
 }
-.header .nav li .second-nav li .third-nav{
+
+.header .nav li .second-nav li .third-nav {
 	/*position: absolute;*/
 	width: 150px;
 	height: 200px;
 	display: none;
 	margin-left: 100%;
-	margin-top: -40px;
+	margin-top: -30px;
 }

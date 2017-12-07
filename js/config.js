@@ -37,10 +37,12 @@ log(localStorage.accessToken);
  * @param {Object} callback  请求成功回调
  * @param {Object} callback1  请求失败回调
  */
-function post(url, data, callback, callback1) {
+function post(url, data, callback, loading, callback1) {
 	data['userId'] = localStorage.userId;
 	data['requestToken'] = localStorage.accessToken;
-	vm.$dialog.loading.open('');
+	if(loading == null ? true : false) {
+		vm.$dialog.loading.open('');
+	}
 	$.ajax({
 		type: "post",
 		url: ip + url,
@@ -454,3 +456,5 @@ function getAvatar(url) {
 		}
 	}
 }
+
+function feedback() {}

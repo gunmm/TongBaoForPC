@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>招聘列表</title>
+		<title>求职列表</title>
 
 		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
@@ -109,7 +109,7 @@
 					<a href="#">找信息</a>
 					<ul class="second-nav">
 						<li>
-							<a href="">招聘信息</a>
+							<a target="_blank" href="../zhaopin/zhaopinlist.html">招聘信息</a>
 						</li>
 						<li>
 							<a target="_blank" href="../zhaobiao/zhaobiaolist.html">招标信息</a>
@@ -118,7 +118,7 @@
 							<a target="_blank" href="../gongying/gongyinglist.html">供应信息</a>
 						</li>
 						<li>
-							<a target="_blank" href="../qiuzhi/qiuzhilist.html">求职信息</a>
+							<a href="">求职信息</a>
 						</li>
 					</ul>
 				</li>
@@ -258,23 +258,23 @@
 			<div style="width: 1000px; margin: auto;">
 				<div class="list1">
 					<div style="width: 20%;">职位名称</div>
-					<div style="width: 100px;">工作地点</div>
-					<div style="width: 20%;">公司名称</div>
-					<div style="width: 90px;">学历要求</div>
-					<div style="width: 100px;">经验要求</div>
-					<div style="width: 90px;">年龄要求</div>
-					<div style="width: 90px;">性别要求</div>
-					<div style="width: 130px;">职位月薪</div>
+					<div style="width: 120px;">工作地点</div>
+					<div style="width: 110px;">姓名</div>
+					<div style="width: 110px;">性别</div>
+					<div style="width: 110px;">年龄</div>
+					<div style="width: 110px;">最高学历</div>
+					<div style="width: 120px;">工作经验</div>
+					<div style="width: 120px;">期望月薪</div>
 				</div>
-				<a class="list2" v-for="item in datalist" target="_blank" :href='"zhaopindetail.html?id="+item.id'>
+				<a class="list2" v-for="item in datalist" target="_blank" :href='"qiuzhidetail.html?id="+item.id'>
 					<div style="width: 20%;">{{item.title}}</div>
-					<div style="width: 100px;">{{item.city}}</div>
-					<div style="width: 20%;">{{item.orgName}}</div>
-					<div style="width: 90px;">{{item.education}}</div>
-					<div style="width: 100px;">{{item.experience}}</div>
-					<div style="width: 90px;">{{item.age}}</div>
-					<div style="width: 90px;">{{item.gender}}</div>
-					<div style="width: 130px;">{{item.salary}}</div>
+					<div style="width: 120px;">{{item.city}}</div>
+					<div style="width: 110px;">{{item.showfullname==1?item.orgName:hideStr(item.orgName)}}</div>
+					<div style="width: 110px;">{{item.gender}}</div>
+					<div style="width: 110px;">{{item.age}}</div>
+					<div style="width: 110px;">{{item.education}}</div>
+					<div style="width: 120px;">{{item.experience}}</div>
+					<div style="width: 120px;">{{item.salary}}</div>
 				</a>
 			</div>
 
@@ -381,7 +381,7 @@
 			vm.jingyans = data.result;
 		})
 
-		post('/webZp/Zhaopin', {
+		post('/webQz/Qiuzhi', {
 			pageNo: vm.page,
 			pageSize: vm.pagesize
 		}, function(data) {
@@ -389,7 +389,7 @@
 			$('.allPage').html(Math.ceil(data.reason / vm.pagesize));
 			$("#Pagination").pagination(data.reason / vm.pagesize, {
 				callback: function(page) { // 回调函数
-					post('/webZp/Zhaopin', {
+					post('/webQz/Qiuzhi', {
 						pageNo: page + 1,
 						pageSize: vm.pagesize
 					}, function(data) {
@@ -460,14 +460,14 @@
 		}
 
 		function filter() {
-			post('/webZp/Zhaopin', {
+			post('/webQz/Qiuzhi', {
 				pageNo: vm.page,
 				pageSize: vm.pagesize,
 				title: vm.title,
 				city: vm.selcity,
-				post: vm.seljob,
-				salary: vm.xinzi,
-				experience: vm.jingyan,
+				targetPost: vm.seljob,
+				targetSalary: vm.xinzi,
+				exprience: vm.jingyan,
 				education: vm.xueli,
 				//				professionalRank: vm.zhicheng,
 				age: vm.age,
@@ -477,18 +477,18 @@
 				$('.allPage').html(Math.ceil(data.reason / vm.pagesize));
 				$("#Pagination").pagination(data.reason / vm.pagesize, {
 					callback: function(page) { // 回调函数
-						post('/webZp/Zhaopin', {
+						post('/webQz/Qiuzhi', {
 							pageNo: page + 1,
 							pageSize: vm.pagesize,
 							title: vm.title,
 							city: vm.selcity,
-							post: vm.seljob,
-							salary: vm.xinzi,
-							experience: vm.jingyan,
+							targetPost: vm.seljob,
+							targetSalary: vm.xinzi,
+							exprience: vm.jingyan,
 							education: vm.xueli,
-							//				professionalRank: vm.zhicheng,
+							//							professionalRank: vm.zhicheng,
 							age: vm.age,
-							gender: vm.gender
+							gender: vm.gender,
 						}, function(data) {
 							vm.datalist = data.result;
 						})
@@ -524,7 +524,7 @@
 			$(this).addClass("active")
 			var text2 = $(this).text();
 			var text1 = $("#province").text();
-			$("#province").html(text1 + "-" + text2);
+			$("#province").html(text1 + '-' + text2);
 			$(".citylist2").slideUp();
 		})
 		$(".shangquan1 li").click(function() {
@@ -544,7 +544,7 @@
 			$(this).addClass("active")
 			var text2 = $(this).text();
 			var text1 = $("#job1").text();
-			$("#job1").html(text1 + "-" + text2);
+			$("#job1").html(text1 + '-' + text2);
 			$(".citylist2").slideUp();
 		})
 		$(function() {

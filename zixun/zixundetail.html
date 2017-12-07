@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>资讯详情</title>
+
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/ydui.js"></script>
+		<link rel="stylesheet" href="../static/css/mkui.css" />
+		<link rel="stylesheet" href="../static/css/ydui.rem.css" />
+		<link rel="stylesheet" href="../static/css/common.css" />
+		<link rel="stylesheet" href="../static/css/style.css" />
+		<script type="text/javascript" src="../js/config.js"></script>
+
+		<style>
+			.title {
+				position: relative;
+				max-height: 40px;
+				font-size: 16px;
+				/*font-weight: bold;*/
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header">
+			<ul class="nav">
+				<li>
+					<a href="../index.html">首页</a>
+				</li>
+				<li>
+					<a href="#">发布</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">招聘发布</a>
+						</li>
+						<li>
+							<a href="#">招标发布</a>
+						</li>
+						<li>
+							<a href="#">供应发布</a>
+						</li>
+						<li>
+							<a href="#">求职发布</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">找信息</a>
+					<ul class="second-nav">
+						<li>
+							<a target="_blank" href="zhaopin/zhaopinlist.html">招聘信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="zhaobiao/zhaobiaolist.html">招标信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="gongying/gongyinglist.html">供应信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="qiuzhi/qiuzhilist.html">求职信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">我的</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">收藏</a>
+						</li>
+						<li>
+							<a href="#">我的订阅</a>
+						</li>
+						<li>
+							<a href="#">我的发布</a>
+						</li>
+						<li>
+							<a href="#">我的投标</a>
+						</li>
+						<li>
+							<a href="#">意见反馈</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div id="app" style="margin-bottom: 100px;">
+			<div style="width: 1000px;margin: auto;display: flex;flex-direction: row;">
+				<div style="width: 60%;padding: 20px;margin-top: 30px;">
+					<h2 style="font-size: 25px;font-weight: bold;">{{title}}</h2>
+					<div class="mt-10" style="color: gray;width: 100%;height: 25px;align-items: center;display: flex;">
+						<div style="width: 50%;">
+							<span style="padding-right: 15px;border-right: 2px solid lightgray;line-height: 0.8;">{{category}}</span>
+							<span class="ml-15">{{created_at}}</span>
+							<span class="ml-15">{{trueView}}人阅读</span>
+						</div>
+						<div style="width: 50%;">
+							<a style="display: flex;float: right;margin-left: 20px;" onclick="shoucang()">
+								<img style="width: 15px;height: 15px;" :src="isShoucang?'../static/img/shoucang2.png':'../static/img/shoucang1.png'" />
+								<span id="shoucang_tip" style="line-height: 15px;margin-left: 5px;">收藏</span>
+							</a>
+							<a style="display: flex;float: right;" onclick="zan()">
+								<img style="width: 15px;height: 15px;" :src="isZan?'../static/img/zan2.png':'../static/img/zan1.png'" />
+								<span style="line-height: 15px;margin-left: 5px;">{{upTotal}}</span>
+							</a>
+						</div>
+					</div>
+					<p v-html="content" style="font-size: 16px;margin-top: 20px;"></p>
+				</div>
+				<div style="width: 1px; background-color: lightgray;"></div>
+				<div style="width: 40%;padding: 20px;margin-top: 40px;">
+					<div>相关资讯</div>
+					<ul>
+						<li v-for="item in zixuns" class="mt-20 pb-10" style="border-bottom: 1px solid lightgray;">
+							<a target="_blank" :href="'zixundetail.html?id='+item.id" style="width: 100%;display: inline-flex;align-items: center;">
+								<img :src="ip+item.imgUrl" style="width: 110px;height: 80px;" />
+								<div style="width: 230px;display: flex;flex-direction: column;margin-left: 10px;">
+									<span class="title" :title="item.title">{{item.title}}</span>
+									<span class="mt-10" style="color: #1B6D85;">{{item.category}}&nbsp;&nbsp;&nbsp;&nbsp;{{item.updatedAt}}</span>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		var qs = new QueryString();
+		var id = parseInt(qs['id']) ? parseInt(qs['id']) : 43;
+
+		post('/webUser/addBrowser', {
+			userId: localStorage.userId,
+			articleId: id
+		}, function(data) {})
+
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				title: "",
+				category: "",
+				created_at: "",
+				trueView: "",
+				content: '',
+				upTotal: 0,
+				isShoucang: false,
+				isZan: false,
+				userInfo: '',
+				zixuns: []
+			}
+		});
+
+		getUserInfo(localStorage.userId, function(data) {
+			vm.userInfo = data.result;
+		})
+
+		post('/webZx/BaseMessage', {
+			id: id
+		}, function(data) {
+			var d = data.result;
+			vm.title = d.title;
+			vm.category = d.category;
+			vm.trueView = d.read;
+			vm.created_at = d.updatedAt;
+			vm.upTotal = parseInt(d.vote) ? parseInt(d.vote) : 0;
+			vm.content = d.content;
+
+			post('/webZx/Base', {
+				pageNo: 1,
+				pageSize: 8,
+				categoryId: d.categoryId
+			}, function(data) {
+				vm.zixuns = data.result;
+			})
+		})
+
+		post('/webSc/isFavorite', {
+			id: id,
+			userId: localStorage.userId
+		}, function(data) {
+			vm.isShoucang = data.result;
+			if(data.result) {
+				$('#shoucang_tip').html('已收藏');
+			}
+		})
+
+		post('/webSc/isVote', {
+			id: id,
+			userId: localStorage.userId
+		}, function(data) {
+			vm.isZan = data.result;
+		})
+
+		function shoucang() {
+			if(vm.userInfo.regStatus != 1) {
+				window.location.href = '../../register/register.html';
+				return;
+			}
+
+			post('/webSc/favorite', {
+				userId: localStorage.userId,
+				id: id,
+				shoucang: !vm.isShoucang
+			}, function(data) {
+				vm.isShoucang = !vm.isShoucang;
+				if(vm.isShoucang) {
+					$('#shoucang_tip').html('已收藏');
+				} else {
+					$('#shoucang_tip').html('收藏');
+				}
+				vm.$dialog.toast({
+					mes: data.reason,
+					icon: 'success',
+					timeout: 1500,
+				});
+			})
+		}
+
+		function zan() {
+			if(vm.isZan) {
+				return;
+			}
+			post('/webSc/vote', {
+				id: id,
+				userId: localStorage.userId
+			}, function(data) {
+				vm.isZan = true;
+				vm.upTotal += 1;
+			})
+		}
+	</script>
+
+</html>

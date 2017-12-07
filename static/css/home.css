@@ -1,15 +1,15 @@
-.content{
-    margin: 0 auto;
-    background: gray;
-    width: 1000px;
+.content {
+	margin: 0 auto;
+	background: gray;
+	width: 1000px;
 }
 
 #yd_slider {
 	height: 200px;
-	
 }
 
-#yd_slider a,img{
+#yd_slider a,
+img {
 	height: 200px;
 	margin: 10px 40px;
 }
@@ -24,7 +24,7 @@
 .listarea {
 	width: 100%;
 	margin-top: 10px;
-	display:flex;
+	display: flex;
 }
 
 .listitem_left {
@@ -34,7 +34,6 @@
 	margin: 10px;
 	margin-left: 40px;
 	margin-right: 20px;
-	
 }
 
 .listitem_right {
@@ -45,5 +44,3 @@
 	margin-left: 20px;
 	margin-right: 40px;
 }
-
-

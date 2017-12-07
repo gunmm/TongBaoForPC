@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的发布</title>
+
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/ydui.js"></script>
+		<link rel="stylesheet" href="../css/perfect-scrollbar.css" />
+		<script src="../js/perfect-scrollbar.with-mousewheel.min.js"></script>
+		<link rel="stylesheet" href="../static/css/mkui.css" />
+		<link rel="stylesheet" href="../css/reset.css" />
+		<link rel="stylesheet" href="../css/pagination.css" />
+		<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+		<link rel="stylesheet" href="../static/css/ydui.rem.css" />
+		<link rel="stylesheet" href="../static/css/common.css" />
+		<link rel="stylesheet" href="../static/css/style.css" />
+		<script type="text/javascript" src="../js/config.js"></script>
+
+		<style>
+			.input {
+				width: 180px;
+				height: 35px;
+				background: #fff;
+				color: #999;
+				padding-left: 10px;
+				padding-right: 10px;
+				border: none;
+				font-size: 14px;
+				background: 150px center no-repeat #fff;
+			}
+			
+			.filter {
+				width: 1000px;
+				margin: auto;
+			}
+			
+			.filter-btn {
+				background: dodgerblue;
+				width: 120px;
+				float: left;
+				margin-top: -15px;
+				margin-left: 30px;
+				padding: 8px;
+				position: relative;
+				color: white;
+				text-align: center;
+				border-radius: 10px;
+			}
+			
+			.list1 {
+				width: 100%;
+				padding: 10px;
+				display: inline-flex;
+				background-color: darkslategray;
+			}
+			
+			.list1 div {
+				font-weight: bold;
+				font-size: 15px;
+				color: white;
+			}
+			
+			.list2 {
+				width: 100%;
+				padding: 10px;
+				display: flex;
+				flex-direction: row;
+			}
+			
+			.li:hover {
+				background: #eee;
+			}
+			
+			.i {
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				position: fixed;
+				top: 0;
+				z-index: 1000;
+				display: flex;
+			}
+			
+			.ul {
+				position: relative;
+				margin: 0px auto;
+				padding: 0px;
+				overflow: hidden;
+				height: 180px;
+			}
+			
+			.shenglue {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			
+			.shenglue2 {
+				position: relative;
+				max-height: 50px;
+				line-height: 25px;
+				width: 330px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+			
+			.none {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header">
+			<ul class="nav">
+				<li>
+					<a href="../index.html">首页</a>
+				</li>
+				<li>
+					<a href="#">发布</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">招聘发布</a>
+						</li>
+						<li>
+							<a href="#">招标发布</a>
+						</li>
+						<li>
+							<a href="#">供应发布</a>
+						</li>
+						<li>
+							<a href="#">求职发布</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">找信息</a>
+					<ul class="second-nav">
+						<li>
+							<a target="_blank" href="../zhaopin/zhaopinlist.html">招聘信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="../zhaobiao/zhaobiaolist.html">招标信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="../gongying/gongyinglist.html">供应信息</a>
+						</li>
+						<li>
+							<a href="">求职信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">我的</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">收藏</a>
+							<ul class="third-nav">
+								<li id="sc_qiuzhi" hidden>
+									<a target="_blank" href="../qiuzhi/qiuzhicollection.html">求职</a>
+								</li>
+								<li id="sc_zhaopin" hidden>
+									<a target="" href="">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="../zhaobiao/zhaobiaocollection.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../gongying/gongyingcollection.html">供应</a>
+								</li>
+								<li>
+									<a target="_blank" href="../zixun/zixuncollection.html">资讯</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">我的订阅</a>
+						</li>
+						<li>
+							<a href="#">我的发布</a>
+						</li>
+						<li>
+							<a href="#">我的投标</a>
+						</li>
+						<li>
+							<a href="#">意见反馈</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div id="app">
+			<div style="width: 1000px; margin: auto;background-color: darkslategray;padding: 30px 10px 80px 10px;">
+				<span style="color: white;font-size: 20px;font-weight: bold;">我的发布-招标信息</span>
+			</div>
+			<div style="width: 1000px; margin: auto;">
+				<div class="list1">
+					<div style="width: 210px;">招标名称</div>
+					<div style="width: 140px;">招标地址</div>
+					<div style="width: 210px;">公司名称</div>
+					<div style="width: 160px;">类别</div>
+					<div style="width: 130px;">数量</div>
+					<div style="width: 130px;">单价</div>
+				</div>
+				<ul class="datalist">
+					<li class="li" v-for="item in datalist" onmouseenter="onmousee(this)" onmouseleave="onmousel(this)" style="border-bottom: 1px solid lightgray;">
+						<a class="list2" target="_blank" @click="showToubiao(item.id)">
+							<div style="width: 210px">{{item.title}}</div>
+							<div style="width: 140px;">{{item.city}}</div>
+							<div style="width: 210px;">{{item.orgName}}</div>
+							<div style="width: 160px;">{{item.category}}</div>
+							<div style="width: 130px;">{{item.quantity==-1||item.quantity==''?'已招标文件为主 单位：':item.quantity}}{{item.unit}}</div>
+							<div style="width: 130px;">{{item.price==''?'面议':item.price+'元'}}/{{item.unit}}</div>
+						</a>
+						<div :id="item.id" class="none" style="width: 100%;height: 40px;line-height: 40px;">
+							<span @click="showToubiao(item.id)" style="width: 880px;height: 100%;"></span>
+							<span class="fr ml-10 mr-10">编辑</span>
+							<span class="fr ml-10" onclick="update1(this)">更新</span>
+							<span class="fr" onclick="delete1(this)" style="color: gray;">删除</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="pages">
+				<div id="Pagination"></div>
+				<div class="searchPage">
+					<span class="page-sum">共<strong class="allPage">1</strong>页</span>
+					<span class="page-go">跳转<input type="text">页</span>
+					<a href="javascript:;" class="page-btn">GO</a>
+				</div>
+			</div>
+
+			<div id="toubiao" class="i none">
+				<div style="width: 600px;height: 380px;margin: auto; background-color: white; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">
+					<div style="">
+						<div class="f-18" style="height: 60px;line-height: 60px;font-weight: bold;padding: 0px 20px 0px 20px;border-bottom: 1px solid lightgray;">
+							<span>招标名称：</span>
+							<span>{{title}}</span>
+							<a target="_blank" :href="'../zhaobiao/zhaobiaodetail.html?id='+zbid" class="fr f-15" style="color: #097ED8;font-weight: normal;">查看详情</a>
+						</div>
+						<div class="" style="height: 260px; padding: 20px;">
+							<span class="f-18 mb-20" style="font-weight: bold;">投标信息</span>
+							<div class="ul">
+								<div id="toubiao_empty_tip" class="pd-10 f-18" hidden>暂无投标</div>
+								<ul class="">
+									<li v-for="item in bidlist" :id="item.id" style="display: inline-flex;">
+										<img :src="item.touxiangUrl?getAvatar(item.touxiangUrl):'../../static/img/avatar_96x96.png'" style="width: 50px;height: 50px;border-radius: 5px;" />
+										<div class="ml-10" style="width: 80px;display: flex;flex-direction: column;line-height: 25px;">
+											<span class="shenglue" :title="item.nickName">{{item.nickName}}</span>
+											<span class="shenglue" :title="'￥'+item.toubiaoPrice/item.unit" style="color: rgb(234, 140, 0);font-weight: bold;">￥{{item.toubiaoPrice}}/{{item.unit}}</span>
+										</div>
+										<span class="shenglue2" :title="item.content">{{item.content}}</span>
+										<div class="ml-10" style="width: 80px;display: flex;flex-direction: column;line-height: 25px;text-align: right;">
+											<span>{{item.createAt}}</span>
+											<span @click="deleteToubiao(item.id)" style="color: gray;">删除</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div style="margin-right: 20px;">
+						<!--<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;" onclick="confirmTousu()">确认投诉</span>-->
+						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;" onclick="$('#toubiao').addClass('none')">关闭</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				page: 1,
+				pagesize: 5,
+				datalist: [],
+				title: '',
+				bidlist: [],
+				zbid: ''
+			},
+			methods: {
+				showToubiao: function(id) {
+					vm.zbid = id;
+					post('/webUser/FindToubiaoById', {
+						pageNo: null,
+						pageSize: null,
+						id: id
+					}, function(data) {
+						$('#toubiao').removeClass('none');
+						if(data.result.bidList) {
+							$('#toubiao_empty_tip').hide();
+							vm.title = data.result.zhaobiao.title;
+							vm.bidlist = data.result.bidList;
+						} else {
+							$('#toubiao_empty_tip').show();
+							vm.title = '';
+							vm.bidlist = [];
+						}
+					})
+				},
+				deleteToubiao: function(id) {
+					if(confirm('确定删除吗?')) {
+						post('/webUser/DeletedToubiaoById', {
+							id: id
+						}, function(data) {
+							$('#' + id).remove();
+						})
+					}
+				}
+			}
+		})
+
+		getUserInfo(localStorage.userId, function(data) {
+			userInfo = data.result;
+			if(userInfo.type == 1) {
+				$('#sc_zhaopin').show();
+			} else {
+				$('#sc_qiuzhi').show();
+				$('#wdfb_zhaopin').show();
+			}
+		})
+
+		post('/webUser/Publish', {
+			pageNo: vm.page,
+			pageSize: vm.pagesize,
+			messageType: 2
+		}, function(data) {
+			vm.datalist = data.result;
+			$('.allPage').html(Math.ceil(data.reason / vm.pagesize));
+			$("#Pagination").pagination(data.reason / vm.pagesize, {
+				callback: function(page) { // 回调函数
+					post('/webUser/Publish', {
+						pageNo: page + 1,
+						pageSize: vm.pagesize,
+						messageType: 2
+					}, function(data) {
+						vm.datalist = data.result;
+					})
+				}
+			});
+		})
+
+		function onmousee(obj) {
+			$($(obj).children()[1]).removeClass('none');
+			$($(obj).siblings('.datalist li').children()[1]).addClass('none');
+		}
+
+		function onmousel(obj) {
+			$($(obj).children()[1]).addClass('none');
+		}
+
+		function delete1(obj) {
+			var id = $(obj).parent()[0].id;
+			if(confirm('确定删除吗?')) {
+				post('/webUser/DeleteById', {
+					id: id
+				}, function(data) {
+					$(obj).parent().parent().remove();
+				})
+			}
+		}
+
+		function update1(obj) {
+			var id = $(obj).parent()[0].id;
+			post('/webUser/UpdateById', {
+				id: id
+			}, function(data) {
+				vm.$dialog.toast({
+					mes: '更新成功',
+					icon: 'success',
+					timeout: 1000,
+					callback: function() {
+						window.location.reload();
+					}
+				});
+			})
+		}
+
+		$(function() {
+			var _this1 = null;
+			$('.nav>li').hover(function() {
+				_this1 = $(this);
+				_this1.find('.second-nav').show();
+				var _this2 = null;
+				_this1.find('.second-nav').find('li').hover(function() {
+					_this2 = $(this);
+					_this2.find('.third-nav').show();
+					_this2.find('.third-nav').hover(function() {
+						$(this).show();
+					}, function() {
+						$(this).hide();
+					});
+				}, function() {
+					_this2.find('.third-nav').hide();
+				});
+			}, function() {
+				if(_this1) {
+					_this1.find('.second-nav').hide();
+				}
+			});
+
+			$('.ul').perfectScrollbar();
+		})
+	</script>
+
+</html>

@@ -5,13 +5,12 @@
 		<meta charset="utf-8" />
 		<title>首页</title>
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
-		<script type="text/javascript" src="bootstrap.min.js"></script>
 		<link rel="stylesheet" href="static/css/style.css" />
-		<link rel="stylesheet" href="static/css/home.css" />
 		<link rel="stylesheet" href="static/css/ydui.rem.css">
 		<link rel="stylesheet" href="static/css/common.css">
 		<link rel="stylesheet" href="static/css/index.css">
 		<link rel="stylesheet" href="static/css/mkui.css">
+		<link rel="stylesheet" href="static/css/home.css" />
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/vue.min.js"></script>
 		<script src="js/ydui.js" type="text/javascript" charset="utf-8"></script>
@@ -44,31 +43,103 @@
 	<body>
 		<div class="header">
 			<ul class="nav">
-				<li><a href="#">首页</a>
+				<li>
+					<a href="">首页</a>
 				</li>
-				<li><a href="#">发布</a>
+				<li>
+					<a href="#">发布</a>
 					<ul class="second-nav">
-						<li><a href="#">招聘发布</a></li>
-						<li><a href="#">招标发布</a></li>
-						<li><a href="#">供应发布</a></li>
-						<li><a href="#">求职发布</a></li>
+						<li>
+							<a href="#">招聘发布</a>
+						</li>
+						<li>
+							<a href="#">招标发布</a>
+						</li>
+						<li>
+							<a href="#">供应发布</a>
+						</li>
+						<li>
+							<a href="#">求职发布</a>
+						</li>
 					</ul>
 				</li>
-				<li><a href="#">找信息</a>
+				<li>
+					<a href="#">找信息</a>
 					<ul class="second-nav">
-						<li><a href="#">招聘信息</a></li>
-						<li><a href="#">招标信息</a></li>
-						<li><a href="#">供应信息</a></li>
-						<li><a href="#">求职信息</a></li>
+						<li>
+							<a target="_blank" href="zhaopin/zhaopinlist.html">招聘信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="zhaobiao/zhaobiaolist.html">招标信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="gongying/gongyinglist.html">供应信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="qiuzhi/qiuzhilist.html">求职信息</a>
+						</li>
 					</ul>
 				</li>
-				<li><a href="#">我的</a>
+				<li>
+					<a href="#">我的</a>
 					<ul class="second-nav">
-						<li><a href="#">收藏</a></li>
-						<li><a href="#">我的订阅</a></li>
-						<li><a href="#">我的发布</a></li>
-						<li><a href="#">我的投标</a></li>
-						<li><a href="#">意见反馈</a></li>
+						<li>
+							<a href="#">收藏</a>
+							<ul class="third-nav">
+								<li id="sc_qiuzhi" hidden>
+									<a target="_blank" href="qiuzhi/qiuzhicollection.html">求职</a>
+								</li>
+								<li id="sc_zhaopin" hidden>
+									<a target="_blank" href="zhaopin/zhaopincollection.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="zhaobiao/zhaobiaocollection.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="gongying/gongyingcollection.html">供应</a>
+								</li>
+								<li>
+									<a target="_blank" href="zixun/zixuncollection.html">资讯</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">我的订阅</a>
+						</li>
+						<li>
+							<a href="#">我的发布</a>
+							<ul class="third-nav">
+								<li id="wdfb_zhaopin" hidden>
+									<a target="_blank" href="mypublish/zhaopinmypublish.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="mypublish/zhaobiaomypublish.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="mypublish/gongyingmypublish.html">供应</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a target="_blank" href="mytoubiao/mytoubiao.html">我的投标</a>
+						</li>
+						<li id="jlgl" hidden>
+							<a id="jlgl" href="#">简历管理</a>
+							<ul class="third-nav">
+								<li>
+									<a target="_blank" href="jianliguanli/Intervieweedelivery.html">应聘者投递</a>
+								</li>
+								<li>
+									<a target="_blank" href="jianliguanli/myinvitation.html">我邀请过的</a>
+								</li>
+							</ul>
+						</li>
+						<li id="wdyxgs" hidden>
+							<a target="_blank" href="jianliguanli/myintentioncompany.html">我的意向公司</a>
+						</li>
+						<li>
+							<a href="#">意见反馈</a>
+						</li>
 					</ul>
 				</li>
 			</ul>
@@ -77,8 +148,8 @@
 		<div id="app" class="content">
 			<yd-slider id="yd_slider" v-if="imglist.length>0" autoplay="5000">
 				<yd-slider-item v-for="item in imglist">
-					<a :href="item.url">
-						<img :src="item.url" />
+					<a target="_blank" :href="item.url">
+						<img :src="ip+item.imgUrl" />
 					</a>
 				</yd-slider-item>
 			</yd-slider>
@@ -87,14 +158,14 @@
 					<div class="tongzhi_wenzi clearfix pos">
 						<ul class="tongzhi_lunbo">
 							<li v-for="item in zxlist" class="clearfix overflow-h">
-								<a :href="'home/zixun/zixundetail.html?id='+item.id" class="huojiang overflow-h">
+								<a target="_blank" :href="'zixun/zixundetail.html?id='+item.id" class="huojiang overflow-h">
 									<i class="ico ico-tongzhi fl"></i>
 									<p class="fl">
 										<nobr>{{item.title}}</nobr>
 									</p>
 								</a>
 								<span class="fr more">
-                        		<a href="home/zixun/zixun.html">更多<i class="ico-right"></i></a>
+                        		<a target="_blank" href="zixun/zixunlist.html">更多<i class="ico-right"></i></a>
                     		</span>
 							</li>
 						</ul>
@@ -107,13 +178,13 @@
 						<i class="ico-zhaopin fl"></i>
 						<span class="fl more-main">最新招聘</span>
                          <span class="fr more">
-						      <a href="home/zhaopin/employment.html">更多<i class="ico-right"></i></a>
+						      <a target="_blank" href="zhaopin/zhaopinlist.html">更多<i class="ico-right"></i></a>
 					    </span>
         		         </h2>
 					<div class="m-list">
 						<ul>
 							<li v-for="item in zplist" class="overflow-h  border-b padd">
-								<a :href='"home/zhaopin/zhaopindetail.html?id="+item.id'>
+								<a target="_blank" :href='"zhaopin/zhaopindetail.html?id="+item.id'>
 									<div class="recruit-list fl ml-10 ">
 										<div class="recruit-header overflow-h">
 											<h3 class="fl w-55 ov-h">{{item.title}}</h3>
@@ -137,13 +208,13 @@
 					    <i class="ico-qiuzhi fl"></i>
 					    <span class="fl more-main">最新求职</span>
             		        <span class="fr more">
-            			         <a href="home/qiuzhi/qiuzhi.html">更多<i class="ico-right"></i></a>
+            			         <a target="_blank" href="qiuzhi/qiuzhilist.html">更多<i class="ico-right"></i></a>
             		        </span>
 				     </h2>
 					<div class="m-list">
 						<ul>
 							<li v-for="item in qzlist" class="overflow-h  border-b padd">
-								<a :href="'home/qiuzhi/qiuzhidetail.html?id='+item.id">
+								<a target="_blank" :href="'qiuzhi/qiuzhidetail.html?id='+item.id">
 									<div class="recruit-list fl ml-10 ">
 										<div class="recruit-header overflow-h">
 											<h3 class="fl w-55 ov-h">{{item.title}}</h3>
@@ -154,7 +225,7 @@
 										<div class="recruit-header overflow-h">
 											<ul class="name-list overflow-h fl">
 												<li>
-													<!--{{item.showfullname==1?item.orgName:hideStr(item.orgName)}}-->
+													{{item.showfullname==1?item.orgName:hideStr(item.orgName)}}
 												</li>
 												<li>
 													{{item.gender}}性
@@ -180,13 +251,13 @@
 					     <i class="ico-zhaobiao fl"></i> 
 					     <span class="fl more-main">最新招标</span> 
 					     <span class="fr more">
-						     <a href="home/zhaobiao/zhaobiao.html">更多<i class="ico-right"></i></a>
+						     <a target="_blank" href="zhaobiao/zhaobiaolist.html">更多<i class="ico-right"></i></a>
 					     </span>
 				     </h2>
 					<div class="m-list">
 						<ul>
 							<li v-for="item in zblist" class="overflow-h  border-b padd">
-								<a :href='"home/zhaobiao/zhaobiaodetail.html?id="+item.id'>
+								<a target="_blank" :href='"zhaobiao/zhaobiaodetail.html?id="+item.id'>
 									<div class="recruit-list fl ml-10 ">
 										<div class="recruit-header overflow-h">
 											<h3 class="fl w-55 ov-h">{{item.title}}</h3>
@@ -212,13 +283,13 @@
 					     <i class="ico-gongying fl"></i> 
 					     <span class="fl more-main">最新供应</span> 
 					     <span class="fr more">
-						     <a href="home/gongying/gongying.html">更多<i class="ico-right"></i></a>
+						     <a target="_blank" href="gongying/gongyinglist.html">更多<i class="ico-right"></i></a>
 					     </span>
 				     </h2>
 					<div class="m-list">
 						<ul>
 							<li v-for="item in gylist" class="overflow-h  border-b padd">
-								<a :href='"home/gongying/gongyingdetail.html?id="+item.id'>
+								<a target="_blank" :href='"gongying/gongyingdetail.html?id="+item.id'>
 									<div class="recruit-list fl ml-10 ">
 										<div class="recruit-header overflow-h">
 											<h3 class="fl w-55 ov-h">{{item.title}}</h3>
@@ -240,110 +311,78 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</body>
+
+	<script type="text/javascript" src="js/config.js"></script>
 	<script>
 		var vm = new Vue({
 			el: '#app',
 			data: {
-				zxlist: [{
-					'title': "我是一个资讯我是一个资讯"
-				}],
-				zplist: [{
-					"education": "本科",
-					"orgName": "测试企业",
-					"city": "上海市",
-					"id": 28,
-					"experience": "5-8年",
-					"salary": "30000-50000元",
-					"title": "足疗新产品经理",
-					"updatedAt": "2017-11-16"
-				}, {
-					"education": "高中",
-					"orgName": "LaLa",
-					"city": "石家庄市",
-					"id": 33,
-					"experience": "3-5年",
-					"salary": "3000-5000元",
-					"title": "测试是否零年至两个",
-					"updatedAt": "2017-11-16"
-				}],
-				qzlist: [{
-					"education": "博士生",
-					"orgName": "呼伦贝尔",
-					"gender": "男",
-					"city": "沧州市",
-					"showfullname": "0",
-					"id": 86,
-					"experience": "10年以上",
-					"salary": "8000-10000元",
-					"title": "生产管理",
-					"userId": "868",
-					"age": 23,
-					"updatedAt": "2017-11-28"
-				}, {
-					"education": "博士生",
-					"orgName": "闵哲",
-					"gender": "男",
-					"city": "哈尔滨市",
-					"showfullname": "1",
-					"id": 79,
-					"experience": "8-10年",
-					"salary": "50000元以上",
-					"title": "综合/人事/行政",
-					"userId": "835",
-					"age": 0,
-					"updatedAt": "2017-11-24"
-				}],
-				zblist: [{
-					"unit": "台",
-					"orgName": "大王",
-					"quantity": "10000",
-					"city": "呼伦贝尔市",
-					"price": "50",
-					"id": 84,
-					"title": "计算机",
-					"updatedAt": "2017-11-23"
-				}, {
-					"unit": "公斤",
-					"orgName": "测试企业",
-					"quantity": "1000",
-					"city": "北京市",
-					"price": "560000",
-					"id": 40,
-					"title": "优质金丝楠木",
-					"updatedAt": "2017-11-16"
-				}],
-				gylist: [{
-					"unit": "在",
-					"orgName": "闵哲",
-					"quantity": "30000",
-					"city": "北京市",
-					"price": "2",
-					"id": 90,
-					"title": "西北大学校长",
-					"updatedAt": "2017-11-24"
-				}, {
-					"unit": "西北",
-					"orgName": "闵哲",
-					"quantity": "10000",
-					"city": "北京市",
-					"price": "2",
-					"id": 89,
-					"title": "西北师范大学",
-					"updatedAt": "2017-11-24"
-				}],
+				zxlist: [],
+				zplist: [],
+				qzlist: [],
+				zblist: [],
+				gylist: [],
+				imglist: [],
 				xiaoxi: '',
-				imglist: [{
-					"url": "http://i1.piimg.com/588926/d1cb3dda0bdf8cd1.png"
-				}, {
-					"url": "http://i2.muimg.com/588926/2933de930921749c.png"
-				}]
 			},
 			methods: {},
 			mounted: function() {}
 		});
+
+		var userInfo = '';
+		getUserInfo(localStorage.userId, function(data) {
+			userInfo = data.result;
+			$('#app').show();
+			if(userInfo.type == 1) {
+				$('#sc_zhaopin').show();
+				$('#wdyxgs').show();
+			} else {
+				$('#sc_qiuzhi').show();
+				$('#wdfb_zhaopin').show();
+				$('#jlgl').show();
+			}
+		})
+		post('/webLb/Carousel', {}, function(data) {
+			vm.imglist = data.result;
+		})
+		post('/webZx/Base', {
+			pageNo: 1,
+			pageSize: 1,
+			categoryId: ''
+		}, function(data) {
+			vm.zxlist = data.result;
+		})
+		post('/webZp/Zhaopin', {
+			pageNo: 1,
+			pageSize: 2
+		}, function(data) {
+			vm.zplist = data.result;
+		})
+		post('/webQz/Qiuzhi', {
+			pageNo: 1,
+			pageSize: 2
+		}, function(data) {
+			vm.qzlist = data.result;
+		})
+		post('/webZb/Zhaobiao', {
+			pageNo: 1,
+			pageSize: 2
+		}, function(data) {
+			vm.zblist = data.result;
+		})
+		post('/webGy/Gongying', {
+			pageNo: 1,
+			pageSize: 2
+		}, function(data) {
+			vm.gylist = data.result;
+		})
+		post('/webUser/allNotReadMessage', {
+			userId: localStorage.userId
+		}, function(data) {
+			vm.xiaoxi = data.result;
+		})
 	</script>
 
 </html>

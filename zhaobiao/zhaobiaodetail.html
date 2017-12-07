@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>招标详情</title>
+
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/ydui.js"></script>
+		<link rel="stylesheet" href="../static/css/mkui.css" />
+		<link rel="stylesheet" href="../static/css/ydui.rem.css" />
+		<link rel="stylesheet" href="../static/css/common.css" />
+
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../static/css/style.css" />
+
+		<script type="text/javascript" src="../js/config.js"></script>
+
+		<style>
+			.container {
+				width: 1000px;
+				margin: auto;
+				display: flex;
+				flex-direction: row;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			
+			.a {
+				width: 100%;
+				background-color: darkslategray;
+				color: whitesmoke;
+				font-size: 15px;
+				padding-bottom: 30px;
+			}
+			
+			.a1 {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+			}
+			
+			.a1-1 {
+				/*position: absolute;*/
+				margin-top: 20px;
+				font-size: 13px;
+			}
+			
+			.a1-2 {
+				/*position: absolute;*/
+				margin-top: 20px;
+				font-size: 25px;
+			}
+			
+			.a1-2 .a1-2-2 {
+				font-size: 13px;
+				background-color: #EB5211;
+				border-radius: 50px;
+				padding: 2px 15px 2px 15px;
+				margin-left: 10px;
+			}
+			
+			.a1-3 {
+				margin-top: 20px;
+			}
+			
+			.a1-3 i {
+				width: 1px;
+				height: 12px;
+				border-right: 2px solid white;
+				margin-left: 15px;
+				margin-right: 10px;
+				display: inline-block;
+			}
+			
+			.a1-4 {
+				margin-top: 25px;
+			}
+			
+			.a1-4 span {
+				border: 1px solid white;
+				padding: 5px;
+				border-radius: 8px;
+			}
+			
+			.a2 {
+				width: 50%;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+			}
+			
+			.a2-1 {
+				float: right;
+				text-align: end;
+				margin-top: 59px;
+				font-size: 25px;
+			}
+			
+			.a2-2 {
+				float: right;
+				text-align: end;
+				margin-top: 20px;
+			}
+			
+			.a2-3 {
+				float: right;
+				text-align: end;
+				margin-top: 20px;
+			}
+			
+			.b {
+				width: 1000px;
+				margin: auto;
+				display: flex;
+			}
+			
+			.ba {
+				width: 70%;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			
+			.bb {
+				width: 30%;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			
+			.b h3 {
+				font-size: 20px;
+				margin-top: 30px;
+				margin-bottom: 20px;
+			}
+			
+			.b1 {
+				font-size: 16px;
+				margin-top: 20px;
+				margin-bottom: 30px;
+			}
+			
+			.b2 {
+				width: 100%;
+				height: 250px;
+				margin-top: 20px;
+				border: none;
+				box-shadow: -2px -2px 10px 0px #ccc;
+			}
+			
+			.b2 .b2-1 {
+				font-size: 17px;
+				padding: 10px;
+				color: #888888;
+			}
+			
+			.b2 iframe {
+				width: 100%;
+				height: 208px;
+				border: none;
+			}
+			
+			.b3 {
+				width: 100%;
+			}
+			
+			.b3 li {
+				float: left;
+			}
+			
+			.b3 li img {
+				width: 120px;
+				height: 120px;
+				border-radius: 10px;
+				margin-right: 20px;
+				margin-bottom: 20px;
+			}
+			
+			.b4 {
+				height: 40px;
+				margin-top: 30px;
+				display: flex;
+				flex-direction: row;
+				float: right;
+			}
+			
+			.b4-1 {
+				width: 120px;
+				display: inline-flex;
+				background-color: #CCCCCC;
+				align-items: center;
+			}
+			
+			.b4-img {
+				width: 22px;
+				height: 22px;
+				margin: auto;
+			}
+			
+			.b4-span {
+				margin: auto;
+			}
+			
+			.b4-2 {
+				width: 120px;
+				display: inline-flex;
+				background-color: #097ED8;
+				align-items: center;
+			}
+			
+			.b4-2 span {
+				color: white;
+			}
+			
+			.b4-3 span {
+				color: white;
+			}
+			
+			.b4-3 {
+				width: 120px;
+				display: inline-flex;
+				background-color: #128A28;
+				align-items: center;
+			}
+			
+			.i {
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				position: fixed;
+				top: 0;
+				z-index: 1000;
+				display: flex;
+			}
+			
+			.i .i1 {
+				position: absolute;
+				top: 50px;
+				right: 50px;
+			}
+			
+			.i .i2 {
+				margin: auto;
+				height: 80%;
+			}
+			
+			.bb1 {
+				font-size: 20px;
+			}
+			
+			.bb2 {
+				float: right;
+				color: gray;
+			}
+			
+			.bb2:hover {
+				color: black;
+			}
+			
+			a,
+			a:hover {
+				color: #080808;
+				text-decoration: none;
+			}
+			
+			.list1 {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+			
+			.tousu1 img {
+				width: 48px;
+				height: 48px;
+			}
+			
+			.sel:hover {
+				border: 3px solid transparent;
+			}
+			
+			.none {
+				display: none;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="header">
+			<ul class="nav">
+				<li>
+					<a href="#">首页</a>
+				</li>
+				<li>
+					<a href="#">发布</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">招聘发布</a>
+						</li>
+						<li>
+							<a href="#">招标发布</a>
+						</li>
+						<li>
+							<a href="#">供应发布</a>
+						</li>
+						<li>
+							<a href="#">求职发布</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">找信息</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">招聘信息</a>
+						</li>
+						<li>
+							<a href="#">招标信息</a>
+						</li>
+						<li>
+							<a href="#">供应信息</a>
+						</li>
+						<li>
+							<a href="#">求职信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">我的</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">收藏</a>
+						</li>
+						<li>
+							<a href="#">我的订阅</a>
+						</li>
+						<li>
+							<a href="#">我的发布</a>
+						</li>
+						<li>
+							<a href="#">我的投标</a>
+						</li>
+						<li>
+							<a href="#">意见反馈</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div id="app" style="margin-bottom: 200px;">
+			<div class="a">
+				<div class="container">
+					<div class="a1">
+						<span class="a1-1">最后更新时间：{{created_at}}&nbsp;&nbsp;&nbsp;收藏：{{favourite}}次&nbsp;&nbsp;&nbsp;浏览：{{trueView}}人</span>
+						<div class="a1-2">
+							<span class="a1-2-1">{{title}}</span>
+							<!--<span class="a1-2-2">{{xinzi}}</span>-->
+						</div>
+						<div class="a1-3">
+							<span>类别：{{category}}<i></i></span>
+							<span>单价：<span style="color: #D58512;font-weight: bold;">{{price==''?'已招标文件为主':price}}{{price==''?'':'元/'+unit}}</span><i></i></span>
+							<span>数量：<span style="color: #D58512;font-weight: bold;">{{quantity}}{{unit}}</span></span>
+						</div>
+						<div class="a1-3">
+							<span>联系人：{{contact}}<i></i></span>
+							<span>联系电话：{{phone}}<i></i></span>
+							<span>有效期至：{{end_at}}</span>
+						</div>
+					</div>
+					<!--<div class="a2">
+						<span class="mt-20" style="text-align: right;"></span>
+						<span class="a2-1">{{pingtai}}</span>
+						<span class="a2-2">规模：{{guimo}}</span>
+						<span class="a2-3">性质：{{xingzhi}}</span>
+						<span class="a2-3">联系电话：{{phone}}</span>
+					</div>-->
+				</div>
+			</div>
+			<div class="b">
+				<div class="ba">
+					<div class="b4" v-if="localStorage.userId!=userId">
+						<div class="b4-1" @click="favourite1()">
+							<img class="b4-img" v-if="isShoucang" src="../static/img/shoucang2.png" alt="" />
+							<img class="b4-img" v-else src="../static/img/shoucang1.png" alt="" />
+							<span id="shoucang" class="b4-span">收藏</span>
+						</div>
+						<div class="b4-2">
+							<img class="b4-img" src="../static/img/xiaoxi.png" />
+							<span class="b4-span">立即沟通</span>
+						</div>
+						<div class="b4-3">
+							<span v-if="isToudi" class="b4-span">已投标</span>
+							<span v-else class="b4-span" @click="toudi()">立即投标</span>
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+					<div v-if="guiges">
+						<h3>规格参数</h3>
+						<div style="width: 20px; height: 3px; background-color: #097ED8;"></div>
+						<div class="b1">
+							<p class="mt-8" v-for="item in guiges" v-html="item"></p>
+						</div>
+					</div>
+					<h3>招标描述</h3>
+					<div style="width: 20px; height: 3px; background-color: #097ED8;"></div>
+					<p class="b1" v-html="content"></p>
+					<h3>招标地址</h3>
+					<div style="width: 20px; height: 3px; background-color: #097ED8;"></div>
+					<div class="b2">
+						<div class="b2-1">{{province}}{{city}}{{address}}</div>
+						<iframe :src="daohang"></iframe>
+					</div>
+					<!--<h3>企业简介</h3>
+					<div style="width: 20px; height: 3px; background-color: #097ED8;"></div>
+					<p class="b1" v-html="qiyejianjie"></p>
+					<ul class="b3">
+						<li v-for="item in qiyetupian">
+							<img :src="ip+item" @click="showimg(ip+item)" />
+						</li>
+					</ul>-->
+					<div v-if="localStorage.userId!=userId" class="tousu1" style="margin-top: 30px;">
+						<img class="fr sel" src="../img/ic_tousu.png" onclick="tousu()" />
+					</div>
+				</div>
+				<div style="width: 1px;box-shadow: rgb(243, 238, 238) -1px 20px 1px 0px;"></div>
+				<div class="bb">
+					<div style="margin-top: 30px;height: 26px;line-height: 26px;">
+						<span class="bb1">相似招标</span>
+						<a class="bb2" href="zhaobiaolist.html" target="_blank">更多招标信息</a>
+					</div>
+					<ul class="pt-8 pm-8">
+						<li v-for="item in similaritylist">
+							<a class="pt-10 pb-10 border-b" style="width: 100%;" target="_blank" :href='"zhaobiaodetail.html?id="+item.id'>
+								<div class="list1">
+									<span class="f-16">{{item.title}}</span>
+									<div class="mt-5">
+										<span>单价：<span style="color: #D58512;font-weight: bold;">{{price==''?'已招标文件为主':price}}{{price==''?'':'元/'+unit}}</span><i></i></span>
+										&nbsp;&nbsp;&nbsp;
+										<span>数量：<span style="color: #D58512;font-weight: bold;">{{quantity}}{{unit}}</span></span>
+									</div>
+									<span class="mt-5" style="color: gray;">{{item.orgName}} · {{item.city}}</span>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="show_img" class="i none">
+				<!--<img class="i1" src="../static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png" onclick="$('#show_img').addClass('none')" />-->
+				<!--<img class="i2" src="" />-->
+				<div style="width: 600px;height: 400px;margin: auto; background-color: white; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">
+					<div style="margin: 35px 20px 30px 20px;">
+						<span>单价</span>
+						<input v-model="tb_price" placeholder="投标单价" maxlength="10" type="number" style="border: 1px solid lightgrey; padding: 6px;" />
+						<span>元/{{unit}}</span>
+					</div>
+					<div style="margin: 20px;">
+						<span>投标描述</span>
+						<textarea v-model="tb_content" class="mt-10" placeholder="请填写投标描述"></textarea>
+					</div>
+					<div style="margin-right: 20px;">
+						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;" onclick="toubiao()">确认投标</span>
+						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;" onclick="$('#show_img').addClass('none')">取消</span>
+					</div>
+				</div>
+			</div>
+			<div id="tousu" class="i none">
+				<div style="width: 600px;height: 380px;margin: auto; background-color: white; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">
+					<div style="margin: 30px 20px 30px 20px;">
+						<div style="display: flex; align-items: center;" class="mb-10">
+							<img src="../img/ic_tousu.png" />
+							<span class="f-16">{{title}}</span>
+						</div>
+						<textarea v-model="ts_content" class="mt-10" placeholder="请填写投诉内容"></textarea>
+					</div>
+					<div style="margin-right: 20px;">
+						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;" onclick="confirmTousu()">确认投诉</span>
+						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;" onclick="$('#tousu').addClass('none')">取消</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		var qs = new QueryString();
+		var id = parseInt(qs['id']) ? parseInt(qs['id']) : 58;
+
+		post('/webUser/addBrowser', {
+			userId: localStorage.userId,
+			articleId: id
+		}, function(data) {})
+
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				category: "",
+				title: "",
+				price: "",
+				quantity: "",
+				contact: "",
+				phone: "",
+				created_at: "",
+				end_at: "",
+				updated_at: "",
+				favourite: "",
+				trueView: "",
+				province: "",
+				city: "",
+				address: "",
+				content: "",
+				similaritylist: null,
+				unit: "",
+				daohang: "",
+				userId: "",
+				isShoucang: false,
+				isToudi: false,
+				guiges: null,
+				userInfo: '',
+				tb_price: '',
+				tb_content: '',
+				ts_content: ''
+			},
+			methods: {
+				showimg: function(src) {
+					$('#show_img').removeClass('none');
+					$('#show_img .i2').attr('src', src);
+				},
+				favourite1: function() {
+					if(vm.userInfo.regStatus != 1) {
+						window.location.href = '../../register/register.html';
+						return;
+					}
+					post('/webSc/favorite', {
+						userId: localStorage.userId,
+						id: id,
+						shoucang: !vm.isShoucang
+					}, function(data) {
+						vm.isShoucang = !vm.isShoucang;
+						if(vm.isShoucang) {
+							$('#shoucang').css('color', '#D58512');
+							$('#shoucang').html('已收藏');
+							vm.favourite += 1;
+						} else {
+							$('#shoucang').css('color', '#717171');
+							$('#shoucang').html('收藏');
+							vm.favourite -= 1;
+						}
+						vm.$dialog.toast({
+							mes: data.reason,
+							icon: 'success',
+							timeout: 1500,
+						});
+					})
+				},
+				toudi: function() {
+					if(vm.userInfo.regStatus != 1) {
+						window.location.href = '../../register/register.html';
+						return;
+					}
+					$('#show_img').removeClass('none');
+				}
+			}
+		})
+
+		post('/webZb/ZhaobiaoDetail', {
+			id: id
+		}, function(data) {
+			var d = data.result;
+			vm.category = d.category;
+			vm.price = d.price;
+			vm.unit = d.unit;
+			vm.quantity = d.quantity;
+			vm.contact = d.contact;
+			vm.phone = d.phone;
+			vm.end_at = d.endAt;
+			vm.updated_at = d.updateAt;
+			vm.favourite = parseInt(d.shoucang);
+			vm.trueView = d.liulan;
+			vm.address = d.address;
+			vm.daohang = d.ditu;
+			vm.content = strReplace(d.content);
+			vm.title = d.title;
+			vm.userId = d.userId;
+			vm.guiges = d.guiges;
+			if(d.admin) {
+				$('.b4-3').hide();
+			}
+
+			post('/webZb/Zhaobiao', {
+				pageNo: 1,
+				pageSize: 5,
+				category: d.categoryId
+			}, function(data) {
+				vm.similaritylist = data.result;
+			})
+		})
+
+		getUserInfo(localStorage.userId, function(data) {
+			vm.userInfo = data.result;
+		})
+
+		post('/webSc/isFavorite', {
+			id: id,
+			userId: localStorage.userId
+		}, function(data) {
+			vm.isShoucang = data.result;
+			if(data.result) {
+				$('#shoucang').css('color', '#D58512');
+				$('#shoucang').html('已收藏');
+			}
+		})
+
+		post('/webZb/isToubiao', {
+			publishId: id,
+			userId: localStorage.userId
+		}, function(data) {
+			vm.isToudi = data.result;
+		})
+
+		function toubiao() {
+			if(!checkfushu()) {
+				return;
+			}
+			if(vm.tb_content == '') {
+				alert('请填写投标描述')
+				return
+			}
+			post('/webZb/Toubiao', {
+				publishId: id,
+				userId: localStorage.userId,
+				price: vm.tb_price,
+				content: vm.tb_content
+			}, function(data) {
+				vm.$dialog.toast({
+					mes: "投标成功!",
+					icon: 'success',
+					timeout: 1500,
+					callback: function() {
+						$('#show_img').addClass('none');
+						vm.isToudi = true;
+					}
+				});
+			})
+		}
+
+		function checkfushu() {
+			if(!(/^\d+(\.\d+)?$/.test(vm.price))) {
+				vm.$dialog.alert({
+					mes: '单价不正确'
+				});
+				return false;
+			}
+			return true;
+		}
+
+		function tousu() {
+			$('#tousu').removeClass('none');
+		}
+
+		function confirmTousu() {
+			if(vm.ts_content == '') {
+				alert('请填写投诉内容')
+				return
+			}
+			post('/webTs/tousu', {
+				userId: localStorage.userId,
+				publishId: id,
+				content: vm.ts_content,
+				//				tousuImg: vm.img
+			}, function(data) {
+				vm.$dialog.toast({
+					mes: "感谢您的支持和理解我们会尽快对信息进行核实与处理。",
+					icon: 'success',
+					timeout: 1500,
+					callback: function() {
+						$('#tousu').addClass('none');
+					}
+				});
+			})
+		}
+
+		$(function() {
+			var _this1 = null;
+			$('.nav>li').hover(function() {
+				_this1 = $(this);
+				_this1.find('.second-nav').show();
+				var _this2 = null;
+				_this1.find('.second-nav').find('li').hover(function() {
+					_this2 = $(this);
+					_this2.find('.third-nav').show();
+					_this2.find('.third-nav').hover(function() {
+						$(this).show();
+					}, function() {
+						$(this).hide();
+					});
+				}, function() {
+					_this2.find('.third-nav').hide();
+				});
+			}, function() {
+				_this1.find('.second-nav').hide();
+			});
+		});
+	</script>
+
+</html>

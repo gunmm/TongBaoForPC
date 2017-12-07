@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>招聘列表</title>
+		<title>供应列表</title>
 
 		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
@@ -46,8 +46,9 @@
 			.filter-btn {
 				background: dodgerblue;
 				width: 120px;
+				height: 35px;
 				float: left;
-				margin-top: -15px;
+				margin-top: 7.5px;
 				margin-left: 30px;
 				padding: 8px;
 				position: relative;
@@ -86,7 +87,7 @@
 		<div class="header">
 			<ul class="nav">
 				<li>
-					<a href="../index.html">首页</a>
+					<a href="#">首页</a>
 				</li>
 				<li>
 					<a href="#">发布</a>
@@ -109,13 +110,13 @@
 					<a href="#">找信息</a>
 					<ul class="second-nav">
 						<li>
-							<a href="">招聘信息</a>
+							<a target="_blank" href="../zhaopin/zhaopinlist.html">招聘信息</a>
 						</li>
 						<li>
 							<a target="_blank" href="../zhaobiao/zhaobiaolist.html">招标信息</a>
 						</li>
 						<li>
-							<a target="_blank" href="../gongying/gongyinglist.html">供应信息</a>
+							<a href="">供应信息</a>
 						</li>
 						<li>
 							<a target="_blank" href="../qiuzhi/qiuzhilist.html">求职信息</a>
@@ -165,32 +166,6 @@
 		<div id="app">
 			<div class="selectbox-p">
 				<div class="selectbox">
-					<div class="selemediv">
-						<input class="input" v-model="title" placeholder="关键字" />
-					</div>
-					<div class="selemediv">
-						<div class="selemenu">薪资</div>
-						<DIV class="citylist">
-							<span onclick="selxinzi(this)">不限</span>
-							<span :id="item.itemCode" v-for="item in xinzis" onclick="selxinzi(this)">{{item.itemName}}</span>
-						</div>
-					</div>
-					<div class="selemediv">
-						<div class="selemenu">学历</div>
-						<DIV class="citylist">
-							<span onclick="selxueli(this)">不限</span>
-							<span :id="item.itemCode" v-for="item in xuelis" onclick="selxueli(this)">{{item.itemName}}</span>
-						</div>
-					</div>
-					<div class="selemediv">
-						<div class="selemenu">年龄</div>
-						<DIV class="citylist">
-							<span onclick="selage(this)">不限</span>
-							<span :id="item.itemCode" v-for="item in ages" onclick="selage(this)">{{item.itemName}}</span>
-						</div>
-					</div>
-				</div>
-				<div class="selectbox">
 					<div id="1" class="selemediv">
 						<div class="selemenu ">
 							<div id="province" class="sqinput">城市</div>
@@ -216,40 +191,39 @@
 					</div>
 					<div id="2" class="selemediv">
 						<div class="selemenu ">
-							<div id="job1" class="sqinput">职位</div>
+							<div id="job1" class="sqinput">类别</div>
 							<!--<span id="job2" class="csinput"></span>-->
 						</div>
 						<div class="citylist2">
 							<div class="xzk">
-								<div class="leibie">职称</div>
+								<div class="leibie">类别</div>
 								<ul class="shangquan1">
 									<li @click="seljob1('')">不限</li>
-									<li v-for="item in job">{{item.itemName}}</li>
+									<li v-for="item in job">{{item.title}}</li>
 								</ul>
 							</div>
 							<div class="xzk">
-								<div class="leibie">职位</div>
+								<div class="leibie">类别</div>
 								<ul class="chengshi1 none">
 								</ul>
 								<ul class="chengshi1 none" v-for="item in joblist">
-									<li v-for="c in item" @click="seljob1(c.itemCode)">{{c.itemName}}</li>
+									<li v-for="c in item" @click="seljob1(c.id)">{{c.title}}</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<div class="selemediv">
-						<div class="selemenu">性别</div>
+						<div class="selemenu">价格</div>
 						<DIV class="citylist">
-							<span onclick="selgender(this)">不限</span>
-							<span id="1" onclick="selgender(this)">男</span>
-							<span id="2" onclick="selgender(this)">女</span>
+							<span onclick="seljiage(this)">不限</span>
+							<span :id="item.itemCode" v-for="item in jiages" onclick="seljiage(this)">{{item.itemName}}</span>
 						</div>
 					</div>
 					<div class="selemediv">
-						<div class="selemenu">工作经验</div>
+						<div class="selemenu">更多</div>
 						<DIV class="citylist">
-							<span onclick="seljingyan(this)">不限</span>
-							<span :id="item.itemCode" v-for="item in jingyans" onclick="seljingyan(this)">{{item.itemName}}</span>
+							<!--<span onclick="selusertype(this)">不限</span>-->
+							<span :id="item.id" v-for="item in quanbu" onclick="selusertype(this)">{{item.name}}</span>
 						</div>
 					</div>
 					<div class="filter-btn" onclick="filter()">筛选</div>
@@ -257,24 +231,20 @@
 			</div>
 			<div style="width: 1000px; margin: auto;">
 				<div class="list1">
-					<div style="width: 20%;">职位名称</div>
-					<div style="width: 100px;">工作地点</div>
-					<div style="width: 20%;">公司名称</div>
-					<div style="width: 90px;">学历要求</div>
-					<div style="width: 100px;">经验要求</div>
-					<div style="width: 90px;">年龄要求</div>
-					<div style="width: 90px;">性别要求</div>
-					<div style="width: 130px;">职位月薪</div>
+					<div style="width: 210px;">供应名称</div>
+					<div style="width: 140px;">供应地址</div>
+					<div style="width: 210px;">公司名称</div>
+					<div style="width: 160px;">类别</div>
+					<div style="width: 130px;">数量</div>
+					<div style="width: 130px;">单价</div>
 				</div>
-				<a class="list2" v-for="item in datalist" target="_blank" :href='"zhaopindetail.html?id="+item.id'>
-					<div style="width: 20%;">{{item.title}}</div>
-					<div style="width: 100px;">{{item.city}}</div>
-					<div style="width: 20%;">{{item.orgName}}</div>
-					<div style="width: 90px;">{{item.education}}</div>
-					<div style="width: 100px;">{{item.experience}}</div>
-					<div style="width: 90px;">{{item.age}}</div>
-					<div style="width: 90px;">{{item.gender}}</div>
-					<div style="width: 130px;">{{item.salary}}</div>
+				<a class="list2" v-for="item in datalist" target="_blank" :href='"gongyingdetail.html?id="+item.id'>
+					<div style="width: 210px">{{item.title}}</div>
+					<div style="width: 140px;">{{item.city}}</div>
+					<div style="width: 210px;">{{item.orgName}}</div>
+					<div style="width: 160px;">{{item.category}}</div>
+					<div style="width: 130px;">{{item.quantity==-1||item.quantity==''?'已招标文件为主 单位：':item.quantity}}{{item.unit}}</div>
+					<div style="width: 130px;">{{item.price==''?'面议':item.price+'元'}}/{{item.unit}}</div>
 				</a>
 			</div>
 
@@ -297,30 +267,40 @@
 		})
 
 		var job, joblist;
-		getDicTable(false, "006", function(data) {
+		post1('/webItem/getCategoryList', false, {
+			type: 'gongying'
+		}, function(data) {
 			var list = data.result;
-			var job = [];
-			var jobList = [];
-			var jobM = {};
+			var a = [];
+			var b = [];
+			var bM = {};
 			for(var i = 0; i < list.length; i++) {
-				var obj = list[i];
-				if(!obj.pid) {
-					job.push(obj);
+				if(list[i].pid == 0) {
+					a.push(list[i]);
 				} else {
-					jobList.push(obj);
+					b.push(list[i]);
 				}
 			}
-			for(var i = 0; i < job.length; i++) {
+			for(var i = 0; i < a.length; i++) {
 				var array = [];
-				for(var j = 0; j < jobList.length; j++) {
-					if(job[i].id == jobList[j].pid) {
-						array.push(jobList[j]);
-						jobM['' + job[i].id] = array;
+				for(var j = 0; j < b.length; j++) {
+					if(a[i].id == b[j].pid) {
+						array.push(b[j]);
+						bM['' + a[i].id] = array;
 					}
 				}
 			}
-			this.job = job;
-			this.joblist = jobM;
+			for(var i = 0; i < a.length - 1; i++) {
+				for(var j = 0; j < a.length - 1 - i; j++) {
+					if(a[j].id > a[j + 1].id) {
+						var temp = a[j];
+						a[j] = a[j + 1];
+						a[j + 1] = temp;
+					}
+				}
+			}
+			this.job = a;
+			this.joblist = bM;
 		})
 
 		var vm = new Vue({
@@ -329,21 +309,25 @@
 				page: 1,
 				pagesize: 5,
 				title: '',
-				xinzi: '',
-				xinzis: [],
-				xueli: '',
-				xuelis: [],
-				age: '',
-				ages: [],
+				job: job,
+				joblist: joblist,
+				jiage: '',
+				jiages: [],
+				userType: '',
+				quanbu: [{
+					id: '',
+					name: '不限'
+				}, {
+					id: 2,
+					name: '企业'
+				}, {
+					id: 1,
+					name: '个人'
+				}],
 				province: province,
 				city: city,
 				selcity: '',
-				job: job,
-				joblist: joblist,
 				seljob: '',
-				gender: '',
-				jingyan: '',
-				jingyans: [],
 				datalist: []
 			},
 			methods: {
@@ -365,23 +349,11 @@
 			}
 		})
 
-		getDicTable(true, "001", function(data) {
-			vm.xinzis = data.result;
+		getDicTable(true, '013', function(data) {
+			vm.jiages = data.result;
 		})
 
-		getDicTable(true, "003", function(data) {
-			vm.xuelis = data.result;
-		})
-
-		getDicTable(true, "012", function(data) {
-			vm.ages = data.result;
-		})
-
-		getDicTable(true, "004", function(data) {
-			vm.jingyans = data.result;
-		})
-
-		post('/webZp/Zhaopin', {
+		post('/webGy/Gongying', {
 			pageNo: vm.page,
 			pageSize: vm.pagesize
 		}, function(data) {
@@ -389,7 +361,7 @@
 			$('.allPage').html(Math.ceil(data.reason / vm.pagesize));
 			$("#Pagination").pagination(data.reason / vm.pagesize, {
 				callback: function(page) { // 回调函数
-					post('/webZp/Zhaopin', {
+					post('/webGy/Gongying', {
 						pageNo: page + 1,
 						pageSize: vm.pagesize
 					}, function(data) {
@@ -399,96 +371,52 @@
 			});
 		})
 
-		function selxinzi(obj) {
+		function selusertype(obj) {
 			var text = $(obj).text();
 			if(text == '不限') {
-				$(obj).parent().prev().html('薪资');
+				$(obj).parent().prev().html('更多');
 			} else {
 				$(obj).parent().prev().html(text);
 			}
 			$(obj).parent().prev().css("color", "#666")
 			$(obj).parent().fadeOut();
-			vm.xinzi = obj.id;
+			vm.userType = obj.id;
 		}
 
-		function selxueli(obj) {
+		function seljiage(obj) {
 			var text = $(obj).text();
 			if(text == '不限') {
-				$(obj).parent().prev().html('学历');
+				$(obj).parent().prev().html('价格');
 			} else {
 				$(obj).parent().prev().html(text);
 			}
 			$(obj).parent().prev().css("color", "#666")
 			$(obj).parent().fadeOut();
-			vm.xueli = obj.id;
-		}
-
-		function selage(obj) {
-			var text = $(obj).text();
-			if(text == '不限') {
-				$(obj).parent().prev().html('年龄');
-			} else {
-				$(obj).parent().prev().html(text);
-			}
-			$(obj).parent().prev().css("color", "#666")
-			$(obj).parent().fadeOut();
-			vm.age = obj.id;
-		}
-
-		function seljingyan(obj) {
-			var text = $(obj).text();
-			if(text == '不限') {
-				$(obj).parent().prev().html('工作经验');
-			} else {
-				$(obj).parent().prev().html(text);
-			}
-			$(obj).parent().prev().css("color", "#666")
-			$(obj).parent().fadeOut();
-			vm.jingyan = obj.id;
-		}
-
-		function selgender(obj) {
-			var text = $(obj).text();
-			if(text == '不限') {
-				$(obj).parent().prev().html('性别');
-			} else {
-				$(obj).parent().prev().html(text);
-			}
-			$(obj).parent().prev().css("color", "#666")
-			$(obj).parent().fadeOut();
-			vm.gender = obj.id;
+			vm.jiage = obj.id;
 		}
 
 		function filter() {
-			post('/webZp/Zhaopin', {
+			post('/webGy/Gongying', {
 				pageNo: vm.page,
 				pageSize: vm.pagesize,
 				title: vm.title,
 				city: vm.selcity,
-				post: vm.seljob,
-				salary: vm.xinzi,
-				experience: vm.jingyan,
-				education: vm.xueli,
-				//				professionalRank: vm.zhicheng,
-				age: vm.age,
-				gender: vm.gender
+				category: vm.seljob,
+				price: vm.jiage,
+				userType: vm.userType,
 			}, function(data) {
 				vm.datalist = data.result;
 				$('.allPage').html(Math.ceil(data.reason / vm.pagesize));
 				$("#Pagination").pagination(data.reason / vm.pagesize, {
 					callback: function(page) { // 回调函数
-						post('/webZp/Zhaopin', {
+						post('/webGy/Gongying', {
 							pageNo: page + 1,
 							pageSize: vm.pagesize,
 							title: vm.title,
 							city: vm.selcity,
-							post: vm.seljob,
-							salary: vm.xinzi,
-							experience: vm.jingyan,
-							education: vm.xueli,
-							//				professionalRank: vm.zhicheng,
-							age: vm.age,
-							gender: vm.gender
+							category: vm.seljob,
+							price: vm.jiage,
+							userType: vm.userType,
 						}, function(data) {
 							vm.datalist = data.result;
 						})
@@ -524,7 +452,7 @@
 			$(this).addClass("active")
 			var text2 = $(this).text();
 			var text1 = $("#province").text();
-			$("#province").html(text1 + "-" + text2);
+			$("#province").html(text1 + '-' + text2);
 			$(".citylist2").slideUp();
 		})
 		$(".shangquan1 li").click(function() {
@@ -544,7 +472,7 @@
 			$(this).addClass("active")
 			var text2 = $(this).text();
 			var text1 = $("#job1").text();
-			$("#job1").html(text1 + "-" + text2);
+			$("#job1").html(text1 + '-' + text2);
 			$(".citylist2").slideUp();
 		})
 		$(function() {
