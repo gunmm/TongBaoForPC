@@ -5,55 +5,67 @@
 		<meta charset="utf-8">
 		<title></title>
 		<link rel="stylesheet" href="static/css/home.css" />
+		<link rel="stylesheet" href="css/loading.css" />
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<style>
+			.i {
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				position: fixed;
+				top: 0;
+				z-index: 1000;
+				display: flex;
+			}
+			
+			.i .i1 {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				top: 50px;
+				right: 30px;
+			}
+			
+			.i .i2 {
+				margin: auto;
+				max-width: 80%;
+				max-height: 80%;
+			}
+			
+			.i .i3 {
+				width: 40px;
+				height: 50px;
+				position: absolute;
+				top: 45%;
+				left: 20px;
+			}
+			
+			.i .i4 {
+				width: 40px;
+				height: 50px;
+				position: absolute;
+				top: 45%;
+				right: 20px;
+			}
+			
+			.sel:hover {
+				border: 3px solid transparent;
+			}
 		</style>
 	</head>
 
 	<body>
-		<div class="bgdiv">
-			<div id="app" class="content">
-				<br />
-				<div class="fabucontent">
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     <div>数量决定了就是了解到拉萨绝对路径撒垃圾多拉势均力敌静安寺了解了解</div>
-                     
+
+		<div style="width: 100%;height: 10000px;">
+			<img src="static/img/3.jpg" onclick="alert(111)" />
+
+			<div style="width: 100%;height: 100%;position: fixed;top: 0;z-index: 1000;display: flex;">
+				<div style="margin: auto;padding: 20px; text-align: center;background: rgba(0, 0, 0, 0.5);border-radius: 10px;color: white;">
+					<div style="max-width: 500px;min-width: 200px;">服务器连接失败</div>
+					<div style="height: 1px;background: white;margin-top: 20px;"></div>
+					<div style="padding-top: 20px;font-weight: bold;" onclick="$(this).parent().parent().remove()">确&nbsp;&nbsp;&nbsp;&nbsp;定</div>
 				</div>
 			</div>
-
 		</div>
 	</body>
 

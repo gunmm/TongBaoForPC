@@ -41,7 +41,7 @@ function post(url, data, callback, loading, callback1) {
 	data['userId'] = localStorage.userId;
 	data['requestToken'] = localStorage.accessToken;
 	if(loading == null ? true : false) {
-		vm.$dialog.loading.open('');
+		addLoading();
 	}
 	$.ajax({
 		type: "post",
@@ -51,12 +51,9 @@ function post(url, data, callback, loading, callback1) {
 		data: data,
 		success: function(data) {
 			log(url + "==>>" + JSON.stringify(data));
-			vm.$dialog.loading.close();
+			removeLoading();
 			if(data.result_code != 1) {
-				new Vue().$dialog.alert({
-					mes: data.reason
-				});
-				//				alert(data.reason);
+				myAlert(data.data.reason);
 				if(callback1 != null) {
 					callback1();
 				}
@@ -65,7 +62,7 @@ function post(url, data, callback, loading, callback1) {
 			callback(data);
 		},
 		error: function(data) {
-			vm.$dialog.loading.close();
+			removeLoading();
 			if(data.status == 510) {
 				if(isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
@@ -75,9 +72,7 @@ function post(url, data, callback, loading, callback1) {
 				}
 				return;
 			}
-			vm.$dialog.alert({
-				mes: '服务器连接失败!'
-			});
+			myAlert('服务器连接失败');
 		}
 	});
 }
@@ -85,25 +80,22 @@ function post(url, data, callback, loading, callback1) {
 function post1(url, async, data, callback) {
 	data['userId'] = localStorage.userId;
 	data['requestToken'] = localStorage.accessToken;
-	vm.$dialog.loading.open('');
+	addLoading();
 	$.ajax({
 		type: "post",
 		url: ip + url,
 		async: async,
 		data: data,
 		success: function(data) {
-			vm.$dialog.loading.close();
+			removeLoading();
 			if(data.result_code != 1) {
-				new Vue().$dialog.alert({
-					mes: data.reason
-				});
-				//				alert(data.reason);
+				myAlert(data.data.reason);
 				return;
 			}
 			callback(data);
 		},
 		error: function(data) {
-			vm.$dialog.loading.close();
+			removeLoading();
 			if(data.status == 510) {
 				if(isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
@@ -113,10 +105,7 @@ function post1(url, async, data, callback) {
 				}
 				return;
 			}
-			//			alert("服务器连接失败!");
-			vm.$dialog.alert({
-				mes: '服务器连接失败!'
-			});
+			myAlert('服务器连接失败');
 		}
 	});
 }
@@ -209,7 +198,7 @@ function getCity(callback) {
 	}
 	callback(province, cityM);
 
-	//	vm.$dialog.loading.open('');
+	//	addLoading();
 	//	$.ajax({
 	//		type: "post",
 	//		url: ip + '/webItem/allCity',
@@ -217,7 +206,7 @@ function getCity(callback) {
 	//		data: {},
 	//		success: function(data) {
 	//			console.log(JSON.stringify(data.result));
-	//			vm.$dialog.loading.close();
+	//			removeLoading();
 	//			if(data.result_code != 1) {
 	//				new Vue().$dialog.alert({
 	//					mes: data.reason
@@ -252,7 +241,7 @@ function getCity(callback) {
 	//			callback(province, cityM);
 	//		},
 	//		error: function() {
-	//			vm.$dialog.loading.close();
+	//			removeLoading();
 	//			vm.$dialog.alert({
 	//				mes: '服务器连接失败!'
 	//			});
@@ -261,7 +250,7 @@ function getCity(callback) {
 }
 
 function getDicTable(async, classId, callback) {
-	vm.$dialog.loading.open('');
+	addLoading();
 	$.ajax({
 		type: "post",
 		url: ip + '/webItem/ItemData',
@@ -272,18 +261,15 @@ function getDicTable(async, classId, callback) {
 			userId: localStorage.userId
 		},
 		success: function(data) {
-			vm.$dialog.loading.close();
+			removeLoading();
 			if(data.result_code != 1) {
-				new Vue().$dialog.alert({
-					mes: data.reason
-				});
-				//				alert(data.reason);
+				myAlert(data.data.reason);
 				return;
 			}
 			callback(data);
 		},
 		error: function(data) {
-			vm.$dialog.loading.close();
+			removeLoading();
 			if(data.status == 510) {
 				if(isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
@@ -293,17 +279,14 @@ function getDicTable(async, classId, callback) {
 				}
 				return;
 			}
-			//			alert("服务器连接失败!");
-			vm.$dialog.alert({
-				mes: '服务器连接失败!'
-			});
+			myAlert('服务器连接失败');
 		}
 	});
 }
 
 //设备分类
 function getClassifyTable(async, classType, callback) {
-	vm.$dialog.loading.open('');
+	addLoading();
 	$.ajax({
 		type: "post",
 		url: ip + '/webItem/getCategoryList',
@@ -314,18 +297,15 @@ function getClassifyTable(async, classType, callback) {
 			userId: localStorage.userId
 		},
 		success: function(data) {
-			vm.$dialog.loading.close();
+			removeLoading();
 			if(data.result_code != 1) {
-				new Vue().$dialog.alert({
-					mes: data.reason
-				});
-				//				alert(data.reason);
+				myAlert(data.data.reason);
 				return;
 			}
 			callback(data);
 		},
 		error: function(data) {
-			vm.$dialog.loading.close();
+			removeLoading();
 			if(data.status == 510) {
 				if(isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
@@ -335,10 +315,7 @@ function getClassifyTable(async, classType, callback) {
 				}
 				return;
 			}
-			//			alert("服务器连接失败!");
-			vm.$dialog.alert({
-				mes: '服务器连接失败!'
-			});
+			myAlert('服务器连接失败');
 		}
 	});
 }
@@ -410,7 +387,7 @@ function dealImage(path, obj, callback) {
 		return;
 	}
 
-	//	vm.$dialog.loading.open('');
+	//	addLoading();
 
 	setTimeout(function() {
 		var img = new Image();
@@ -447,7 +424,7 @@ function dealImage(path, obj, callback) {
 					quality: 0.1
 				}, callback);
 			} else {
-				//				vm.$dialog.loading.close();
+				//				removeLoading();
 				callback(base64);
 			}
 		}
@@ -462,6 +439,45 @@ function getAvatar(url) {
 			return ip + url;
 		}
 	}
+}
+
+function addLoading() {
+	if($('#loading11111').html()) {
+		return;
+	}
+
+	$('body').append('<div id="loading11111" style="width: 100%;height: 100%;position: fixed;top: 0;z-index: 1000;display: flex;">' +
+		'<div style="margin: auto;padding: 20px; text-align: center;background: rgba(0, 0, 0, 0.5);border-radius: 10px;">' +
+		'<div class="load-1" style="height: 55px;">' +
+		'<div class="k-line k-line3-1"></div>' +
+		'<div class="k-line k-line3-2"></div>' +
+		'<div class="k-line k-line3-3"></div>' +
+		'<div class="k-line k-line3-4"></div>' +
+		'<div class="k-line k-line3-5"></div>' +
+		'</div>' +
+		'<span style="color: white;text-align: center;">正在加载</span>' +
+		'</div>' +
+		'</div>');
+}
+
+function removeLoading() {
+	$('#loading11111').remove();
+}
+
+function myAlert(str) {
+	if($('#alert11111').html()) {
+		return;
+	}
+	if(!str) {
+		return;
+	}
+	$('body').append('<div id="alert11111" style="width: 100%;height: 100%;position: fixed;top: 0;z-index: 1000;display: flex;">' +
+		'<div style="margin: auto;padding: 20px; text-align: center;background: rgba(0, 0, 0, 0.5);border-radius: 10px;color: white;">' +
+		'<div style="max-width: 500px;min-width: 200px;font-size:16px">' + str + '</div>' +
+		'<div style="height: 1px;background: white;margin-top: 20px;"></div>' +
+		'<div style="padding-top: 20px;font-weight: bold;font-size: 16px;" onclick="$(this).parent().parent().remove()">确&nbsp;&nbsp;&nbsp;&nbsp;定</div>' +
+		'</div>' +
+		'</div>');
 }
 
 function feedback() {}

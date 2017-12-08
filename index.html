@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<title>首页</title>
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<link rel="stylesheet" href="css/loading.css" />
 		<link rel="stylesheet" href="static/css/style.css" />
 		<link rel="stylesheet" href="static/css/ydui.rem.css">
 		<link rel="stylesheet" href="static/css/common.css">
@@ -161,7 +162,7 @@
 			</ul>
 		</div>
 
-		<div id="app" class="content">
+		<div id="app" class="content" style="padding-top: 50px;">
 			<yd-slider id="yd_slider" v-if="imglist.length>0" autoplay="5000">
 				<yd-slider-item v-for="item in imglist">
 					<a target="_blank" :href="item.url">
