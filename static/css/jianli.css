@@ -462,3 +462,28 @@ select {
 	margin-left: 10px;
 	
 }
+
+/*--------------------------------------------------------------订阅列表------------------*/
+
+.list1 {
+	width: 100%;
+	padding: 10px;
+	display: inline-flex;
+	background-color: darkslategray;
+	
+}
+.list1 div {
+	font-weight: bold;
+	font-size: 15px;
+	color: white;
+}
+.list2 {
+	width: 100%;
+	padding: 10px;
+	display: inline-flex;
+	border-bottom: 1px solid lightgray;
+	color: black;
+}
+.list2:hover {
+	background: #eee;
+}
