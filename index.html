@@ -160,169 +160,171 @@
 			</ul>
 		</div>
 
-		<div id="app" class="content" style="padding-top: 50px;">
-			<yd-slider id="yd_slider" v-if="imglist.length>0" autoplay="5000">
-				<yd-slider-item v-for="item in imglist">
-					<a target="_blank" :href="item.url">
-						<img :src="ip+item.imgUrl" />
-					</a>
-				</yd-slider-item>
-			</yd-slider>
-			<div class="listarea_zixun">
-				<div class="tongzhi overflow-h" v-if='zxlist.length>0'>
-					<div class="tongzhi_wenzi clearfix pos">
-						<ul class="tongzhi_lunbo">
-							<li v-for="item in zxlist" class="clearfix overflow-h">
-								<a target="_blank" :href="'zixun/zixundetail.html?id='+item.id" class="huojiang overflow-h">
-									<i class="ico ico-tongzhi fl"></i>
-									<p class="fl">
-										<nobr>{{item.title}}</nobr>
-									</p>
-								</a>
-								<span class="fr more">
+		<div class="bgdiv">
+			<div id="app" class="content" style="padding-top: 50px;">
+				<yd-slider id="yd_slider" v-if="imglist.length>0" autoplay="5000">
+					<yd-slider-item v-for="item in imglist">
+						<a target="_blank" :href="item.url">
+							<img :src="ip+item.imgUrl" />
+						</a>
+					</yd-slider-item>
+				</yd-slider>
+				<div class="listarea_zixun">
+					<div class="tongzhi overflow-h" v-if='zxlist.length>0'>
+						<div class="tongzhi_wenzi clearfix pos">
+							<ul class="tongzhi_lunbo">
+								<li v-for="item in zxlist" class="clearfix overflow-h">
+									<a target="_blank" :href="'zixun/zixundetail.html?id='+item.id" class="huojiang overflow-h">
+										<i class="ico ico-tongzhi fl"></i>
+										<p class="fl">
+											<nobr style="color: black">{{item.title}}</nobr>
+										</p>
+									</a>
+									<span class="fr more">
                         		<a target="_blank" href="zixun/zixunlist.html">更多<i class="ico-right"></i></a>
                     		</span>
-							</li>
-						</ul>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="listarea">
-				<div class="listitem_left">
-					<h2 class="module-title pd-10 overflow-h border-b">
+				<div class="listarea">
+					<div class="listitem_left">
+						<h2 class="module-title pd-10 overflow-h border-b">
 						<i class="ico-zhaopin fl"></i>
 						<span class="fl more-main">最新招聘</span>
                          <span class="fr more">
 						      <a target="_blank" href="zhaopin/zhaopinlist.html">更多<i class="ico-right"></i></a>
 					    </span>
         		         </h2>
-					<div class="m-list">
-						<ul>
-							<li v-for="item in zplist" class="overflow-h  border-b padd">
-								<a target="_blank" :href='"zhaopin/zhaopindetail.html?id="+item.id'>
-									<div class="recruit-list fl ml-10 ">
-										<div class="recruit-header overflow-h">
-											<h3 class="fl w-55 ov-h">{{item.title}}</h3>
-											<p class="fr">
-												{{item.salary}}
-											</p>
+						<div class="m-list">
+							<ul>
+								<li v-for="item in zplist" class="overflow-h  border-b padd">
+									<a target="_blank" :href='"zhaopin/zhaopindetail.html?id="+item.id'>
+										<div class="recruit-list fl ml-10 ">
+											<div class="recruit-header overflow-h">
+												<h3 class="fl w-55 ov-h">{{item.title}}</h3>
+												<p class="fr">
+													{{item.salary}}
+												</p>
+											</div>
+											<div class="recruit-header overflow-h">
+												<h4 class="fl">{{item.orgName}}</h4>
+												<span class="fr time">{{item.updatedAt}}</span>
+											</div>
+											<p class="recruit-pos mr-10"><span>{{item.city}}</span> <span class="mr-10">{{item.experience}}</span> <span class="">{{item.education}}</span></p>
 										</div>
-										<div class="recruit-header overflow-h">
-											<h4 class="fl">{{item.orgName}}</h4>
-											<span class="fr time">{{item.updatedAt}}</span>
-										</div>
-										<p class="recruit-pos mr-10"><span>{{item.city}}</span> <span class="mr-10">{{item.experience}}</span> <span class="">{{item.education}}</span></p>
-									</div>
-								</a>
-							</li>
-						</ul>
+									</a>
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
-				<div class="listitem_right">
-					<h2 class="module-title  overflow-h border-b">
+					<div class="listitem_right">
+						<h2 class="module-title  overflow-h border-b">
 					    <i class="ico-qiuzhi fl"></i>
 					    <span class="fl more-main">最新求职</span>
             		        <span class="fr more">
             			         <a target="_blank" href="qiuzhi/qiuzhilist.html">更多<i class="ico-right"></i></a>
             		        </span>
 				     </h2>
-					<div class="m-list">
-						<ul>
-							<li v-for="item in qzlist" class="overflow-h  border-b padd">
-								<a target="_blank" :href="'qiuzhi/qiuzhidetail.html?id='+item.id">
-									<div class="recruit-list fl ml-10 ">
-										<div class="recruit-header overflow-h">
-											<h3 class="fl w-55 ov-h">{{item.title}}</h3>
-											<p class="fr">
-												{{item.salary}}
-											</p>
+						<div class="m-list">
+							<ul>
+								<li v-for="item in qzlist" class="overflow-h  border-b padd">
+									<a target="_blank" :href="'qiuzhi/qiuzhidetail.html?id='+item.id">
+										<div class="recruit-list fl ml-10 ">
+											<div class="recruit-header overflow-h">
+												<h3 class="fl w-55 ov-h">{{item.title}}</h3>
+												<p class="fr">
+													{{item.salary}}
+												</p>
+											</div>
+											<div class="recruit-header overflow-h">
+												<ul class="name-list overflow-h fl">
+													<li>
+														{{item.showfullname==1?item.orgName:hideStr(item.orgName)}}
+													</li>
+													<li>
+														{{item.gender}}性
+													</li>
+													<li>
+														{{item.age}}
+													</li>
+												</ul>
+												<span class="fr time">{{item.updatedAt}}</span>
+											</div>
+											<p class="recruit-pos mr-10"><span>{{item.city}}</span> <span class="mr-10">{{item.experience}}</span> <span class="">{{item.education}}</span></p>
 										</div>
-										<div class="recruit-header overflow-h">
-											<ul class="name-list overflow-h fl">
-												<li>
-													{{item.showfullname==1?item.orgName:hideStr(item.orgName)}}
-												</li>
-												<li>
-													{{item.gender}}性
-												</li>
-												<li>
-													{{item.age}}
-												</li>
-											</ul>
-											<span class="fr time">{{item.updatedAt}}</span>
-										</div>
-										<p class="recruit-pos mr-10"><span>{{item.city}}</span> <span class="mr-10">{{item.experience}}</span> <span class="">{{item.education}}</span></p>
-									</div>
-								</a>
-							</li>
-						</ul>
+									</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="listarea">
-				<div class="listitem_left">
-					<h2 class="module-title  overflow-h border-b">
+				<div class="listarea">
+					<div class="listitem_left">
+						<h2 class="module-title  overflow-h border-b">
 					     <i class="ico-zhaobiao fl"></i> 
 					     <span class="fl more-main">最新招标</span> 
 					     <span class="fr more">
 						     <a target="_blank" href="zhaobiao/zhaobiaolist.html">更多<i class="ico-right"></i></a>
 					     </span>
 				     </h2>
-					<div class="m-list">
-						<ul>
-							<li v-for="item in zblist" class="overflow-h  border-b padd">
-								<a target="_blank" :href='"zhaobiao/zhaobiaodetail.html?id="+item.id'>
-									<div class="recruit-list fl ml-10 ">
-										<div class="recruit-header overflow-h">
-											<h3 class="fl w-55 ov-h">{{item.title}}</h3>
-											<p class="fr">
-												{{item.price==''?'面议':item.price}}/{{item.unit}}
+						<div class="m-list">
+							<ul>
+								<li v-for="item in zblist" class="overflow-h  border-b padd">
+									<a target="_blank" :href='"zhaobiao/zhaobiaodetail.html?id="+item.id'>
+										<div class="recruit-list fl ml-10 ">
+											<div class="recruit-header overflow-h">
+												<h3 class="fl w-55 ov-h">{{item.title}}</h3>
+												<p class="fr">
+													{{item.price==''?'面议':item.price}}/{{item.unit}}
+												</p>
+											</div>
+											<div class="recruit-header overflow-h">
+												<h4 class="fl">{{item.city}}<span>{{item.quantity==-1||item.quantity==''?'已招标文件为主   单位:':item.quantity}}{{item.unit}}</span></h4>
+												<span class="fr time">{{item.updatedAt}}</span>
+											</div>
+											<p class="recruit-pos">
+												{{item.orgName}}
 											</p>
 										</div>
-										<div class="recruit-header overflow-h">
-											<h4 class="fl">{{item.city}}<span>{{item.quantity==-1||item.quantity==''?'已招标文件为主   单位:':item.quantity}}{{item.unit}}</span></h4>
-											<span class="fr time">{{item.updatedAt}}</span>
-										</div>
-										<p class="recruit-pos">
-											{{item.orgName}}
-										</p>
-									</div>
-								</a>
-							</li>
-						</ul>
+									</a>
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
-				<div class="listitem_right">
-					<h2 class="module-title pd-10 overflow-h border-b">
+					<div class="listitem_right">
+						<h2 class="module-title pd-10 overflow-h border-b">
 					     <i class="ico-gongying fl"></i> 
 					     <span class="fl more-main">最新供应</span> 
 					     <span class="fr more">
 						     <a target="_blank" href="gongying/gongyinglist.html">更多<i class="ico-right"></i></a>
 					     </span>
 				     </h2>
-					<div class="m-list">
-						<ul>
-							<li v-for="item in gylist" class="overflow-h  border-b padd">
-								<a target="_blank" :href='"gongying/gongyingdetail.html?id="+item.id'>
-									<div class="recruit-list fl ml-10 ">
-										<div class="recruit-header overflow-h">
-											<h3 class="fl w-55 ov-h">{{item.title}}</h3>
-											<p class="fr">
-												{{item.price}}/{{item.unit}}
+						<div class="m-list">
+							<ul>
+								<li v-for="item in gylist" class="overflow-h  border-b padd">
+									<a target="_blank" :href='"gongying/gongyingdetail.html?id="+item.id'>
+										<div class="recruit-list fl ml-10 ">
+											<div class="recruit-header overflow-h">
+												<h3 class="fl w-55 ov-h">{{item.title}}</h3>
+												<p class="fr">
+													{{item.price}}/{{item.unit}}
+												</p>
+											</div>
+											<div class="recruit-header overflow-h">
+												<h4 class="fl">{{item.city}}<span>{{item.quantity}}{{item.unit}}</span></h4>
+												<span class="fr time">{{item.updatedAt}}</span>
+											</div>
+											<p class="recruit-pos">
+												{{item.orgName}}
 											</p>
 										</div>
-										<div class="recruit-header overflow-h">
-											<h4 class="fl">{{item.city}}<span>{{item.quantity}}{{item.unit}}</span></h4>
-											<span class="fr time">{{item.updatedAt}}</span>
-										</div>
-										<p class="recruit-pos">
-											{{item.orgName}}
-										</p>
-									</div>
-								</a>
-							</li>
-						</ul>
+									</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
