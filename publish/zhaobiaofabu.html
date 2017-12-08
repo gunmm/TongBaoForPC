@@ -5,12 +5,12 @@
 		<meta charset="utf-8">
 		<title>发布招标</title>
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<link rel="stylesheet" href="../css/loading.css" />
 		<link rel="stylesheet" href="../static/css/style.css" />
 		<link rel="stylesheet" href="../static/css/home.css" />
 		<link rel="stylesheet" href="../static/css/mkui.css">
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
-		<script type="text/javascript" src="../js/ydui.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 		<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
 		<script type="text/javascript">
@@ -41,31 +41,11 @@
 
 	<body>
 		<script type="text/javascript" charset="utf-8">
-			getUserInfo(localStorage.userId, function(data) {
-				if(data.result.regStatus != 1) {
-					window.location.href = "../register/register.html";
-					return;
-				} else {
-					if(data.result.type == 2) {
-						if(data.result.regist == 0) {
-							window.location.href = "../register/company.html";
-							return;
-						} else {
-							if(data.result.expire == 0) {
-								alert("您的注册申请正在审核中,审核通过后会有消息提醒");
-								window.location.href = "../fabu.html";
-								return;
-							}
-						}
-					}
-				}
-				$('#app').show();
-			})
 			var Request = new QueryString();
 			var itemid = Request["id"];
 			var obj;
 			var title, quantity, price, unit, end_at, address, contact, phone, content;
-			if(itemid) {
+			if (itemid) {
 				post1('/webZb/ZhaobiaoDetail', false, {
 					id: itemid,
 				}, function(data) {
@@ -91,17 +71,17 @@
 				<li>
 					<a href="#">发布</a>
 					<ul class="second-nav">
-						<li>
-							<a href="zhaopinfabu.html">招聘发布</a>
+						<li id="zhaopin_fb" hidden>
+							<a target="_blank" href="zhaopinfabu.html">招聘发布</a>
 						</li>
 						<li>
-							<a href="zhaobiaofabu.html">招标发布</a>
+							<a href="">招标发布</a>
 						</li>
 						<li>
-							<a href="gongyingfabu.html">供应发布</a>
+							<a target="_blank" href="gongyingfabu.html">供应发布</a>
 						</li>
-						<li>
-							<a href="jianli/jianli.html">求职发布</a>
+						<li id="qiuzhi_fb" hidden>
+							<a target="_blank" href="jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
 				</li>
@@ -109,16 +89,16 @@
 					<a href="#">找信息</a>
 					<ul class="second-nav">
 						<li>
-							<a href="#">招聘信息</a>
+							<a target="_blank" href="../zhaopin/zhaopinlist.html">招聘信息</a>
 						</li>
 						<li>
-							<a href="#">招标信息</a>
+							<a target="_blank" href="../zhaobiao/zhaobiaolist.html">招标信息</a>
 						</li>
 						<li>
-							<a href="#">供应信息</a>
+							<a target="_blank" href="../gongying/gongyinglist.html">供应信息</a>
 						</li>
 						<li>
-							<a href="#">求职信息</a>
+							<a target="_blank" href="../qiuzhi/qiuzhilist.html">求职信息</a>
 						</li>
 					</ul>
 				</li>
@@ -127,32 +107,75 @@
 					<ul class="second-nav">
 						<li>
 							<a href="#">收藏</a>
-						</li>
-						<li>
-							<a href="#">我的订阅</a>
 							<ul class="third-nav">
-								<li>
-									<a href="../dingyue/dingyuezhaopin.html">招聘</a>
+								<li id="sc_qiuzhi" hidden>
+									<a target="_blank" href="../qiuzhi/qiuzhicollection.html">求职</a>
+								</li>
+								<li id="sc_zhaopin" hidden>
+									<a target="_blank" href="../zhaopin/zhaopincollection.html">招聘</a>
 								</li>
 								<li>
-									<a href="../dingyue/dingyueqiuzhi.html">求职</a>
+									<a target="_blank" href="../zhaobiao/zhaobiaocollection.html">招标</a>
 								</li>
 								<li>
-									<a href="../dingyue/dingyuezhaobiao.html">招标</a>
+									<a target="_blank" href="../gongying/gongyingcollection.html">供应</a>
 								</li>
 								<li>
-									<a href="../dingyue/dingyuegongying.html">供应</a>
+									<a target="_blank" href="../zixun/zixuncollection.html">资讯</a>
 								</li>
 							</ul>
 						</li>
 						<li>
+							<a href="#">我的订阅</a>
+							<ul class="third-nav">
+								<li id="zhaopin_dy" hidden>
+									<a target="_blank" href="../dingyue/dingyuezhaopin.html">招聘</a>
+								</li>
+								<li id="qiuzhi_dy" hidden>
+									<a target="_blank" href="../dingyue/dingyueqiuzhi.html">求职</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuezhaobiao.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuegongying.html">供应</a>
+								</li>
+							</ul>
+						</li>
+
+						<li>
 							<a href="#">我的发布</a>
+							<ul class="third-nav">
+								<li id="wdfb_zhaopin" hidden>
+									<a target="_blank" href="../mypublish/zhaopinmypublish.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/zhaobiaomypublish.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/gongyingmypublish.html">供应</a>
+								</li>
+							</ul>
 						</li>
 						<li>
-							<a href="#">我的投标</a>
+							<a target="_blank" href="../mytoubiao/mytoubiao.html">我的投标</a>
+						</li>
+						<li id="jlgl" hidden>
+							<a id="jlgl" href="#">简历管理</a>
+							<ul class="third-nav">
+								<li>
+									<a target="_blank" href="../jianliguanli/Intervieweedelivery.html">应聘者投递</a>
+								</li>
+								<li>
+									<a target="_blank" href="../jianliguanli/myinvitation.html">我邀请过的</a>
+								</li>
+							</ul>
+						</li>
+						<li id="wdyxgs" hidden>
+							<a target="_blank" href="../jianliguanli/myintentioncompany.html">我的意向公司</a>
 						</li>
 						<li>
-							<a href="#">意见反馈</a>
+							<a href="javascript:feedback()">意见反馈</a>
 						</li>
 					</ul>
 				</li>
@@ -290,7 +313,7 @@
 	</body>
 
 	<script>
-		//类别
+		 //类别
 		var job;
 		var jobList;
 		var nowJobList;
@@ -299,26 +322,26 @@
 			var job = [];
 			var jobList = [];
 			var jobM = {};
-			for(var i = 0; i < list.length; i++) {
+			for (var i = 0; i < list.length; i++) {
 				var obj = list[i];
-				if(obj.pid == 0) {
+				if (obj.pid == 0) {
 					job.push(obj);
 				} else {
 					jobList.push(obj);
 				}
 			}
-			for(var i = 0; i < job.length; i++) {
+			for (var i = 0; i < job.length; i++) {
 				var array = [];
-				for(var j = 0; j < jobList.length; j++) {
-					if(job[i].id == jobList[j].pid) {
+				for (var j = 0; j < jobList.length; j++) {
+					if (job[i].id == jobList[j].pid) {
 						array.push(jobList[j]);
 						jobM['' + job[i].id] = array;
 					}
 				}
 			}
-			for(var i = 0; i < job.length - 1; i++) {
-				for(var j = 0; j < job.length - 1 - i; j++) {
-					if(job[j].id > job[j + 1].id) {
+			for (var i = 0; i < job.length - 1; i++) {
+				for (var j = 0; j < job.length - 1 - i; j++) {
+					if (job[j].id > job[j + 1].id) {
 						var temp = job[j];
 						job[j] = job[j + 1];
 						job[j + 1] = temp;
@@ -327,11 +350,11 @@
 			}
 			this.job = job;
 			this.jobList = jobM;
-			for(var key in jobM) {
+			for (var key in jobM) {
 				this.nowJobList = jobM[key];
 				break;
 			}
-			if(this.obj) {
+			if (this.obj) {
 				selectGangweiA();
 			}
 		})
@@ -342,10 +365,28 @@
 			province = p;
 			city = c;
 			nowcity = city['1'];
-			if(this.obj) {
+			if (this.obj) {
 				selectProvinceAndCity();
 			}
 		});
+		 getUserInfo(localStorage.userId, function(data) {
+			userInfo = data.result;
+			$('#app').show();
+			if (userInfo.type == 1) {
+				$('#sc_zhaopin').show();
+				$('#wddy_zhaopin').show();
+				$('#wdyxgs').show();
+				$('#qiuzhi_fb').show();
+				$('#zhaopin_dy').show();
+			} else {
+				$('#sc_qiuzhi').show();
+				$('#wddy_qiuzhi').show();
+				$('#wdfb_zhaopin').show();
+				$('#jlgl').show();
+				$('#zhaopin_fb').show();
+				$('#qiuzhi_dy').show();
+			}
+		})
 		var isrepetition = false;
 		var vm = new Vue({
 			el: '#app',
@@ -372,65 +413,65 @@
 					$("input[name='specification']").each(function(index) {
 						guigecanshu.push(this.value);
 					});
-					if(!checkEndAt() || !checkTel() || !checkint || !checkfushu()) {
+					if (!checkEndAt() || !checkTel() || !checkint || !checkfushu()) {
 						return false;
 					}
-					if($("#selectjobvalue option:selected").text() == '请选择') {
-						alert('请选择招标类别')
+					if ($("#selectjobvalue option:selected").text() == '请选择') {
+						myAlert('请选择招标类别')
 						return
 					}
-					if(vm.title == "") {
-						alert('请填写招标标题')
+					if (vm.title == "") {
+						myAlert('请填写招标标题')
 						return
 					}
-					if(vm.quantity == "") {
-						alert('请填写招标数量')
+					if (vm.quantity == "") {
+						myAlert('请填写招标数量')
 						return
 					}
-					if(vm.quantity.length > 10) {
-						alert('输入的供应数量不合法')
+					if (vm.quantity.length > 10) {
+						myAlert('输入的供应数量不合法')
 						return
 					}
-					if(vm.price.length > 10) {
-						alert('输入的单价不合法')
+					if (vm.price.length > 10) {
+						myAlert('输入的单价不合法')
 						return
 					}
-					if(vm.unit == "") {
-						alert('请填写单位')
+					if (vm.unit == "") {
+						myAlert('请填写单位')
 						return
 					}
-					if(vm.end_at == '') {
-						alert('请选择有效日期')
+					if (vm.end_at == '') {
+						myAlert('请选择有效日期')
 						return
 					}
-					if($("#selectcity option:selected").text() == '请选择') {
-						alert('请选择工作城市')
+					if ($("#selectcity option:selected").text() == '请选择') {
+						myAlert('请选择工作城市')
 						return
 					}
-					if(vm.address == "") {
-						alert('请填写详细地址')
+					if (vm.address == "") {
+						myAlert('请填写详细地址')
 						return
 					}
-					if(vm.contact == "") {
-						alert('请填写联系人姓名')
+					if (vm.contact == "") {
+						myAlert('请填写联系人姓名')
 						return
 					}
-					if(vm.content == "") {
-						alert('请填写招标详细描述')
+					if (vm.content == "") {
+						myAlert('请填写招标详细描述')
 						return
 					}
 					var yes = 1;
 					$(".inp").each(function() {
-						if($(this).val() == '') {
+						if ($(this).val() == '') {
 							yes = 0;
 							return;
 						}
 					})
-					if(yes == 0) {
-						alert('参数规格填写不完整!');
+					if (yes == 0) {
+						myAlert('参数规格填写不完整!');
 						return;
 					}
-					if(isrepetition) {
+					if (isrepetition) {
 						return;
 					}
 					isrepetition = true;
@@ -439,7 +480,7 @@
 							var dataa, urlstr;
 							var Request = new QueryString();
 							var itemid = Request["id"];
-							if(itemid) {
+							if (itemid) {
 								urlstr = '/webZb/editZhaobiao';
 								dataa = {
 									"publishId": itemid,
@@ -485,9 +526,9 @@
 								function(data) {
 									console.log(data);
 									isrepetition = false;
-									if(data.result_code == 1) {
-										alert("发布成功！");
-										window.location.replace("../home/zhaobiao/zhaobiaodetail.html?id=" + data.result.publishId + "&iszb=iszb");
+									if (data.result_code == 1) {
+										myAlert("发布成功！");
+										window.location.replace("../zhaobiao/zhaobiaodetail.html?id=" + data.result.publishId);
 									}
 								},
 								function() {
@@ -510,19 +551,19 @@
 
 		function selectjobitem(obj) {
 			var descriptions = [];
-			for(var i = 0; i < vm.nowjoblist.length; i++) {
+			for (var i = 0; i < vm.nowjoblist.length; i++) {
 				var obj1 = vm.nowjoblist[i];
-				if(obj1.id == obj.value) {
+				if (obj1.id == obj.value) {
 					descriptions = obj1.descriptions;
 				}
 			}
 			$("#guigecanshu").html('');
-			if(descriptions) {
+			if (descriptions) {
 				$("#guigecanshu").append('<div class="guigetitle"> 规格参数</div>');
 			} else {
 				return;
 			}
-			for(i = 0; i < descriptions.length; i++) {
+			for (i = 0; i < descriptions.length; i++) {
 				$("#guigecanshu").append(
 					'<div class="key_value"><div class="keytext">' +
 					'<p><span style="color:#FF0000;"></span><span>' + descriptions[i] + '：</span></p>' +
@@ -537,32 +578,32 @@
 			var endTime = vm.end_at;
 			var end = Date.parse(new Date(endTime.replace(/\-/g, "/").replace(/\-/g, "/")));
 			var current = Date.parse(new Date());
-			if(end < current) {
-				alert("有效日期必须在今天之后!");
+			if (end < current) {
+				myAlert("有效日期必须在今天之后!");
 				return false;
 			}
 			return true;
 		}
 
 		function checkfushu() {
-			if(vm.price != '' && !(/^\d+(\.\d{2})?$/.test(vm.price))) {
-				alert("请输入数字");
+			if (vm.price != '' && !(/^\d+(\.\d{2})?$/.test(vm.price))) {
+				myAlert("请输入数字");
 				return false;
 			}
 			return true;
 		}
 
 		function checkTel() {
-			if(!(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(vm.phone))) {
-				alert("电话格式不正确!");
+			if (!(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(vm.phone))) {
+				myAlert("电话格式不正确!");
 				return false;
 			}
 			return true;
 		}
 
 		function checkint() {
-			if(!(/^[A-Z|a-z\u4e00-\u9fa5]*$/.test(vm.unit))) {
-				alert("单位只能输入中文或英文");
+			if (!(/^[A-Z|a-z\u4e00-\u9fa5]*$/.test(vm.unit))) {
+				myAlert("单位只能输入中文或英文");
 				return false;
 			}
 			return true;
@@ -580,11 +621,11 @@
 
 		function selectGangweiA() {
 			var firstid;
-			for(var key in this.jobList) {
+			for (var key in this.jobList) {
 				var dataArr = this.jobList[key];
-				for(var i = 0; i < dataArr.length; i++) {
+				for (var i = 0; i < dataArr.length; i++) {
 					var midObj = dataArr[i];
-					if(midObj.id == this.obj.categoryId) {
+					if (midObj.id == this.obj.categoryId) {
 						firstid = midObj.pid;
 					}
 				}

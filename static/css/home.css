@@ -1,16 +1,17 @@
 body {
-	background: rgb(0, 28, 52);
+	background: rgb(237, 238, 244);
 }
 
 .content {
 	margin: 0 auto;
-	background: rgb(15, 63, 105);
+	background: white;
 	width: 1000px;
 	padding-bottom: 30px;
+	min-height: 100%;
 }
 
 .bgdiv {
-	background: rgb(0, 28, 52);
+	background: rgb(237, 238, 244);
 	top: 50px;
 	width: 100%;
 	position: absolute;

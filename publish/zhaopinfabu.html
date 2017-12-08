@@ -5,12 +5,12 @@
 		<meta charset="utf-8">
 		<title>发布招聘</title>
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<link rel="stylesheet" href="../css/loading.css" />
 		<link rel="stylesheet" href="../static/css/style.css" />
 		<link rel="stylesheet" href="../static/css/home.css" />
 		<link rel="stylesheet" href="../static/css/mkui.css">
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
-		<script type="text/javascript" src="../js/ydui.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 		<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
 		<script type="text/javascript">
@@ -41,37 +41,11 @@
 	<body>
 		<script type="text/javascript" charset="utf-8">
 			var companyname;
-			getUserInfo(localStorage.userId, function(data) {
-				//				if(data.result.regStatus != 1) {
-				//					window.location.href = "../register/register.html";
-				//					return;
-				//				} else {
-				//					vm.companyname = data.result.orgName;
-				//					this.companyname = data.result.orgName;
-				//					if(data.result.type == 1) {
-				//						alert("个人用户不能发布招聘信息!");
-				//						window.location.href = "../index.html";
-				//						return;
-				//					} else {
-				//						if(data.result.regist == 0) {
-				//							window.location.href = "../register/company.html";
-				//							return;
-				//						} else {
-				//							if(data.result.expire == 0) {
-				//								alert("您的注册申请正在审核中,审核通过后会有消息提醒");
-				//								window.location.href = "../fabu.html";
-				//								return;
-				//							}
-				//						}
-				//					}
-				//				}
-				$('#app').show();
-			})
 			var Request = new QueryString();
 			var itemid = Request["id"];
 			var obj;
 			var title, address, content, quantity, contact, phone, email, fuli, gender;
-			if(itemid) {
+			if (itemid) {
 				post1('/webZp/ZhaopinById', false, {
 					id: itemid,
 				}, function(data) {
@@ -85,9 +59,9 @@
 					this.phone = data.result.phone;
 					this.email = data.result.email;
 					var sexyaoqiu = data.result.sexyaoqiu;
-					if(sexyaoqiu == '男') {
+					if (sexyaoqiu == '男') {
 						this.gender = 1;
-					} else if(sexyaoqiu == '女') {
+					} else if (sexyaoqiu == '女') {
 						this.gender = 2;
 					} else {
 						this.gender = '';
@@ -108,17 +82,17 @@
 				<li>
 					<a href="#">发布</a>
 					<ul class="second-nav">
-						<li>
-							<a href="zhaopinfabu.html">招聘发布</a>
+						<li id="zhaopin_fb" hidden>
+							<a href="">招聘发布</a>
 						</li>
 						<li>
-							<a href="zhaobiaofabu.html">招标发布</a>
+							<a target="_blank" href="zhaobiaofabu.html">招标发布</a>
 						</li>
 						<li>
-							<a href="gongyingfabu.html">供应发布</a>
+							<a target="_blank" href="gongyingfabu.html">供应发布</a>
 						</li>
-						<li>
-							<a href="jianli/jianli.html">求职发布</a>
+						<li id="qiuzhi_fb" hidden>
+							<a target="_blank" href="jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
 				</li>
@@ -126,16 +100,16 @@
 					<a href="#">找信息</a>
 					<ul class="second-nav">
 						<li>
-							<a href="#">招聘信息</a>
+							<a target="_blank" href="../zhaopin/zhaopinlist.html">招聘信息</a>
 						</li>
 						<li>
-							<a href="#">招标信息</a>
+							<a target="_blank" href="../zhaobiao/zhaobiaolist.html">招标信息</a>
 						</li>
 						<li>
-							<a href="#">供应信息</a>
+							<a target="_blank" href="../gongying/gongyinglist.html">供应信息</a>
 						</li>
 						<li>
-							<a href="#">求职信息</a>
+							<a target="_blank" href="../qiuzhi/qiuzhilist.html">求职信息</a>
 						</li>
 					</ul>
 				</li>
@@ -144,32 +118,75 @@
 					<ul class="second-nav">
 						<li>
 							<a href="#">收藏</a>
-						</li>
-						<li>
-							<a href="#">我的订阅</a>
 							<ul class="third-nav">
-								<li>
-									<a href="../dingyue/dingyuezhaopin.html">招聘</a>
+								<li id="sc_qiuzhi" hidden>
+									<a target="_blank" href="../qiuzhi/qiuzhicollection.html">求职</a>
+								</li>
+								<li id="sc_zhaopin" hidden>
+									<a target="_blank" href="../zhaopin/zhaopincollection.html">招聘</a>
 								</li>
 								<li>
-									<a href="../dingyue/dingyueqiuzhi.html">求职</a>
+									<a target="_blank" href="../zhaobiao/zhaobiaocollection.html">招标</a>
 								</li>
 								<li>
-									<a href="../dingyue/dingyuezhaobiao.html">招标</a>
+									<a target="_blank" href="../gongying/gongyingcollection.html">供应</a>
 								</li>
 								<li>
-									<a href="../dingyue/dingyuegongying.html">供应</a>
+									<a target="_blank" href="../zixun/zixuncollection.html">资讯</a>
 								</li>
 							</ul>
 						</li>
 						<li>
+							<a href="#">我的订阅</a>
+							<ul class="third-nav">
+								<li id="zhaopin_dy" hidden>
+									<a target="_blank" href="../dingyue/dingyuezhaopin.html">招聘</a>
+								</li>
+								<li id="qiuzhi_dy" hidden>
+									<a target="_blank" href="../dingyue/dingyueqiuzhi.html">求职</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuezhaobiao.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuegongying.html">供应</a>
+								</li>
+							</ul>
+						</li>
+
+						<li>
 							<a href="#">我的发布</a>
+							<ul class="third-nav">
+								<li id="wdfb_zhaopin" hidden>
+									<a target="_blank" href="../mypublish/zhaopinmypublish.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/zhaobiaomypublish.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/gongyingmypublish.html">供应</a>
+								</li>
+							</ul>
 						</li>
 						<li>
-							<a href="#">我的投标</a>
+							<a target="_blank" href="../mytoubiao/mytoubiao.html">我的投标</a>
+						</li>
+						<li id="jlgl" hidden>
+							<a id="jlgl" href="#">简历管理</a>
+							<ul class="third-nav">
+								<li>
+									<a target="_blank" href="../jianliguanli/Intervieweedelivery.html">应聘者投递</a>
+								</li>
+								<li>
+									<a target="_blank" href="../jianliguanli/myinvitation.html">我邀请过的</a>
+								</li>
+							</ul>
+						</li>
+						<li id="wdyxgs" hidden>
+							<a target="_blank" href="../jianliguanli/myintentioncompany.html">我的意向公司</a>
 						</li>
 						<li>
-							<a href="#">意见反馈</a>
+							<a href="javascript:feedback()">意见反馈</a>
 						</li>
 					</ul>
 				</li>
@@ -364,7 +381,7 @@
 		</div>
 	</body>
 	<script>
-		//类别
+		 //类别
 		var job;
 		var jobList;
 		var nowJobList;
@@ -373,18 +390,18 @@
 			var job = [];
 			var jobList = [];
 			var jobM = {};
-			for(var i = 0; i < list.length; i++) {
+			for (var i = 0; i < list.length; i++) {
 				var obj = list[i];
-				if(!obj.pid) {
+				if (!obj.pid) {
 					job.push(obj);
 				} else {
 					jobList.push(obj);
 				}
 			}
-			for(var i = 0; i < job.length; i++) {
+			for (var i = 0; i < job.length; i++) {
 				var array = [];
-				for(var j = 0; j < jobList.length; j++) {
-					if(job[i].id == jobList[j].pid) {
+				for (var j = 0; j < jobList.length; j++) {
+					if (job[i].id == jobList[j].pid) {
 						array.push(jobList[j]);
 						jobM['' + job[i].itemCode] = array;
 					}
@@ -392,11 +409,11 @@
 			}
 			this.job = job;
 			this.jobList = jobM;
-			for(var key in jobM) {
+			for (var key in jobM) {
 				this.nowJobList = jobM[key];
 				break;
 			}
-			if(this.obj) {
+			if (this.obj) {
 				selectGangweiA();
 			}
 		})
@@ -407,70 +424,88 @@
 			province = p;
 			city = c;
 			nowcity = city['1'];
-			if(this.obj) {
+			if (this.obj) {
 				selectProvinceAndCity();
 			}
 		});
-		//福利待遇
+		 //福利待遇
 		var fulidic;
 		getDicTable(false, "002", function(data) {
-			this.fulidic = data.result;
-			if(this.obj) {
-				selectFuli();
-			}
-		})
-		//薪资
-		getDicTable(true, "001", function(data) {
-			vm.xinzidic = data.result;
-			if(this.obj) {
-				for(var i = 0; i < vm.xinzidic.length; i++) {
-					var obj = vm.xinzidic[i];
-					if(obj.itemName == this.obj.xinzi) {
-						vm.xinzi = obj.itemCode;
+				this.fulidic = data.result;
+				if (this.obj) {
+					selectFuli();
+				}
+			})
+			//薪资
+		 getDicTable(true, "001", function(data) {
+				vm.xinzidic = data.result;
+				if (this.obj) {
+					for (var i = 0; i < vm.xinzidic.length; i++) {
+						var obj = vm.xinzidic[i];
+						if (obj.itemName == this.obj.xinzi) {
+							vm.xinzi = obj.itemCode;
+						}
 					}
 				}
-			}
-		})
-		//学历要求
-		getDicTable(true, "003", function(data) {
-			vm.xuelidic = data.result;
-			if(this.obj) {
-				for(var i = 0; i < vm.xuelidic.length; i++) {
-					var obj = vm.xuelidic[i];
-					if(obj.itemName == this.obj.xueliyaoqiu) {
-						vm.xueli = obj.itemCode;
+			})
+			//学历要求
+		 getDicTable(true, "003", function(data) {
+				vm.xuelidic = data.result;
+				if (this.obj) {
+					for (var i = 0; i < vm.xuelidic.length; i++) {
+						var obj = vm.xuelidic[i];
+						if (obj.itemName == this.obj.xueliyaoqiu) {
+							vm.xueli = obj.itemCode;
+						}
 					}
 				}
-			}
-		})
-		//经验要求
-		getDicTable(true, "004", function(data) {
-			vm.jingyandic = data.result;
-			if(this.obj) {
-				for(var i = 0; i < vm.jingyandic.length; i++) {
-					var obj = vm.jingyandic[i];
-					if(obj.itemName == this.obj.jingyanyaoqiu) {
-						vm.jingyan = obj.itemCode;
+			})
+			//经验要求
+		 getDicTable(true, "004", function(data) {
+				vm.jingyandic = data.result;
+				if (this.obj) {
+					for (var i = 0; i < vm.jingyandic.length; i++) {
+						var obj = vm.jingyandic[i];
+						if (obj.itemName == this.obj.jingyanyaoqiu) {
+							vm.jingyan = obj.itemCode;
+						}
 					}
 				}
-			}
-		})
-		//职称要求
-		getDicTable(true, "005", function(data) {
-			vm.zhichengdic = data.result;
-			if(this.obj) {
-				if(this.obj.professionalId) {
-					vm.zhicheng = this.obj.professionalId;
+			})
+			//职称要求
+		 getDicTable(true, "005", function(data) {
+				vm.zhichengdic = data.result;
+				if (this.obj) {
+					if (this.obj.professionalId) {
+						vm.zhicheng = this.obj.professionalId;
+					}
 				}
-			}
-		})
-		//年龄要求
-		getDicTable(true, "012", function(data) {
+			})
+			//年龄要求
+		 getDicTable(true, "012", function(data) {
 			vm.agedic = data.result;
-			if(this.obj) {
-				if(this.obj.ageId) {
+			if (this.obj) {
+				if (this.obj.ageId) {
 					vm.age = this.obj.ageId;
 				}
+			}
+		})
+		 getUserInfo(localStorage.userId, function(data) {
+			userInfo = data.result;
+			$('#app').show();
+			if (userInfo.type == 1) {
+				$('#sc_zhaopin').show();
+				$('#wddy_zhaopin').show();
+				$('#wdyxgs').show();
+				$('#qiuzhi_fb').show();
+				$('#zhaopin_dy').show();
+			} else {
+				$('#sc_qiuzhi').show();
+				$('#wddy_qiuzhi').show();
+				$('#wdfb_zhaopin').show();
+				$('#jlgl').show();
+				$('#zhaopin_fb').show();
+				$('#qiuzhi_dy').show();
 			}
 		})
 		var isrepetition = false;
@@ -514,8 +549,8 @@
 				fabu: function() {
 					var selectobj = document.getElementsByName("Fruit");
 					var check_val = [];
-					for(k in selectobj) {
-						if(selectobj[k].checked)
+					for (k in selectobj) {
+						if (selectobj[k].checked)
 							check_val.push(selectobj[k].value);
 					}
 					console.log(check_val);
@@ -534,42 +569,42 @@
 					console.log("性别" + vm.gender);
 					console.log("年龄" + vm.age);
 					console.log("详情" + vm.content);
-					if(!checkEmail() || !checkTel()) {
+					if (!checkEmail() || !checkTel()) {
 						return false;
 					}
-					if(vm.title == "") {
-						alert('请填写职位名称')
+					if (vm.title == "") {
+						myAlert('请填写职位名称')
 						return;
 					}
-					if($("#selectjobvalue option:selected").text() == '请选择') {
-						alert('请选择岗位类别')
+					if ($("#selectjobvalue option:selected").text() == '请选择') {
+						myAlert('请选择岗位类别')
 						return
 					}
-					if($('.select-xizi').val() == '') {
-						alert('请选择薪资水平')
+					if ($('.select-xizi').val() == '') {
+						myAlert('请选择薪资水平')
 						return;
 					}
-					if($("#selectcity option:selected").text() == '请选择') {
-						alert('请选择工作城市')
+					if ($("#selectcity option:selected").text() == '请选择') {
+						myAlert('请选择工作城市')
 						return;
 					}
-					if(vm.address == "") {
-						alert('请填写详细地址')
+					if (vm.address == "") {
+						myAlert('请填写详细地址')
 						return
 					}
-					if(vm.content == "") {
-						alert('请填写职位和岗位要求')
+					if (vm.content == "") {
+						myAlert('请填写职位和岗位要求')
 						return;
 					}
-					if(vm.quantity == "") {
-						alert('请填写招聘人数')
+					if (vm.quantity == "") {
+						myAlert('请填写招聘人数')
 						return;
 					}
-					if(vm.contact == "") {
-						alert('请填写联系人姓名')
+					if (vm.contact == "") {
+						myAlert('请填写联系人姓名')
 						return;
 					}
-					if(isrepetition) {
+					if (isrepetition) {
 						return;
 					}
 					isrepetition = true;
@@ -577,7 +612,7 @@
 						var dataa, urlstr;
 						var Request = new QueryString();
 						var itemid = Request["id"];
-						if(itemid) {
+						if (itemid) {
 							urlstr = '/webZp/editZhaopin';
 							dataa = {
 								"publishId": itemid,
@@ -630,10 +665,10 @@
 						post(urlstr, dataa,
 							function(data) {
 								isrepetition = false;
-								if(data.result_code == '1') {
-									alert("发布成功!");
-									window.location.replace("../home/zhaopin/zhaopindetail.html?id=" + data.result
-										.publishId + "&isfb=isfb")
+								if (data.result_code == '1') {
+									myAlert("发布成功!");
+									window.location.replace("../zhaopin/zhaopindetail.html?id=" + data.result
+										.publishId)
 								}
 							},
 							function() {
@@ -646,16 +681,16 @@
 
 		function checkEmail() {
 			var email = vm.email;
-			if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
-				alert("email格式不正确！请重新输入!");
+			if (!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+				myAlert("email格式不正确！请重新输入!");
 				return false;
 			}
 			return true;
 		}
 
 		function checkTel() {
-			if(!(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(vm.phone))) {
-				alert("电话格式不正确!");
+			if (!(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(vm.phone))) {
+				myAlert("电话格式不正确!");
 				return false;
 			}
 			return true;
@@ -683,11 +718,11 @@
 
 		function selectGangweiA() {
 			var firstid;
-			for(var key in this.jobList) {
+			for (var key in this.jobList) {
 				var dataArr = this.jobList[key];
-				for(var i = 0; i < dataArr.length; i++) {
+				for (var i = 0; i < dataArr.length; i++) {
 					var midObj = dataArr[i];
-					if(midObj.itemCode == this.obj.postId) {
+					if (midObj.itemCode == this.obj.postId) {
 						firstid = midObj.itemCode;
 					}
 				}
@@ -704,11 +739,11 @@
 		function selectFuli() {
 			var selectobj = document.getElementsByName("Fruit");
 			setTimeout(function() {
-				for(k in selectobj) {
-					if(selectobj[k].value) {
-						for(var i = 0; i < this.fuli.length; i++) {
+				for (k in selectobj) {
+					if (selectobj[k].value) {
+						for (var i = 0; i < this.fuli.length; i++) {
 							var fuliitem = this.fuli[i];
-							if(selectobj[k].value == fuliitem) {
+							if (selectobj[k].value == fuliitem) {
 								selectobj[k].checked = true;
 							}
 						}
