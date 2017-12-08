@@ -11,7 +11,7 @@ a {
 body {
 	font-size: 14px;
 	font-family: "微软雅黑";
-	background: white;
+	background: rgb(237, 238, 244);
 }
 
 ul {
@@ -20,6 +20,15 @@ ul {
 
 a {
 	text-decoration: none;
+}
+
+.bg {
+	width: 1000px;
+	background: white;
+	margin: auto;
+	padding-top: 50px;
+	padding-bottom: 150px;
+	min-height: 100%;
 }
 
 .header {
@@ -74,6 +83,6 @@ a {
 	width: 150px;
 	height: 200px;
 	display: none;
-	margin-left: 100%;
-	margin-top: -40px;
+	margin-left: 151px;
+	margin-top: -30px;
 }

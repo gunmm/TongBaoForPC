@@ -13,7 +13,6 @@
 		<link rel="stylesheet" href="../static/css/ydui.rem.css" />
 		<link rel="stylesheet" href="../static/css/common.css" />
 
-		<link rel="stylesheet" href="../css/style.css" />
 		<link rel="stylesheet" href="../static/css/style.css" />
 
 		<script type="text/javascript" src="../js/config.js"></script>
@@ -30,7 +29,8 @@
 			
 			.a {
 				width: 100%;
-				background-color: darkslategray;
+				/*background-color: darkslategray;*/
+				background: url(../img/detail-bg.jpg);
 				color: whitesmoke;
 				font-size: 15px;
 				padding-bottom: 30px;
@@ -310,22 +310,22 @@
 		<div class="header">
 			<ul class="nav">
 				<li>
-					<a href="#">首页</a>
+					<a href="../index.html">首页</a>
 				</li>
 				<li>
 					<a href="#">发布</a>
 					<ul class="second-nav">
 						<li>
-							<a href="#">招聘发布</a>
+							<a target="_blank" href="../publish/zhaopinfabu.html">招聘发布</a>
 						</li>
 						<li>
-							<a href="#">招标发布</a>
+							<a target="_blank" href="../publish/zhaobiaofabu.html">招标发布</a>
 						</li>
 						<li>
-							<a href="#">供应发布</a>
+							<a target="_blank" href="../publish/gongyingfabu.html">供应发布</a>
 						</li>
 						<li>
-							<a href="#">求职发布</a>
+							<a target="_blank" href="../publish/jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
 				</li>
@@ -333,16 +333,16 @@
 					<a href="#">找信息</a>
 					<ul class="second-nav">
 						<li>
-							<a href="#">招聘信息</a>
+							<a target="_blank" href="../zhaopin/zhaopinlist.html">招聘信息</a>
 						</li>
 						<li>
-							<a href="#">招标信息</a>
+							<a target="_blank" href="../zhaobiao/zhaobiaolist.html">招标信息</a>
 						</li>
 						<li>
-							<a href="#">供应信息</a>
+							<a target="_blank" href="../gongying/gongyinglist.html">供应信息</a>
 						</li>
 						<li>
-							<a href="#">求职信息</a>
+							<a target="_blank" href="../qiuzhi/qiuzhilist.html">求职信息</a>
 						</li>
 					</ul>
 				</li>
@@ -351,24 +351,80 @@
 					<ul class="second-nav">
 						<li>
 							<a href="#">收藏</a>
+							<ul class="third-nav">
+								<li id="sc_qiuzhi" hidden>
+									<a target="_blank" href="../qiuzhi/qiuzhicollection.html">求职</a>
+								</li>
+								<li id="sc_zhaopin" hidden>
+									<a target="_blank" href="../zhaopin/zhaopincollection.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="../zhaobiao/zhaobiaocollection.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../gongying/gongyingcollection.html">供应</a>
+								</li>
+								<li>
+									<a target="_blank" href="../zixun/zixuncollection.html">资讯</a>
+								</li>
+							</ul>
 						</li>
 						<li>
 							<a href="#">我的订阅</a>
+							<ul class="third-nav">
+								<li id="wddy_zhaopin" hidden>
+									<a target="_blank" href="../dingyue/dingyuezhaopin.html">招聘</a>
+								</li>
+								<li id="wddy_qiuzhi" hidden>
+									<a target="_blank" href="../dingyue/dingyueqiuzhi.html">求职</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuezhaobiao.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuegongying.html">供应</a>
+								</li>
+							</ul>
 						</li>
 						<li>
 							<a href="#">我的发布</a>
+							<ul class="third-nav">
+								<li id="wdfb_zhaopin" hidden>
+									<a target="_blank" href="../mypublish/zhaopinmypublish.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/zhaobiaomypublish.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/gongyingmypublish.html">供应</a>
+								</li>
+							</ul>
 						</li>
 						<li>
-							<a href="#">我的投标</a>
+							<a target="_blank" href="../mytoubiao/mytoubiao.html">我的投标</a>
+						</li>
+						<li id="jlgl" hidden>
+							<a id="jlgl" href="#">简历管理</a>
+							<ul class="third-nav">
+								<li>
+									<a target="_blank" href="../jianliguanli/Intervieweedelivery.html">应聘者投递</a>
+								</li>
+								<li>
+									<a target="_blank" href="../jianliguanli/myinvitation.html">我邀请过的</a>
+								</li>
+							</ul>
+						</li>
+						<li id="wdyxgs" hidden>
+							<a target="_blank" href="../jianliguanli/myintentioncompany.html">我的意向公司</a>
 						</li>
 						<li>
-							<a href="#">意见反馈</a>
+							<a href="javascript:feedback()">意见反馈</a>
 						</li>
 					</ul>
 				</li>
 			</ul>
 		</div>
-		<div id="app" style="margin-bottom: 200px;">
+		<div id="app" style="padding-top: 50px;">
 			<div class="a">
 				<div class="container">
 					<div class="a1">
@@ -397,7 +453,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="b">
+			<div class="b bg" style="padding-top: 0;">
 				<div class="ba">
 					<div class="b4" v-if="type!=2&&localStorage.userId!=userId">
 						<div class="b4-1" @click="favourite()">
@@ -611,6 +667,16 @@
 		getUserInfo(localStorage.userId, function(data) {
 			vm.userInfo = data.result;
 			vm.type = data.result.type;
+			if(vm.type == 1) {
+				$('#sc_zhaopin').show();
+				$('#wddy_zhaopin').show();
+				$('#wdyxgs').show();
+			} else {
+				$('#sc_qiuzhi').show();
+				$('#wddy_qiuzhi').show();
+				$('#wdfb_zhaopin').show();
+				$('#jlgl').show();
+			}
 		})
 
 		post('/webSc/isFavorite', {
@@ -658,7 +724,7 @@
 
 		function confirmTousu() {
 			if(vm.ts_content == '') {
-				alert('请填写投诉内容')
+				myAlert('请填写投诉内容')
 				return
 			}
 			post('/webTs/tousu', {

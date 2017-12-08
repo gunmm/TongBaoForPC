@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="../js/vue.min.js"></script>
 		<script type="text/javascript" src="../js/ydui.js"></script>
 
+		<link rel="stylesheet" href="../css/loading.css" />
 		<link rel="stylesheet" href="../css/reset.css" />
 		<link rel="stylesheet" href="../css/pagination.css" />
 		<script type="text/javascript" src="../js/jquery.pagination.js"></script>
@@ -92,16 +93,16 @@
 					<a href="#">发布</a>
 					<ul class="second-nav">
 						<li>
-							<a href="#">招聘发布</a>
+							<a target="_blank" href="../publish/zhaopinfabu.html">招聘发布</a>
 						</li>
 						<li>
-							<a href="#">招标发布</a>
+							<a target="_blank" href="../publish/zhaobiaofabu.html">招标发布</a>
 						</li>
 						<li>
-							<a href="#">供应发布</a>
+							<a target="_blank" href="../publish/gongyingfabu.html">供应发布</a>
 						</li>
 						<li>
-							<a href="#">求职发布</a>
+							<a target="_blank" href="../publish/jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
 				</li>
@@ -118,7 +119,7 @@
 							<a target="_blank" href="../gongying/gongyinglist.html">供应信息</a>
 						</li>
 						<li>
-							<a href="">求职信息</a>
+							<a target="" href="">求职信息</a>
 						</li>
 					</ul>
 				</li>
@@ -147,22 +148,61 @@
 						</li>
 						<li>
 							<a href="#">我的订阅</a>
+							<ul class="third-nav">
+								<li id="wddy_zhaopin" hidden>
+									<a target="_blank" href="../dingyue/dingyuezhaopin.html">招聘</a>
+								</li>
+								<li id="wddy_qiuzhi" hidden>
+									<a target="_blank" href="../dingyue/dingyueqiuzhi.html">求职</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuezhaobiao.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuegongying.html">供应</a>
+								</li>
+							</ul>
 						</li>
 						<li>
 							<a href="#">我的发布</a>
+							<ul class="third-nav">
+								<li id="wdfb_zhaopin" hidden>
+									<a target="_blank" href="../mypublish/zhaopinmypublish.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/zhaobiaomypublish.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/gongyingmypublish.html">供应</a>
+								</li>
+							</ul>
 						</li>
 						<li>
-							<a href="#">我的投标</a>
+							<a target="_blank" href="../mytoubiao/mytoubiao.html">我的投标</a>
+						</li>
+						<li id="jlgl" hidden>
+							<a id="jlgl" href="#">简历管理</a>
+							<ul class="third-nav">
+								<li>
+									<a target="_blank" href="../jianliguanli/Intervieweedelivery.html">应聘者投递</a>
+								</li>
+								<li>
+									<a target="_blank" href="../jianliguanli/myinvitation.html">我邀请过的</a>
+								</li>
+							</ul>
+						</li>
+						<li id="wdyxgs" hidden>
+							<a target="_blank" href="../jianliguanli/myintentioncompany.html">我的意向公司</a>
 						</li>
 						<li>
-							<a href="#">意见反馈</a>
+							<a href="javascript:feedback()">意见反馈</a>
 						</li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 
-		<div id="app">
+		<div id="app" class="bg">
 			<div class="selectbox-p">
 				<div class="selectbox">
 					<div class="selemediv">
@@ -327,7 +367,7 @@
 			el: '#app',
 			data: {
 				page: 1,
-				pagesize: 5,
+				pagesize: 10,
 				title: '',
 				xinzi: '',
 				xinzis: [],
@@ -360,8 +400,13 @@
 			userInfo = data.result;
 			if(userInfo.type == 1) {
 				$('#sc_zhaopin').show();
+				$('#wddy_zhaopin').show();
+				$('#wdyxgs').show();
 			} else {
 				$('#sc_qiuzhi').show();
+				$('#wddy_qiuzhi').show();
+				$('#wdfb_zhaopin').show();
+				$('#jlgl').show();
 			}
 		})
 

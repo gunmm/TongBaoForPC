@@ -886,11 +886,12 @@ textarea {
 	overflow: auto;
 	-webkit-appearance: none;
 	height: 180px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	width: 100%;
 	color: #998a8a;
-	padding-left: 10px!important;
-	padding-top: 10px!important;
+	/*padding-left: 10px!important;
+	padding-top: 10px!important;*/
+	padding: 10px;
 	border: 1px solid #e5dfdf;
 	font-family: "microsoft yahei";
 	font-size: 16px;

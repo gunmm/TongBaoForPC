@@ -12,20 +12,32 @@ function asJump() {
 }
 
 var urlStr = window.location.href;
-if(urlStr.indexOf('userInfoJson=') > 0) {
-	var str = decodeURI(urlStr);
-	var userInfo = JSON.parse(str.split('userInfoJson=')[1]);
-	localStorage.userId = userInfo.userId;
-	localStorage.accessToken = userInfo.requestToken;
+
+if(urlStr.indexOf('code=') > 0) {
+	var code = new QueryString()['code'];
+	localStorage.code = code;
+
+	post('/weixinCon/userInfoPC', {
+		code: code
+	}, function(data) {
+		localStorage.userId = data.userId;
+		localStorage.accessToken = data.requestToken;
+		window.location.reload();
+	})
 }
 
+//if(urlStr.indexOf('userInfoJson=') > 0) {
+//	var str = decodeURI(urlStr);
+//	var userInfo = JSON.parse(str.split('userInfoJson=')[1]);
+//	localStorage.userId = userInfo.userId;
+//	localStorage.accessToken = userInfo.requestToken;
+//}
+
 var sign = true;
-if(!localStorage.userId) {
-	if(isWx()) {
-		wxAuthorization(window.location.href, function(data) {
-			window.location.replace(data.result);
-		})
-	}
+if(!localStorage.userId && !localStorage.code) {
+	wxAuthorization(window.location.href, function(data) {
+		window.location.replace(data.result);
+	})
 }
 
 log(localStorage.userId);
@@ -53,7 +65,7 @@ function post(url, data, callback, loading, callback1) {
 			log(url + "==>>" + JSON.stringify(data));
 			removeLoading();
 			if(data.result_code != 1) {
-				myAlert(data.data.reason);
+				myAlert(data.reason);
 				if(callback1 != null) {
 					callback1();
 				}
@@ -89,7 +101,7 @@ function post1(url, async, data, callback) {
 		success: function(data) {
 			removeLoading();
 			if(data.result_code != 1) {
-				myAlert(data.data.reason);
+				myAlert(data.reason);
 				return;
 			}
 			callback(data);
@@ -263,7 +275,7 @@ function getDicTable(async, classId, callback) {
 		success: function(data) {
 			removeLoading();
 			if(data.result_code != 1) {
-				myAlert(data.data.reason);
+				myAlert(data.reason);
 				return;
 			}
 			callback(data);
@@ -299,7 +311,7 @@ function getClassifyTable(async, classType, callback) {
 		success: function(data) {
 			removeLoading();
 			if(data.result_code != 1) {
-				myAlert(data.data.reason);
+				myAlert(data.reason);
 				return;
 			}
 			callback(data);
@@ -334,7 +346,7 @@ function getUserInfo(userId, callback) {
 }
 
 function wxAuthorization(url, callback) {
-	post('/weixinCon/getAuthorizationUrl', {
+	post('/weixinCon/getAuthorizationUrlPc', {
 		callbackUrl: url
 	}, function(data) {
 		callback(data);
@@ -480,4 +492,36 @@ function myAlert(str) {
 		'</div>');
 }
 
-function feedback() {}
+function feedback() {
+	$('body').append('<div id="feedback11111" style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.8);position: fixed;top: 0;z-index: 1000;display: flex;">' +
+		'<div style="width: 600px;height: 350px;margin: auto; background-color: white; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">' +
+		'<div style="margin: 30px 20px 30px 20px;">' +
+		'<div style="display: flex; align-items: center;margin-bottom: 10px;">' +
+		'<span style="font-size: 16px;font-weight: bold;">意见反馈</span>' +
+		'</div>' +
+		'<textarea id="feedback_content_11111" style="margin-top: 10px;width: 100%;height: 180px;resize: none;font-size: 16px;line-height: 30px;padding: 10px;box-sizing: border-box;color: #998a8a;font-family: microsoft yahei;" placeholder="请填写您宝贵的建议"></textarea>' +
+		'</div>' +
+		'<div style="margin-right: 20px;">' +
+		'<span style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;float: right;" onclick="confirmFankui()">确认反馈</span>' +
+		'<span style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;float: right;" onclick="$(this).parent().parent().parent().remove()">取消</span>' +
+		'</div>' +
+		'</div>' +
+		'</div>')
+}
+
+function confirmFankui() {
+	var content = $('#feedback_content_11111').val();
+
+	if(content == '') {
+		myAlert('请填写您的建议')
+		return
+	}
+	post('/webUser/Feedback', {
+		userId: localStorage.userId,
+		content: content,
+		//		img: vm.imgs
+	}, function(data) {
+		$('#feedback11111').remove();
+		myAlert('感谢您的支持和理解我们会尽快对信息进行核实与处理');
+	})
+}
