@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>订阅求职</title>
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<link rel="stylesheet" href="../static/css/style.css" />
+		<link rel="stylesheet" href="../static/css/home.css" />
+		<link rel="stylesheet" href="../static/css/jianli.css" />
+		<link rel="stylesheet" href="../static/css/mkui.css">
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/ydui.js"></script>
+		<script type="text/javascript" src="../js/config.js"></script>
+
+		<script type="text/javascript">
+			$(function() {
+				var _this1 = null;
+				$('.nav>li').hover(function() {
+					_this1 = $(this);
+					_this1.find('.second-nav').show();
+					var _this2 = null;
+					_this1.find('.second-nav').find('li').hover(function() {
+						_this2 = $(this);
+						_this2.find('.third-nav').show();
+						_this2.find('.third-nav').hover(function() {
+							$(this).show();
+						}, function() {
+							$(this).hide();
+						});
+					}, function() {
+						_this2.find('.third-nav').hide();
+					});
+				}, function() {
+					_this1.find('.second-nav').hide();
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="header">
+			<ul class="nav">
+				<li>
+					<a href="../index.html">首页</a>
+				</li>
+				<li>
+					<a href="#">发布</a>
+					<ul class="second-nav">
+						<li>
+							<a href="../publish/zhaopinfabu.html">招聘发布</a>
+						</li>
+						<li>
+							<a href="../publish/zhaobiaofabu.html">招标发布</a>
+						</li>
+						<li>
+							<a href="../publish/gongyingfabu.html">供应发布</a>
+						</li>
+						<li>
+							<a href="../publish/jianli/jianli.html">求职发布</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">找信息</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">招聘信息</a>
+						</li>
+						<li>
+							<a href="#">招标信息</a>
+						</li>
+						<li>
+							<a href="#">供应信息</a>
+						</li>
+						<li>
+							<a href="#">求职信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">我的</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">收藏</a>
+						</li>
+						<li>
+							<a href="#">我的订阅</a>
+							<ul class="third-nav">
+								<li>
+									<a href="dingyuezhaopin.html">招聘</a>
+								</li>
+								<li>
+									<a href="dingyueqiuzhi.html">求职</a>
+								</li>
+								<li>
+									<a href="dingyuezhaobiao.html">招标</a>
+								</li>
+								<li>
+									<a href="dingyuegongying.html">供应</a>
+								</li>
+							</ul>
+						</li>
+
+						<li>
+							<a href="#">我的发布</a>
+						</li>
+						<li>
+							<a href="#">我的投标</a>
+						</li>
+						<li>
+							<a href="#">意见反馈</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="bgdiv">
+			<div id="app" class="content">
+				<div class="dingyueheader">
+					<div class="workareabg">
+						<div class="worktitlearea f-l-f">
+							<div class="worktitlediv">订阅招聘</div>
+							<div class="workadddiv" id="workaddbtnclick" onclick="workaddbtnclick()">＋新增订阅</div>
+						</div>
+						<div class="clear"></div>
+						<div class="dingyueaddarea" id="dingyueaddarea" hidden>
+
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 职位：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select class="jianlijilianselect" id="selectjobvalueone" onchange="selectjob(this)">
+										<option v-for="item in job" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+									<select class="jianlijilianselect" id="selectjobvalue">
+										<option value="">请选择</option>
+										<option v-for="item in nowjoblist" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 工作地址：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select class="jianlijilianselect" onchange="selectprovince(this)" id="selectprovince">
+										<option v-for="item in province" :value="item.id">{{item.name}}</option>
+									</select>
+									<select class="jianlijilianselect" id="selectcity">
+										<option value="">请选择</option>
+										<option v-for="item in nowcity" :value="item.id">{{item.name}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;"></span><span> 经验要求：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select v-model="jingyan">
+										<option value="">请选择</option>
+										<option v-for="item in jingyandic" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;"></span><span> 学历要求：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select v-model="xueli">
+										<option value="">请选择</option>
+										<option v-for="item in xuelidic" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;"></span><span> 职称要求：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select v-model="zhicheng">
+										<option value="">请选择</option>
+										<option v-for="item in zhichengdic" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="clear"></div>
+
+							<div class="btnarea">
+								<div class="btndiv1" @click="save()"><span class="btnspan1">保存</span></div>
+								<div style="width: 5%;"></div>
+								<div class="btndiv2" onclick="workaddbtncancelclick()"><span class="btnspan2">取消</span></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div v-for="item in jobDic">
+							<div class="dingyueaddarea" :id="'dingyueedititem'+item.id" hidden>
+
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 职位：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<select v-model="editgangweioneid" class="jianlijilianselect" onchange="selectjob2(this)">
+											<option v-for="item in job" :value="item.itemCode">{{item.itemName}}</option>
+										</select>
+										<select v-model="editgangweiid" class="jianlijilianselect">
+											<option value="">请选择</option>
+											<option v-for="item in nowjoblist2" :value="item.itemCode">{{item.itemName}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 工作地址：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<select v-model="editprovinceid" class="jianlijilianselect" onchange="selectprovince2(this)">
+											<option v-for="item in province" :value="item.id">{{item.name}}</option>
+										</select>
+										<select v-model="editcityid" class="jianlijilianselect">
+											<option value="">请选择</option>
+											<option v-for="item in nowcity2" :value="item.id">{{item.name}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;"></span><span> 经验要求：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<select v-model="editjingyan">
+											<option value="">请选择</option>
+											<option v-for="item in jingyandic" :value="item.itemCode">{{item.itemName}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;"></span><span> 学历要求：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<select v-model="editxueli">
+											<option value="">请选择</option>
+											<option v-for="item in xuelidic" :value="item.itemCode">{{item.itemName}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;"></span><span> 职称要求：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<select v-model="editzhicheng">
+											<option value="">请选择</option>
+											<option v-for="item in zhichengdic" :value="item.itemCode">{{item.itemName}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="clear"></div>
+								<div class="btnarea">
+									<div class="btndiv1" @click="save(item.id)"><span class="btnspan1">保存</span></div>
+									<div style="width: 5%;"></div>
+									<div class="btndiv2" @click="workcancelbtndclick(item.id)"><span class="btnspan2">取消</span></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div :id="'dingyueshowitem'+item.id" class="dingyuelistareaitem divcover" @mouseover="workmouseover(item.id)" @mouseout="workmouseout(item.id)">
+								<div class="worktimeandbtndiv f-l-f">
+									<div class="worktimediv" style="color: black;font-size: 18px;">{{item.gangwei}}</div>
+									<div class="f-l-f">
+										<div hidden :id="'workdelete'+item.id" @click="workdeletebtnclick(item.id)" class="workbtndiv"><img src="../static/img/detele2.png"></div>
+										<div hidden :id="'workedit'+item.id" @click="workeditbtndclick(item.id)" class="workbtndiv"><img src="../static/img/edit2.png" /></div>
+									</div>
+
+								</div>
+								<div class="clear"></div>
+								<div class="dingyuedetailarea">
+									<div class="dingyuelistareaitem3">{{item.display}}/{{item.jingyan}}/{{item.xueli}}/{{item.zhicheng}}</div>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		var jobDic = [];
+		var hasSelectItem = false;
+		post1('/webUser/subscribePersonaListl', false, {
+			"userId": localStorage.userId,
+		}, function(data) {
+			var theDic = data.result.job;
+			for(var i = 0; i < theDic.length; i++) {
+				var theobj = theDic[i];
+				theobj.id = i;
+			}
+			jobDic = theDic;
+			console.log(data);
+			console.log(jobDic);
+		})
+		//类别
+		var job;
+		var jobList;
+		var nowJobList;
+		var nowJobList2;
+		getDicTable(false, "006", function(data) {
+			var list = data.result;
+			var job = [];
+			var jobList = [];
+			var jobM = {};
+			for(var i = 0; i < list.length; i++) {
+				var obj = list[i];
+				if(!obj.pid) {
+					job.push(obj);
+				} else {
+					jobList.push(obj);
+				}
+			}
+			for(var i = 0; i < job.length; i++) {
+				var array = [];
+				for(var j = 0; j < jobList.length; j++) {
+					if(job[i].id == jobList[j].pid) {
+						array.push(jobList[j]);
+						jobM['' + job[i].itemCode] = array;
+					}
+				}
+			}
+			this.job = job;
+			this.jobList = jobM;
+			for(var key in jobM) {
+				this.nowJobList = jobM[key];
+				this.nowJobList2 = jobM[key];
+				break;
+			}
+		})
+		var province;
+		var city;
+		var nowcity;
+		var nowcity2;
+		getCity(function(p, c) {
+			province = p;
+			city = c;
+			nowcity = city['1'];
+			nowcity2 = city['1'];
+		});
+		//学历要求
+		getDicTable(true, "003", function(data) {
+			vm.xuelidic = data.result;
+			if(this.obj) {
+				for(var i = 0; i < vm.xuelidic.length; i++) {
+					var obj = vm.xuelidic[i];
+					if(obj.itemName == this.obj.xueliyaoqiu) {
+						vm.xueli = obj.itemCode;
+					}
+				}
+			}
+		})
+		//经验要求
+		getDicTable(true, "004", function(data) {
+			vm.jingyandic = data.result;
+			setjingyan();
+		})
+
+		function setjingyan() {
+			if(this.bigdata) {
+				for(var i = 0; i < vm.jingyandic.length; i++) {
+					var obj = vm.jingyandic[i];
+					if(obj.itemName == this.bigdata.exprience) {
+						vm.jingyan = obj.itemCode;
+					}
+				}
+			}
+		}
+		//职称要求
+		getDicTable(true, "005", function(data) {
+			vm.zhichengdic = data.result;
+			setzhicheng();
+		})
+
+		function setzhicheng() {
+			if(this.bigdata) {
+				if(this.bigdata.professionId) {
+					vm.zhicheng = this.bigdata.professionId;
+				}
+			}
+		}
+
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				province: province,
+				city: city,
+				nowcity: nowcity,
+				nowcity2: nowcity2,
+				job: this.job,
+				joblist: this.jobList,
+				nowjoblist: this.nowJobList,
+				nowjoblist2: this.nowJobList2,
+				xuelidic: [],
+				jingyandic: [],
+				zhichengdic: [],
+				xueli: '',
+				jingyan: '',
+				zhicheng: '',
+				editxueli: '',
+				editjingyan: '',
+				editzhicheng: '',
+				editprovinceid: 0,
+				editcityid: '',
+				editgangweioneid: '',
+				editgangweiid: '',
+				jobDic: jobDic,
+			},
+			methods: {
+				save: function(itemid) {
+					var dataa;
+					if(itemid >= 0) {
+						if(vm.editgangweiid == '') {
+							alert('请选择职位')
+							return
+						}
+						if(vm.editcityid == '') {
+							alert('请选择工作城市')
+							return
+						}
+						dataa = {
+							"userId": localStorage.userId,
+							"province": vm.editprovinceid,
+							"city": vm.editcityid,
+							"gangwei": vm.editgangweiid,
+							"jingyan": vm.editjingyan,
+							"xueli": vm.editxueli,
+							"zhicheng": vm.editzhicheng,
+							"subscribeType": "4",
+							"operationIndex": itemid,
+							"operationType": 1
+						}
+					} else {
+						if($("#selectjobvalue option:selected").text() == '请选择') {
+							alert('请选择职位')
+							return
+						}
+						if($("#selectcity option:selected").text() == '请选择') {
+							alert('请选择工作城市')
+							return
+						}
+						dataa = {
+							"userId": localStorage.userId,
+							"province": $("#selectprovince").val(),
+							"city": $("#selectcity").val(),
+							"gangwei": $("#selectjobvalue").val(),
+							"jingyan": vm.jingyan,
+							"xueli": vm.xueli,
+							"zhicheng": vm.zhicheng,
+							"subscribeType": "4",
+						}
+					}
+					post('/webUser/subscribePersonal', dataa,
+						function(data) {
+							if(data.result_code == '1') {
+								alert("订阅成功!");
+								window.location.reload();
+							} else {
+								alert("订阅失败，请重试！");
+								window.location.reload();
+							}
+						})
+				}
+			}
+		})
+
+		function selectprovince(obj) {
+			vm.nowcity = vm.city[obj.value];
+			$('#selectcity').val('');
+		}
+
+		function selectjob(obj) {
+			vm.nowjoblist = vm.joblist[obj.value];
+			$('#selectjobvalue').val('');
+		}
+
+		function selectprovince2(obj) {
+			vm.nowcity2 = vm.city[obj.value];
+			vm.editprovinceid = obj.value;
+			vm.editcityid = "";
+		}
+
+		function selectjob2(obj) {
+			vm.nowjoblist2 = vm.joblist[obj.value];
+			vm.editgangweioneid = obj.value;
+			vm.editgangweiid = "";
+		}
+
+		function selectProvinceAndCity(id) {
+			var editobj = vm.jobDic[id];
+			if(editobj.provinceId >= 0) {
+				setTimeout(function() {
+					vm.nowcity2 = city[editobj.provinceId];
+					vm.editprovinceid = editobj.provinceId;
+					setTimeout(function() {
+						vm.editcityid = editobj.city;
+					}, 50);
+				}, 50);
+			}
+		}
+
+		function selectGangweiA(id) {
+			var editobj = vm.jobDic[id];
+			if(editobj.gangweiId) {
+				var firstid;
+				for(var key in this.jobList) {
+					var dataArr = this.jobList[key];
+					for(var i = 0; i < dataArr.length; i++) {
+						var midObj = dataArr[i];
+						if(midObj.itemCode == editobj.gangweiId) {
+							firstid = midObj.itemCode;
+						}
+					}
+				}
+				setTimeout(function() {
+					vm.nowjoblist2 = this.jobList[firstid];
+					vm.editgangweioneid = firstid;
+					setTimeout(function() {
+						vm.editgangweiid = editobj.gangweiId;
+					}, 50);
+				}, 50);
+			}
+		}
+
+		function workmouseover(id) {
+			$('#workdelete' + id).show();
+			$('#workedit' + id).show();
+		}
+
+		function workmouseout(id) {
+			$('#workdelete' + id).hide();
+			$('#workedit' + id).hide();
+		}
+
+		function workdeletebtnclick(id) {
+			var mymessage = confirm("确认删除？");
+			if(mymessage == false) {
+				return;
+			}
+			post('/webUser/subscribePersonal', {
+				"userId": localStorage.userId,
+				"subscribeType": 4,
+				"operationType": 0,
+				"operationIndex": id
+			}, function(data) {
+				if(data.result_code == '1') {
+					alert("删除成功!");
+					document.location.reload();
+				} else {
+					alert("删除失败，请重试！");
+					document.location.reload();
+				}
+			})
+		}
+
+		function workeditbtndclick(id) {
+			if(hasSelectItem) {
+				return;
+			}
+			var editobj = vm.jobDic[id];
+			vm.editxueli = editobj.xueliId;
+			vm.editjingyan = editobj.jingyanId;
+			vm.editzhicheng = editobj.zhichengId;
+			selectProvinceAndCity(id);
+			selectGangweiA(id);
+			$('#dingyueedititem' + id).show();
+			$('#dingyueshowitem' + id).hide();
+			hasSelectItem = true;
+		}
+
+		function workcancelbtndclick(id) {
+			vm.editxueli = '';
+			vm.editjingyan = '';
+			vm.editzhicheng = '';
+			vm.editcityid = '';
+			vm.editprovinceid = 0;
+			vm.editgangweioneid = '';
+			vm.editgangweiid = '';
+			selectProvinceAndCity(id);
+			selectGangweiA(id);
+			$('#dingyueedititem' + id).hide();
+			$('#dingyueshowitem' + id).show();
+			hasSelectItem = false;
+		}
+
+		function workaddbtncancelclick() {
+			$('#dingyueaddarea').hide();
+			vm.xueli = '';
+			vm.jingyan = '';
+			vm.zhicheng = '';
+			vm.nowcity = city['1'];
+			$("#selectprovince").val(1);
+			$("#selectcity").val('');
+			for(var key in this.jobList) {
+				vm.nowJobList = this.jobList[key];
+				$("#selectjobvalueone").val(key);
+				break;
+			}
+			$("#selectjobvalue").val('');
+			hasSelectItem = false;
+		}
+
+		function workaddbtnclick() {
+			if(hasSelectItem) {
+				return;
+			}
+			$('#dingyueaddarea').show();
+			hasSelectItem = true;
+		}
+	</script>
+
+</html>

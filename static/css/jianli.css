@@ -1,0 +1,464 @@
+.controlbtndiv {
+	height: 50px;
+	margin: 10px;
+	margin-right: 30px;
+	
+}
+
+.controlbtn {
+	margin: 5px;
+	padding: 5px;
+	padding-top: 8px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 17px;
+	border-radius: 3px;
+	font-weight: 500;
+}
+
+.wbg_gf {
+	background: white;
+	color: gray;
+}
+
+.obg_wf {
+	background: rgb(255, 149, 0);
+	color: white;
+}
+
+
+.infoarea {
+	padding: 30px;
+}
+.divcover:hover {
+	border: 1px solid rgb(247, 82, 0);
+}
+.zbxx {
+	background: #FFFFFF;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+}
+.zbxx a {
+	font-family: NotoSansHans-Regular;
+	font-size: 16px;
+	color: #3095e3;
+}
+.firstbig {
+	display: flex;
+	float: left;
+}
+.editinfoarea {
+	border: 1px solid rgb(247, 82, 0);
+	background: white;
+	padding: 10px;
+	float: left;
+	display: flex;
+	flex-direction: column;
+}
+.showinfoarea {
+	background: white;
+	padding: 10px;
+	float: left;
+	display: flex;
+}
+.showheadimgarea {
+	background: rgb(237, 238, 244);
+	width: 100px;
+	height: 120px;
+}
+.showheadimgarea img {
+	width: 100px;
+	height: 120px;
+	margin: 0px;
+}
+.showinfodetailarea {
+	width: 810px;
+	background: white;
+	margin-left: 10px;
+}
+.headimgarea {
+	background: rgb(237, 238, 244);
+	width: 100px;
+	height: 150px;
+}
+.headimgarea img {
+	width: 100px;
+	height: 120px;
+	margin: 0px;
+}
+.textarea {
+	margin: 0px;
+	margin-top: 8px;
+	font-size: 12px;
+	width: 100%;
+	float: left;
+	display: flex;
+}
+.avatarchange {
+	width: 49%;
+	text-align: right;
+	padding-right: 10px;
+	color: rgb(22, 122, 255);
+}
+.avatarline {
+	text-align: center;
+	width: 2%;
+}
+.avatardelete {
+	width: 49%;
+	text-align: left;
+	padding-left: 10px;
+	color: red;
+}
+.infodetailarea {
+	width: 810px;
+	background: rgb(237, 238, 244);
+	margin-left: 10px;
+}
+.jianli_key_value {
+	width: 50%;
+	display: flex;
+	float: left;
+	color: gray;
+	padding-left: 50px;
+}
+.jianli_keytext {
+	text-align: right;
+	width: 130px;
+	padding: 15px;
+	font-size: 14px;
+}
+.jianli_valuetext {
+	width: 200px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 14px;
+	float: left;
+	display: flex;
+}
+.jianli_valuetext span {
+	width: 100px;
+	height: 30px;
+	font-size: 15px;
+	text-align: center;
+	padding-top: 3px;
+}
+.colororange {
+	background: orange;
+	color: white;
+}
+.colorwhite {
+	background: white;
+	color: black;
+}
+.jianli_valuetext input,
+select {
+	padding-right: 8px;
+	text-align: right;
+	width: 100%;
+	height: 30px;
+	border: 0.5px solid lightgray;
+	font-size: 14px;
+}
+.jianlijilianselect {
+	padding: 0 2%;
+	width: 100px;
+	height: 30px;
+	background: white;
+	font-size: 14px;
+	text-align: center;
+}
+.jianli_textarea {
+	width: 100%;
+	display: flex;
+	float: left;
+	color: gray;
+	padding-left: 50px;
+	margin-bottom: 10px;
+}
+.jianli_textarea textarea {
+	padding: 5px;
+	margin-top: 15px;
+	width: 605px;
+	height: 100px;
+	font-size: 14px;
+	border: 0.5px solid lightgray;
+}
+.btnarea {
+	margin-top: 10px;
+	width: 100%;
+	display: flex;
+	float: left;
+}
+.btndiv1 {
+	height: 30px;
+	width: 45%;
+	text-align: right;
+}
+.btndiv2 {
+	height: 30px;
+	width: 45%;
+}
+.btnspan1 {
+	width: 80px;
+	height: 30px;
+	text-align: center;
+	font-size: 15px;
+	padding-top: 4px;
+	border-radius: 3px;
+	background: rgb(247, 82, 0);
+	color: white;
+}
+.btnspan2 {
+	width: 80px;
+	height: 30px;
+	text-align: center;
+	font-size: 15px;
+	padding-top: 4px;
+	border: 0.5px solid lightgray;
+	border-radius: 3px;
+	color: gray;
+}
+.namediv {
+	font-size: 25px;
+	margin-left: 10px;
+	width: 750px;
+}
+.nameandbtn {
+	width: 810px;
+	display: flex;
+	float: left;
+}
+.btndiv {
+	height: 20px;
+	width: 60px;
+	margin: 0px;
+}
+.nameandbtn img {
+	width: 20px;
+	height: 20px;
+}
+.infodiv {} .infodivline1 {
+	background: white;
+	float: left;
+	display: flex;
+	font-size: 15px;
+	color: gray;
+}
+.infodivline2 {
+	font-size: 14px;
+	color: black;
+}
+.infodivline-item {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.pingjiadiv {
+	width: 810px;
+	padding: 10px;
+	font-size: 14px;
+}
+.pingjiacontent {
+	width: 720px;
+}
+.pingjiatitle {
+	width: 70px;
+}
+.f-l-f {
+	float: left;
+	display: flex;
+}
+
+.f-r-f {
+	float: right;
+	display: flex;
+}
+//--------------------workarea----------------------------
+.workarea {
+	
+}
+
+.workareabg {
+	margin-top: 10px;
+	background: white;
+	width: 940px;
+	padding-bottom: 10px;
+}
+
+.worktitlearea {
+	margin-top: 10px;
+	background: white;
+	width: 940px;
+}
+.worktitlediv {
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	font-size: 21px;
+	color: rgb(247, 82, 0);
+	width: 50%;
+}
+
+.workadddiv {
+	text-align: right;
+	padding-top: 10px;
+	margin-right: 10px;
+	width: 50%;
+	font-size: 14px;
+	background: white;
+	color: gray;
+	flex-direction: column;
+}
+
+.workaddarea {
+	margin: 10px;
+	width: 920px;
+	background: rgb(237, 238, 244);
+	border: 1px solid rgb(247, 82, 0);
+	padding-bottom: 20px;
+	flex-direction: column;
+}
+
+.w-380 {
+	width: 380px;
+}
+
+.w-500 {
+	width: 800px;
+}
+
+.workdateinput{
+	width: 175px;
+}
+
+.worklistarea {
+	padding: 10px;
+}
+
+.worklistareaitem {
+	margin-left: 0px;
+	width: 920px;
+	background: white;
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+
+.worktimediv {
+	font-size: 15px;
+	padding: 10px;
+	color: gray;
+	width: 810px;
+}
+
+.workbtndiv {
+	width: 40px;
+	height: 40px;
+}
+
+
+.workbtndiv img {
+	width: 20px;
+	height: 20px;
+	
+}
+
+.worklistareaitem1 {
+	padding-left: 10px;
+	font-size: 16px;
+}
+
+.worklistareaitem2 {
+	padding-top: 20px;
+	padding-left: 10px;
+	font-size: 14px;
+	color: gray;
+}
+
+/*//--------------------------------------------期望职位-----------------------------------------*/
+
+.tbigworkarea {
+	flex-direction: column;
+}
+
+.tworkheaddiv {
+	width: 920px;
+}
+
+.tworkheadtitle {
+	font-size: 15px;
+	padding: 10px;
+	color: gray;
+	width: 850px;
+}
+
+.tworkarea {
+	margin: 10px;
+	padding-bottom: 10px;
+}
+
+.tworkaddarea {
+	margin: 10px;
+	width: 920px;
+	background: rgb(237, 238, 244);
+	border: 1px solid rgb(247, 82, 0);
+	padding-bottom: 10px;
+}
+/*-------------------------------------------订阅-------------------------------------------------------*/
+
+.dingyueheader {
+	padding-left: 30px;
+	padding-top: 5px;
+}
+
+.dingyueaddarea {
+	margin: 10px;
+	width: 920px;
+	background: rgb(237, 238, 244);
+	border: 1px solid rgb(247, 82, 0);
+	padding-bottom: 20px;
+}
+
+.dingyuemutaselect {
+	margin-left: 92px;
+}
+
+.dingyuefulititle {
+	font-size: 15px;
+}
+
+.dingyuelistareaitem {
+	margin-left: 10px;
+	width: 920px;
+	background: white;
+	padding-top: 0px;
+	padding-bottom: 20px;
+}
+
+.dingyuedetailarea {
+	
+}
+
+.dingyuelistareaitem1 {
+	width: 290px;
+	font-size: 16px;
+	color: gray;
+	margin-left: 10px;
+}
+
+.dingyuelistareaitem2 {
+	width: 610px;
+	padding-right: 10px;
+	font-size: 15px;
+	color: rgb(247, 82, 0);
+	text-align: right;
+}
+
+.dingyuelistareaitem3 {
+	width: 900px;
+	padding-right: 10px;
+	font-size: 15px;
+	color: gray;
+	margin-left: 10px;
+	
+}

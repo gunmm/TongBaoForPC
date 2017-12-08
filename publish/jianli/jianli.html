@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的简历</title>
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<link rel="stylesheet" href="../../static/css/style.css" />
+		<link rel="stylesheet" href="../../static/css/home.css" />
+		<link rel="stylesheet" href="../../static/css/jianli.css" />
+		<link rel="stylesheet" href="../../static/css/mkui.css">
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/vue.min.js"></script>
+		<script type="text/javascript" src="../../js/ydui.js"></script>
+		<script type="text/javascript" src="../../js/config.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var _this1 = null;
+				$('.nav>li').hover(function() {
+					_this1 = $(this);
+					_this1.find('.second-nav').show();
+					var _this2 = null;
+					_this1.find('.second-nav').find('li').hover(function() {
+						_this2 = $(this);
+						_this2.find('.third-nav').show();
+						_this2.find('.third-nav').hover(function() {
+							$(this).show();
+						}, function() {
+							$(this).hide();
+						});
+					}, function() {
+						_this2.find('.third-nav').hide();
+					});
+				}, function() {
+					_this1.find('.second-nav').hide();
+				});
+			});
+		</script>
+
+	</head>
+
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			getUserInfo(localStorage.userId, function(data) {
+				if(data.result.regStatus != 1) {
+					window.location.href = "../../register/register.html";
+					return;
+				} else {
+					if(data.result.type == 2) {
+						alert("企业用户不能发布求职信息!");
+						window.location.href = "../../index.html";
+						return;
+					}
+				}
+				$('#app').show();
+			})
+		</script>
+		<div class="header">
+			<ul class="nav">
+				<li>
+					<a href="../../index.html">首页</a>
+				</li>
+				<li>
+					<a href="#">发布</a>
+					<ul class="second-nav">
+						<li>
+							<a href="../zhaopinfabu.html">招聘发布</a>
+						</li>
+						<li>
+							<a href="../zhaobiaofabu.html">招标发布</a>
+						</li>
+						<li>
+							<a href="../gongyingfabu.html">供应发布</a>
+						</li>
+						<li>
+							<a href="jianli.html">求职发布</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">找信息</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">招聘信息</a>
+						</li>
+						<li>
+							<a href="#">招标信息</a>
+						</li>
+						<li>
+							<a href="#">供应信息</a>
+						</li>
+						<li>
+							<a href="#">求职信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">我的</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">收藏</a>
+						</li>
+						<li>
+							<a href="#">我的订阅</a>
+							<ul class="third-nav">
+								<li>
+									<a href="../../dingyue/dingyuezhaopin.html">招聘</a>
+								</li>
+								<li>
+									<a href="../../dingyue/dingyueqiuzhi.html">求职</a>
+								</li>
+								<li>
+									<a href="../../dingyue/dingyuezhaobiao.html">招标</a>
+								</li>
+								<li>
+									<a href="../../dingyue/dingyuegongying.html">供应</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">我的发布</a>
+						</li>
+						<li>
+							<a href="#">我的投标</a>
+						</li>
+						<li>
+							<a href="#">意见反馈</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="bgdiv">
+			<div id="app" class="content" hidden>
+				<div class="controlbtndiv f-r-f">
+					<div class="controlbtn obg_wf" id="previewbtn" onclick="previewbtnact()">展示求职</div>
+					<div class="controlbtn obg_wf" id="showfullnamebtn" onclick="update(1)">显示姓名全称</div>
+					<div class="controlbtn obg_wf" id="showcompnamebtn" onclick="update(2)">显示公司全称</div>
+				</div>
+				<div class="infoarea">
+					<p id="addbaseinfobtn" class="zbxx" hidden>
+						<a onclick="btndivclick(1)">添加基本信息</a>
+					</p>
+
+					<div class="editinfoarea" id="editinfoarea">
+						<div class="firstbig">
+							<div class="headimgarea">
+								<img id="headimg" src="../../static/img/man.png" alt="头像" />
+								<input id="img_input" class="fr compile-pic" type="file" accept="image/*" hidden="true" onchange="imagePreview(this)">
+								<div class="textarea">
+									<div class="avatarchange" onclick="changeheadimg()">修改</div>
+									<div class="avatarline"> |</div>
+									<div class="avatardelete" onclick="deleteheadimg()">删除</div>
+								</div>
+
+							</div>
+							<div class="infodetailarea">
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 姓名：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<input type="text" placeholder="请填写姓名" value="" v-model="name" />
+									</div>
+								</div>
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 性别：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<!--<input type="text" placeholder="请填写联系人" value="" v-model="contact" />-->
+										<span class="colororange" onclick="clicksex(1)" id="sexman">男</span>
+										<span class="colorwhite" onclick="clicksex(2)" id="sexwoman">女</span>
+									</div>
+								</div>
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 出生日期：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<input type="date" class="kbtn" onchange="checkBirth()" value="" v-model="birth" />
+									</div>
+								</div>
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 工作经验：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<select v-model="jingyan">
+											<option value="">请选择</option>
+											<option v-for="item in jingyandic" :value="item.itemCode">{{item.itemName}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 工作职称：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<select v-model="zhicheng">
+											<option value="">请选择</option>
+											<option v-for="item in zhichengdic" :value="item.itemCode">{{item.itemName}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 联系电话：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<input type="tel" onchange="checkTel()" placeholder="请填写联系电话" value="" v-model="phone" />
+									</div>
+								</div>
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 电子邮箱：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<input type="email" onchange="checkEmail()" placeholder="请填写电子邮箱" value="" v-model="email" />
+									</div>
+								</div>
+								<div class="jianli_key_value">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 所在城市：</span></p>
+									</div>
+									<div class="jianli_valuetext">
+										<select class="jianlijilianselect" onchange="selectprovince(this)" id="selectprovince">
+											<option v-for="item in province" :value="item.id">{{item.name}}</option>
+										</select>
+										<select class="jianlijilianselect" id="selectcity">
+											<option value="">请选择</option>
+											<option v-for="item in nowcity" :value="item.id">{{item.name}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="jianli_textarea">
+									<div class="jianli_keytext">
+										<p><span style="color:#FF0000;">*</span><span> 自我评价：</span></p>
+									</div>
+									<textarea name="" rows="" cols="" placeholder="请填写自我描述" v-model="evaluation"></textarea>
+								</div>
+
+							</div>
+						</div>
+						<div class="btnarea">
+							<div class="btndiv1" @click="fabu()"><span class="btnspan1">保存</span></div>
+							<div style="width: 5%;"></div>
+							<div class="btndiv2" onclick="cancelclick(1)"><span class="btnspan2">取消</span></div>
+						</div>
+					</div>
+					<div class="clear" />
+					<div id="showinfoarea" class="showinfoarea divcover" onmouseover="mouseover(1)" onmouseout="mouseout(1)">
+						<div class="showheadimgarea">
+							<img id="showheadimg" src="../../static/img/man.png" alt="头像" />
+						</div>
+						<div class="firstbig">
+							<div class="showinfodetailarea">
+								<div class="nameandbtn">
+									<div class="namediv">{{vm.name}}</div>
+									<div id="btndiv1" onclick="btndivclick(1)" class="btndiv" hidden><img src="../../static/img/edit2.png" />
+									</div>
+								</div>
+								<div class="infodiv">
+									<div class="infodivline1">
+										<div class="infodivline-item">现居住-{{vm.cityname}}</div>|
+										<div class="infodivline-item">{{vm.expriencename}}工作经验</div>|
+										<div class="infodivline-item">{{vm.gendername}}</div>|
+										<div class="infodivline-item">{{vm.agename}}岁({{vm.birth}})</div>
+									</div>
+
+									<br>
+									<br>
+									<br>
+									<br>
+									<div class="infodivline-item infodivline2"><span style="color: gray;">邮箱：</span>{{vm.emailname}}</div>
+									<div class="infodivline-item infodivline2"><span style="color: gray;">手机：</span>{{vm.phonename}}</div>
+									<div class="pingjiadiv f-l-f">
+										<div class="pingjiatitle" style="color: gray;">自我评价：</div>
+										<div class="pingjiacontent">{{vm.evaluationname}}</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+					<div class="clear" />
+
+				</div>
+				<div class="clear" />
+				<div class="workarea">
+					<div class="workareabg">
+						<div class="worktitlearea f-l-f">
+							<div class="worktitlediv">工作经验</div>
+							<div class="workadddiv" id="workaddbtnclick" onclick="workaddbtnclick()">＋新增工作</div>
+						</div>
+						<div class="clear" />
+						<div class="workaddarea" id="workaddareaid" hidden>
+							<div class="jianli_key_value w-500">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 时间：</span></p>
+								</div>
+								<div class="jianli_valuetext w-380">
+									<input id="start-time" class="workdateinput" type="date" value="" v-model="newstartdate" onchange="start()" />
+									<div style="padding: 5px 15px;">到</div>
+									<input class="workdateinput" type="date" value="" v-model="newenddate" onchange="end()" />
+								</div>
+							</div>
+							<div class="jianli_key_value w-500">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 公司名称：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<input type="text" placeholder="请填写公司名称" value="" v-model="newcompanyname" />
+								</div>
+							</div>
+							<div class="jianli_key_value w-500">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 职位：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<input type="text" placeholder="请填写职位" value="" v-model="newgangwei" />
+								</div>
+							</div>
+							<div class="jianli_textarea">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 工作描述：</span></p>
+								</div>
+								<textarea name="" rows="" cols="" placeholder="请填写工作描述" v-model="newbrief"></textarea>
+							</div>
+							<div class="btnarea">
+								<div class="btndiv1" @click="addwork()"><span class="btnspan1">保存</span></div>
+								<div style="width: 5%;"></div>
+								<div class="btndiv2" onclick="workaddbtncancelclick()"><span class="btnspan2">取消</span></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+
+						<div class="worklistarea">
+							<div v-for="item in experience">
+								<div :id="'workedititem'+item.id" class="workaddarea" style="margin-left: 0px;" hidden>
+									<div class="jianli_key_value w-500">
+										<div class="jianli_keytext">
+											<p><span style="color:#FF0000;">*</span><span> 时间：</span></p>
+										</div>
+										<div class="jianli_valuetext w-380">
+											<input id="start-time1" class="workdateinput" type="date" value="" v-model="editstartdate" @change="start(item.id)" />
+											<div style="padding: 5px 15px;">到</div>
+											<input class="workdateinput" type="date" value="" v-model="editenddate" @change="end(item.id)" />
+										</div>
+									</div>
+									<div class="jianli_key_value w-500">
+										<div class="jianli_keytext">
+											<p><span style="color:#FF0000;">*</span><span> 公司名称：</span></p>
+										</div>
+										<div class="jianli_valuetext">
+											<input type="text" placeholder="请填写公司名称" value="" v-model="editcompanyname" />
+										</div>
+									</div>
+									<div class="jianli_key_value w-500">
+										<div class="jianli_keytext">
+											<p><span style="color:#FF0000;">*</span><span> 职位：</span></p>
+										</div>
+										<div class="jianli_valuetext">
+											<input type="text" placeholder="请填写职位" value="" v-model="editgangwei" />
+										</div>
+									</div>
+									<div class="jianli_textarea">
+										<div class="jianli_keytext">
+											<p><span style="color:#FF0000;">*</span><span> 工作描述：</span></p>
+										</div>
+										<textarea name="" rows="" cols="" placeholder="请填写工作描述" v-model="editbrief"></textarea>
+									</div>
+									<div class="btnarea">
+										<div class="btndiv1" @click="addwork(item.id)"><span class="btnspan1">保存</span></div>
+										<div style="width: 5%;"></div>
+										<div class="btndiv2" @click="workcancelbtndclick(item.id)"><span class="btnspan2">取消</span></div>
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div :id="'workshowitem'+item.id" class="worklistareaitem divcover" @mouseover="workmouseover(item.id)" @mouseout="workmouseout(item.id)">
+									<div class="worktimeandbtndiv f-l-f">
+										<div class="worktimediv">{{item.startdate}}&nbsp;&nbsp; 至&nbsp;&nbsp;{{item.enddate}}</div>
+										<div class="f-l-f">
+											<div hidden :id="'workdelete'+item.id" @click="workdeletebtnclick(item.id)" class="workbtndiv"><img src="../../static/img/detele2.png"></div>
+											<div hidden :id="'workedit'+item.id" @click="workeditbtndclick(item.id)" class="workbtndiv"><img src="../../static/img/edit2.png" /></div>
+										</div>
+									</div>
+									<div class="clear"></div>
+									<div class="worklistareaitem1">{{item.companyname}}/{{item.gangwei}}</div>
+									<div class="worklistareaitem2">
+										<div style="color: black; padding-bottom: 4px;">工作描述</div>{{item.brief}}
+									</div>
+								</div>
+							</div>
+							<div class="clear" />
+
+						</div>
+
+					</div>
+
+				</div>
+				<div class="eduarea">
+					<div class="workareabg">
+						<div class="worktitlearea f-l-f">
+							<div class="worktitlediv">教育经历</div>
+							<div class="workadddiv" onclick="eduaddbtnclick()">＋新增教育</div>
+						</div>
+						<div class="clear" />
+						<div class="workaddarea" id="eduaddareaid" hidden>
+							<div class="jianli_key_value w-500">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 毕业时间：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<input class="kbtnedu" type="date" value="" v-model="newgraduationyear" />
+								</div>
+							</div>
+							<div class="jianli_key_value w-500">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 学校名称：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<input type="text" onchange="checkEmail()" placeholder="请填写学校名称" value="" v-model="newschoolname" />
+								</div>
+							</div>
+							<div class="jianli_key_value w-500">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 所学专业：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<input type="text" onchange="checkEmail()" placeholder="请填写所学专业" value="" v-model="newmajor" />
+								</div>
+							</div>
+							<div class="jianli_key_value w-500">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 学历：：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select class="select-xueli" v-model="newxueli">
+										<option value="">请选择</option>
+										<option v-for="item in xuelidic" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="btnarea">
+								<div class="btndiv1" @click="addedu()"><span class="btnspan1">保存</span></div>
+								<div style="width: 5%;"></div>
+								<div class="btndiv2" onclick="eduaddbtncancelclick()"><span class="btnspan2">取消</span></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+
+						<div class="worklistarea">
+							<div v-for="item in education">
+								<div class="workaddarea" :id="'eduedititem'+item.id" hidden>
+									<div class="jianli_key_value w-500">
+										<div class="jianli_keytext">
+											<p><span style="color:#FF0000;">*</span><span> 毕业时间：</span></p>
+										</div>
+										<div class="jianli_valuetext">
+											<input class="kbtnedu" type="date" value="" v-model="editgraduationyear" />
+										</div>
+									</div>
+									<div class="jianli_key_value w-500">
+										<div class="jianli_keytext">
+											<p><span style="color:#FF0000;">*</span><span> 学校名称：</span></p>
+										</div>
+										<div class="jianli_valuetext">
+											<input type="text" onchange="checkEmail()" placeholder="请填写学校名称" value="" v-model="editschoolname" />
+										</div>
+									</div>
+									<div class="jianli_key_value w-500">
+										<div class="jianli_keytext">
+											<p><span style="color:#FF0000;">*</span><span> 所学专业：</span></p>
+										</div>
+										<div class="jianli_valuetext">
+											<input type="text" onchange="checkEmail()" placeholder="请填写所学专业" value="" v-model="editmajor" />
+										</div>
+									</div>
+									<div class="jianli_key_value w-500">
+										<div class="jianli_keytext">
+											<p><span style="color:#FF0000;">*</span><span> 学历：：</span></p>
+										</div>
+										<div class="jianli_valuetext">
+											<select class="select-xueli" v-model="editxueli">
+												<option value="">请选择</option>
+												<option v-for="item in xuelidic" :value="item.itemCode">{{item.itemName}}</option>
+											</select>
+										</div>
+									</div>
+									<div class="btnarea">
+										<div class="btndiv1" @click="addedu(item.id)"><span class="btnspan1">保存</span></div>
+										<div style="width: 5%;"></div>
+										<div class="btndiv2" @click="educancelbtndclick(item.id)"><span class="btnspan2">取消</span></div>
+									</div>
+									<div class="clear"></div>
+								</div>
+
+								<div :id="'edushowitem'+item.id" class="worklistareaitem divcover" @mouseover="edumouseover(item.id)" @mouseout="edumouseout(item.id)">
+									<div class="worktimeandbtndiv f-l-f">
+										<div class="worktimediv"> 毕业于&nbsp;&nbsp;{{item.graduationyear}}</div>
+										<div class="f-l-f">
+											<div hidden :id="'edudelete'+item.id" @click="edudeletebtnclick(item.id)" class="workbtndiv"><img src="../../static/img/detele2.png"></div>
+											<div hidden :id="'eduedit'+item.id" @click="edueditbtndclick(item.id)" class="workbtndiv"><img src="../../static/img/edit2.png" /></div>
+										</div>
+									</div>
+									<div class="clear"></div>
+									<div class="worklistareaitem1">{{item.schoolname}}</div>
+									<div class="worklistareaitem2">
+										{{item.xueliname}}·{{item.major}}
+									</div>
+								</div>
+							</div>
+							<div class="clear" />
+
+						</div>
+
+					</div>
+				</div>
+				<div class="clear" />
+				<div class="tbigworkarea">
+					<div class="workareabg">
+						<div class="worktitlearea ">
+							<div class="worktitlediv">期望工作</div>
+						</div>
+						<div class="tworkaddarea" id="tworkaddareaid" hidden>
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 期望职位：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select class="jianlijilianselect" id="selectjobvalueone" onchange="selectjob(this)">
+										<option v-for="item in job" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+									<select class="jianlijilianselect" id="selectjobvalue">
+										<option value="">请选择</option>
+										<option v-for="item in nowjoblist" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 工作方式：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select v-model="gongzuofangshiId">
+										<option value="">请选择</option>
+										<option v-for="item in gongzuofangshis" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 期望城市：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select class="jianlijilianselect" onchange="selectprovince2(this)" id="selectprovince2">
+										<option v-for="item in province" :value="item.id">{{item.name}}</option>
+									</select>
+									<select class="jianlijilianselect" id="selectcity2">
+										<option value="">请选择</option>
+										<option v-for="item in nowcity2" :value="item.id">{{item.name}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 期望月薪：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select v-model="qiwangyuexinId">
+										<option value="">请选择</option>
+										<option v-for="item in xinzidic" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 是否在职：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select v-model="ondutyId">
+										<option value="">请选择</option>
+										<option v-for="item in ondutys" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="jianli_key_value">
+								<div class="jianli_keytext">
+									<p><span style="color:#FF0000;">*</span><span> 可入职时间：</span></p>
+								</div>
+								<div class="jianli_valuetext">
+									<select v-model="keruzhishijianId">
+										<option value="">请选择</option>
+										<option v-for="item in jointimes" :value="item.itemCode">{{item.itemName}}</option>
+									</select>
+								</div>
+
+							</div>
+							<div class="btnarea">
+								<div class="btndiv1" @click="addtwork()"><span class="btnspan1">保存</span></div>
+								<div style="width: 5%;"></div>
+								<div class="btndiv2" onclick="cancelclick(2)"><span class="btnspan2">取消</span></div>
+							</div>
+							<div class="clear"></div>
+
+						</div>
+						<div id="tworkarea" class="tworkarea divcover" onmouseover="mouseover(2)" onmouseout="mouseout(2)">
+							<div class="tworkheaddiv f-l-f">
+								<div class="tworkheadtitle">{{vm.gangwei}}</div>
+								<div class="f-l-f">
+									<div id="tworkheadtitlebtn" onclick="btndivclick(2)" class="workbtndiv" hidden><img src="../../static/img/edit2.png" /></div>
+								</div>
+							</div>
+							<div class="worklistareaitem1">{{vm.operationMode}}/{{vm.targetprovince}}-{{vm.targetcity}}/{{vm.targetSalary}}</div>
+							<div class="worklistareaitem2">
+								<div style="color: black; padding-bottom: 4px;">目前状态：</div>{{vm.onduty}}/{{vm.jointime}}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="clear" />
+
+			</div>
+		</div>
+	</body>
+	<script>
+		$('#editinfoarea').hide();
+		var name, phone, email, birth, evaluation, bigdata, provinceId, cityId, provincee, jobWanId, publishId;
+		var cityname, expriencename, gendername, agename, phonename, emailname, evaluationname;
+		var experience;
+		var education;
+		var showfullname, showcompanyname, showqiuzhi;
+		var gangwei, operationMode, targetprovince, targetcity, targetSalary, onduty, jointime, gangweiId, targetprovinceId, targetcityId, ondutyId;
+		var gender = 1;
+		var hasTouxiang = false;
+		var hasSelectItem = false;
+		var preview;
+		post1('/webQz/QiuzhiById', false, {
+			"userId": localStorage.userId,
+		}, function(data) {
+			$('#app').show();
+			this.bigdata = data.result;
+			console.log(data);
+			if(data.result.jobWanId) {
+				this.jobWanId = data.result.jobWanId;
+				this.publishId = data.result.publishId;
+				previewStatus();
+			}
+			if(data.result.status == 1) {
+				this.showqiuzhi = true;
+				$('#previewbtn').addClass("wbg_gf");
+				$('#previewbtn').removeClass("obg_wf");
+				$('#previewbtn').html('取消简历展示');
+			} else {
+				this.showqiuzhi = false;
+				$('#previewbtn').addClass("obg_wf");
+				$('#previewbtn').removeClass("wbg_gf");
+				$('#previewbtn').html('展示简历');
+			}
+			if(data.result.showfullname == 1) {
+				this.showfullname = true;
+				$('#showfullnamebtn').addClass("wbg_gf");
+				$('#showfullnamebtn').removeClass("obg_wf");
+				$('#showfullnamebtn').html('*隐藏姓名全称');
+			} else {
+				this.showfullname = false;
+				$('#showfullnamebtn').addClass("obg_wf");
+				$('#showfullnamebtn').removeClass("wbg_gf");
+				$('#showfullnamebtn').html('显示姓名全称');
+			}
+			if(data.result.showcompanyname == 1) {
+				this.showcompanyname = true;
+				$('#showcompnamebtn').addClass("wbg_gf");
+				$('#showcompnamebtn').removeClass("obg_wf");
+				$('#showcompnamebtn').html('*隐藏公司全称');
+			} else {
+				this.showcompanyname = false;
+				$('#showcompnamebtn').addClass("obg_wf");
+				$('#showcompnamebtn').removeClass("wbg_gf");
+				$('#showcompnamebtn').html('显示公司全称');
+			}
+			if(data.result.name) {
+				this.name = data.result.name;
+				this.phone = data.result.phone;
+				this.email = data.result.email;
+				this.birth = data.result.birth;
+				this.evaluation = data.result.evaluation;
+				this.provinceId = data.result.provinceId;
+				this.cityId = data.result.cityId;
+				this.provincee = data.result.province;
+				cityname = data.result.city;
+				expriencename = data.result.exprience;
+				gendername = data.result.sex;
+				agename = data.result.age;
+				phonename = data.result.phone;
+				emailname = data.result.email;
+				evaluationname = data.result.evaluation;
+				if(data.result.sex == '女') {
+					gender = 2;
+					clicksex(2);
+					$('#showheadimg').attr('src', '../../static/img/woman.png');
+				} else {
+					gender = 1;
+					clicksex(1);
+					$('#showheadimg').attr('src', '../../static/img/man.png');
+				}
+				if(data.result.touxiang) {
+					hasTouxiang = true;
+					$('#headimg').attr('src', ip + data.result.touxiang);
+					$('#showheadimg').attr('src', ip + data.result.touxiang);
+				}
+			}
+			if(data.result.experience) {
+				var workDic = JSON.parse(data.result.experience);
+				for(var i = 0; i < workDic.length; i++) {
+					var obj = workDic[i];
+					obj.id = i;
+				}
+				experience = workDic;
+			}
+			if(data.result.education) {
+				var eduDic = JSON.parse(data.result.education);
+				for(var i = 0; i < eduDic.length; i++) {
+					var obj = eduDic[i];
+					obj.id = i;
+					switch(obj.xueli) {
+						case '2':
+							obj.xueliname = "初中";
+							break;
+						case '3':
+							obj.xueliname = "高中";
+							break;
+						case '4':
+							obj.xueliname = "大专";
+							break;
+						case '5':
+							obj.xueliname = "本科";
+							break;
+						case '6':
+							obj.xueliname = "研究生";
+							break;
+						case '7':
+							obj.xueliname = "博士";
+							break;
+						default:
+							break;
+					}
+				}
+				education = eduDic;
+			}
+			if(data.result.gangwei) {
+				gangwei = data.result.gangwei;
+				operationMode = data.result.operationMode;
+				targetprovince = data.result.targetprovince;
+				targetcity = data.result.targetcity;
+				targetSalary = data.result.targetSalary;
+				jointime = data.result.jointime;
+				gangweiId = data.result.gangweiId;
+				targetprovinceId = data.result.targetprovinceId;
+				targetcityId = data.result.targetcityId;
+				ondutyId = data.result.ondutyId;
+				if(data.result.ondutyId == 1) {
+					onduty = "在职";
+				} else {
+					onduty = "离职";
+				}
+			}
+		})
+
+		function clicksex(index) {
+			if(index == 1) {
+				if(!hasTouxiang) {
+					$('#headimg').attr('src', '../../static/img/man.png');
+				}
+				$('#sexman').addClass("colororange");
+				$('#sexman').removeClass("colorwhite");
+				$('#sexwoman').addClass("colorwhite");
+				$('#sexwoman').removeClass("colororange");
+				vm.gender = 1;
+			} else {
+				if(!hasTouxiang) {
+					$('#headimg').attr('src', '../../static/img/woman.png');
+				}
+				$('#sexman').addClass("colorwhite");
+				$('#sexman').removeClass("colororange");
+				$('#sexwoman').addClass("colororange");
+				$('#sexwoman').removeClass("colorwhite");
+				vm.gender = 2;
+			}
+		}
+		//类别
+		var job;
+		var jobList;
+		var nowJobList;
+		getDicTable(false, "006", function(data) {
+			var list = data.result;
+			var job = [];
+			var jobList = [];
+			var jobM = {};
+			for(var i = 0; i < list.length; i++) {
+				var obj = list[i];
+				if(!obj.pid) {
+					job.push(obj);
+				} else {
+					jobList.push(obj);
+				}
+			}
+			for(var i = 0; i < job.length; i++) {
+				var array = [];
+				for(var j = 0; j < jobList.length; j++) {
+					if(job[i].id == jobList[j].pid) {
+						array.push(jobList[j]);
+						jobM['' + job[i].itemCode] = array;
+					}
+				}
+			}
+			this.job = job;
+			this.jobList = jobM;
+			for(var key in jobM) {
+				this.nowJobList = jobM[key];
+				break;
+			}
+			selectGangweiA();
+		})
+		var province;
+		var city;
+		var nowcity;
+		var nowcity2;
+		getCity(function(p, c) {
+			province = p;
+			city = c;
+			nowcity = city['1'];
+			nowcity2 = city['1'];
+			selectProvinceAndCity();
+			selectProvinceAndCity2();
+		});
+		//薪资
+		getDicTable(true, "001", function(data) {
+			vm.xinzidic = data.result;
+			setyuexin();
+		})
+
+		function setyuexin() {
+			if(targetSalary) {
+				for(var i = 0; i < vm.xinzidic.length; i++) {
+					var obj = vm.xinzidic[i];
+					if(obj.itemName == targetSalary) {
+						vm.qiwangyuexinId = obj.itemCode;
+					}
+				}
+			}
+		}
+		//学历要求
+		getDicTable(true, "003", function(data) {
+			vm.xuelidic = data.result;
+			if(this.obj) {
+				for(var i = 0; i < vm.xuelidic.length; i++) {
+					var obj = vm.xuelidic[i];
+					if(obj.itemName == this.obj.xueliyaoqiu) {
+						vm.xueli = obj.itemCode;
+					}
+				}
+			}
+		})
+		//经验要求
+		getDicTable(true, "004", function(data) {
+			vm.jingyandic = data.result;
+			setjingyan();
+		})
+
+		function setjingyan() {
+			if(this.bigdata) {
+				for(var i = 0; i < vm.jingyandic.length; i++) {
+					var obj = vm.jingyandic[i];
+					if(obj.itemName == this.bigdata.exprience) {
+						vm.jingyan = obj.itemCode;
+					}
+				}
+			}
+		}
+		//职称要求
+		getDicTable(true, "005", function(data) {
+			vm.zhichengdic = data.result;
+			setzhicheng();
+		})
+
+		function setzhicheng() {
+			if(this.bigdata) {
+				if(this.bigdata.professionId) {
+					vm.zhicheng = this.bigdata.professionId;
+				}
+			}
+		}
+		//工作方式
+		getDicTable(true, "007", function(data) {
+			vm.gongzuofangshis = data.result;
+			setgongzuofangshi();
+		})
+
+		function setgongzuofangshi() {
+			if(operationMode) {
+				for(var i = 0; i < vm.gongzuofangshis.length; i++) {
+					var obj = vm.gongzuofangshis[i];
+					if(obj.itemName == operationMode) {
+						vm.gongzuofangshiId = obj.itemCode;
+					}
+				}
+			}
+		}
+		//入职时间
+		getDicTable(true, "011", function(data) {
+			vm.jointimes = data.result;
+			setruzhishijian();
+		})
+
+		function setruzhishijian() {
+			if(jointime) {
+				for(var i = 0; i < vm.jointimes.length; i++) {
+					var obj = vm.jointimes[i];
+					if(obj.itemName == jointime) {
+						vm.keruzhishijianId = obj.itemCode;
+					}
+				}
+			}
+		}
+		var id = "";
+		var publishId2 = "";
+		if(this.jobWanId) {
+			id = this.jobWanId;
+		}
+		if(this.publishId) {
+			publishId2 = this.publishId;
+		}
+		var isrepetition = false;
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				hasTouxiang: hasTouxiang,
+				province: province,
+				city: city,
+				nowcity: nowcity,
+				nowcity2: nowcity2,
+				job: this.job,
+				joblist: this.jobList,
+				nowjoblist: this.nowJobList,
+				xinzidic: [],
+				xinzi: '',
+				xuelidic: [],
+				jingyandic: [],
+				jingyan: '',
+				zhichengdic: [],
+				zhicheng: '',
+				gongzuofangshis: [],
+				jointimes: [],
+				ondutys: [{
+					"itemCode": 0,
+					"itemName": "离职"
+				}, {
+					"itemCode": 1,
+					"itemName": "在职"
+				}],
+				age: '',
+				name: this.name,
+				gender: gender,
+				birth: this.birth,
+				phone: this.phone,
+				email: this.email,
+				evaluation: this.evaluation,
+				cityname: cityname,
+				expriencename: expriencename,
+				gendername: gendername,
+				agename: agename,
+				phonename: phonename,
+				emailname: emailname,
+				evaluationname: evaluationname,
+				//工作经历
+				newstartdate: '',
+				newenddate: '',
+				newcompanyname: '',
+				newgangwei: '',
+				newbrief: '',
+				editstartdate: '',
+				editenddate: '',
+				editcompanyname: '',
+				editgangwei: '',
+				editbrief: '',
+				experience: experience,
+				//教育经历
+				newgraduationyear: '',
+				newschoolname: '',
+				newmajor: '',
+				newxueli: '',
+				editgraduationyear: '',
+				editschoolname: '',
+				editmajor: '',
+				editxueli: '',
+				education: education,
+				//期望工作
+				gangwei: gangwei,
+				operationMode: operationMode,
+				targetprovince: targetprovince,
+				targetcity: targetcity,
+				targetSalary: targetSalary,
+				onduty: onduty,
+				jointime: jointime,
+				gangweiId: gangweiId,
+				targetprovinceId: targetprovinceId,
+				targetcityId: targetcityId,
+				ondutyId: ondutyId,
+				gongzuofangshiId: '',
+				qiwangyuexinId: '',
+				keruzhishijianId: '',
+				showfullname: this.showfullname,
+				showcompanyname: this.showcompanyname,
+				showcompanyname: this.showcompanyname,
+				showqiuzhi: this.showqiuzhi,
+			},
+			methods: {
+				fabu: function() {
+					if(!checkBirth() || !checkEmail() || !checkTel()) {
+						return false;
+					}
+					vm.name = Trim(vm.name, 'g');
+					if(vm.name == "") {
+						alert('请填写姓名')
+						return
+					}
+					if($('.kbtn') == "") {
+						alert('请填写出生日期')
+						return
+					}
+					if($('.gzzc') == "") {
+						alert('请填写出生日期')
+						return
+					}
+					if($("#selectcity option:selected").text() == '请选择') {
+						alert('请填写所在城市')
+						return
+					}
+					post('/webQz/editPersonalBasicInfo', {
+						"userId": localStorage.userId,
+						"id": id,
+						"publishId": publishId2,
+						"name": vm.name,
+						"gender": vm.gender,
+						"birth": vm.birth,
+						"exprience": vm.jingyan,
+						"professionLevel": vm.zhicheng,
+						"phone": vm.phone,
+						"email": vm.email,
+						"province": $("#selectprovince").val(),
+						"city": $("#selectcity").val(),
+						"evaluation": vm.evaluation
+					}, function(data) {
+						console.log(data);
+						if(data.result_code == '1') {
+							alert("保存成功!");
+							window.location.reload();
+						} else {
+							alert("发布失败，请重试！");
+						}
+					})
+				},
+				addwork: function(itemid) {
+					if(!start(itemid)) {
+						return false;
+					}
+					if(vm.newenddate != '' && !end(itemid)) {
+						return false;
+					}
+					var dataa;
+					if(itemid >= 0) {
+						vm.editcompanyname = Trim(vm.editcompanyname, 'g');
+						vm.editgangwei = Trim(vm.editgangwei, 'g');
+						if(vm.editcompanyname == "") {
+							alert('请填写公司名称')
+							return
+						}
+						if(vm.editgangwei == "") {
+							alert('请填写你的职位')
+							return
+						}
+						if($('#start-time1').val() == "") {
+							alert('请选择入职时间')
+							return
+						}
+						if(vm.editbrief == "") {
+							alert('请填写工作内容')
+							return
+						}
+						dataa = {
+							"userId": localStorage.userId,
+							"id": id,
+							"publishId": publishId2,
+							"companyname": vm.editcompanyname,
+							"gangwei": vm.editgangwei,
+							"startdate": vm.editstartdate,
+							"enddate": vm.editenddate,
+							"brief": vm.editbrief,
+							"operationType": 1,
+							"experienceIndex": itemid
+						}
+					} else {
+						vm.newcompanyname = Trim(vm.newcompanyname, 'g');
+						vm.newgangwei = Trim(vm.newgangwei, 'g');
+						if(vm.newcompanyname == "") {
+							alert('请填写公司名称')
+							return
+						}
+						if(vm.newgangwei == "") {
+							alert('请填写你的职位')
+							return
+						}
+						if($('#start-time').val() == "") {
+							alert('请选择入职时间')
+							return
+						}
+						if(vm.newbrief == "") {
+							alert('请填写工作内容')
+							return
+						}
+						dataa = {
+							"userId": localStorage.userId,
+							"id": id,
+							"publishId": publishId2,
+							"companyname": vm.newcompanyname,
+							"gangwei": vm.newgangwei,
+							"startdate": vm.newstartdate,
+							"enddate": vm.newenddate,
+							"brief": vm.newbrief
+						}
+					}
+					post('/webQz/editPersonalBasicInfo', dataa,
+						function(data) {
+							console.log(data);
+							if(data.result_code == '1') {
+								alert("保存成功!");
+								window.location.reload();
+							} else {
+								alert("发布失败，请重试！");
+							}
+						})
+				},
+				addedu: function(itemid) {
+					var dataa;
+					if(itemid >= 0) {
+						if(vm.editschoolname == "") {
+							alert('请填写学校名称')
+							return
+						}
+						if(vm.editmajor == "") {
+							alert('请填写专业')
+							return
+						}
+						if(vm.editgraduationyear == "") {
+							alert('请选择毕业时间')
+							return
+						}
+						if(vm.editxueli == "") {
+							alert('请选择学历')
+							return
+						}
+						dataa = {
+							"userId": localStorage.userId,
+							"id": id,
+							"publishId": publishId2,
+							"schoolname": vm.editschoolname,
+							"major": vm.editmajor,
+							"graduationyear": vm.editgraduationyear,
+							"xueli": vm.editxueli,
+							"operationType": 1,
+							"educationIndex": itemid
+						}
+					} else {
+						if(vm.newschoolname == "") {
+							alert('请填写学校名称')
+							return
+						}
+						if(vm.newmajor == "") {
+							alert('请填写专业')
+							return
+						}
+						if($('.kbtnedu').val() == "") {
+							alert('请选择毕业时间')
+							return
+						}
+						if($('.select-xueli').val() == '') {
+							alert('请选择学历')
+							return
+						}
+						dataa = {
+							"userId": localStorage.userId,
+							"id": id,
+							"publishId": publishId2,
+							"schoolname": vm.newschoolname,
+							"major": vm.newmajor,
+							"graduationyear": vm.newgraduationyear,
+							"xueli": vm.newxueli
+						}
+					}
+					post('/webQz/editPersonalBasicInfo', dataa,
+						function(data) {
+							console.log(data);
+							if(data.result_code == '1') {
+								alert("保存成功!");
+								window.location.reload();
+							} else {
+								alert("发布失败，请重试！");
+							}
+						})
+				},
+				addtwork: function(itemid) {
+					if($("#selectjobvalue option:selected").text() == '请选择') {
+						alert('请选择期望职位')
+						return
+					}
+					if(vm.gongzuofangshiId == "") {
+						alert('请选择工作方式')
+						return
+					}
+					if($("#selectcity2 option:selected").text() == '请选择') {
+						alert('请选择期望城市')
+						return
+					}
+					if(vm.qiwangyuexinId == "") {
+						alert('请选择期望月薪')
+						return
+					}
+					if(vm.ondutyId != 0 && vm.ondutyId != 1) {
+						alert('请选择是否在职')
+						return
+					}
+					if(vm.keruzhishijianId == "") {
+						alert('请选择入职时间')
+						return
+					}
+					post('/webQz/editPersonalBasicInfo', {
+						"userId": localStorage.userId,
+						"id": id,
+						"publishId": publishId2,
+						"targetPost": $("#selectjobvalue").val(),
+						"operationMode": vm.gongzuofangshiId,
+						"targetprovince": $("#selectprovince2").val(),
+						"targetcity": $("#selectcity2").val(),
+						"targetSalary": vm.qiwangyuexinId,
+						"onduty": vm.ondutyId,
+						"jointime": vm.keruzhishijianId
+					}, function(data) {
+						console.log(data);
+						if(data.result_code == '1') {
+							alert("保存成功!");
+							window.location.reload();
+						} else {
+							alert("发布失败，请重试！");
+						}
+					})
+				}
+			}
+		})
+
+		function selectprovince(obj) {
+			vm.nowcity = vm.city[obj.value];
+			$('#selectcity').val('');
+		}
+
+		function selectprovince2(obj) {
+			vm.nowcity2 = vm.city[obj.value];
+			$('#selectcity2').val('');
+		}
+
+		function selectjob(obj) {
+			vm.nowjoblist = vm.joblist[obj.value];
+			$('#selectjobvalue').val('');
+		}
+
+		function selectProvinceAndCity() {
+			if(this.bigdata) {
+				if(this.bigdata.provinceId) {
+					setTimeout(function() {
+						vm.nowcity = city[this.bigdata.provinceId];
+						$("#selectprovince").val(this.bigdata.provinceId);
+						setTimeout(function() {
+							$("#selectcity").val(cityId);
+						}, 50);
+					}, 50);
+				}
+			}
+		}
+
+		function selectProvinceAndCity2() {
+			if(targetprovinceId >= 0) {
+				setTimeout(function() {
+					vm.nowcity2 = city[targetprovinceId];
+					$("#selectprovince2").val(targetprovinceId);
+					setTimeout(function() {
+						$("#selectcity2").val(targetcityId);
+					}, 50);
+				}, 50);
+			}
+		}
+
+		function selectGangweiA() {
+			if(gangweiId >= 0) {
+				var firstid;
+				for(var key in this.jobList) {
+					var dataArr = this.jobList[key];
+					for(var i = 0; i < dataArr.length; i++) {
+						var midObj = dataArr[i];
+						if(midObj.itemCode == gangweiId) {
+							firstid = midObj.itemCode;
+						}
+					}
+				}
+				setTimeout(function() {
+					vm.nowjoblist = this.jobList[firstid];
+					$("#selectjobvalueone").val(firstid);
+					setTimeout(function() {
+						$("#selectjobvalue").val(gangweiId);
+					}, 50);
+				}, 50);
+			}
+		}
+		//---------------------------鼠标覆盖事件--------------------------------------------------------------------------
+
+		function mouseover(index) {
+			switch(index) {
+				case 1:
+					{
+						$('#btndiv1').show();
+						break;
+					}
+				case 2:
+					{
+						$('#tworkheadtitlebtn').show();
+						break;
+					}
+				default:
+					break;
+			}
+		}
+
+		function mouseout(index) {
+			switch(index) {
+				case 1:
+					{
+						$('#btndiv1').hide();
+						break;
+					}
+				case 2:
+					{
+						$('#tworkheadtitlebtn').hide();
+						break;
+					}
+				default:
+					break;
+			}
+		}
+
+		function workmouseover(id) {
+			$('#workdelete' + id).show();
+			$('#workedit' + id).show();
+		}
+
+		function workmouseout(id) {
+			$('#workdelete' + id).hide();
+			$('#workedit' + id).hide();
+		}
+
+		function edumouseover(id) {
+			$('#edudelete' + id).show();
+			$('#eduedit' + id).show();
+		}
+
+		function edumouseout(id) {
+			$('#edudelete' + id).hide();
+			$('#eduedit' + id).hide();
+		}
+		//---------------------------容器div--------------------------------------------------------------------------
+
+		function btndivclick(index) {
+			if(hasSelectItem) {
+				return;
+			}
+			switch(index) {
+				case 1:
+					{
+						$('#showinfoarea').hide();
+						$('#editinfoarea').show();
+						$('#addbaseinfobtn').hide();
+						break;
+					}
+				case 2:
+					{
+						$('#tworkarea').hide();
+						$('#tworkaddareaid').show();
+						break;
+					}
+				default:
+					break;
+			}
+			hasSelectItem = true;
+		}
+
+		function cancelclick(index) {
+			switch(index) {
+				case 1:
+					{
+						$('#showinfoarea').show();
+						$('#editinfoarea').hide();
+						vm.name = this.name;
+						vm.gender = gender;
+						vm.birth = this.birth;
+						vm.phone = this.phone;
+						vm.email = this.email;
+						vm.evaluation = this.evaluation;
+						clicksex(gender);
+						setjingyan();
+						setzhicheng();
+						selectProvinceAndCity()
+						break;
+					}
+				case 2:
+					{
+						$('#tworkarea').show();
+						$('#tworkaddareaid').hide();
+						vm.ondutyId = ondutyId;
+						setruzhishijian();
+						setyuexin();
+						setgongzuofangshi();
+						selectProvinceAndCity2();
+						selectGangweiA()
+						break;
+					}
+				default:
+					break;
+			}
+			hasSelectItem = false;
+		}
+
+		function workdeletebtnclick(id) {
+			var mymessage = confirm("确认删除？");
+			if(mymessage == false) {
+				return;
+			}
+			post('/webQz/editPersonalBasicInfo', {
+				"userId": localStorage.userId,
+				"id": this.jobWanId,
+				"publishId": this.publishId,
+				"operationType": 0,
+				"experienceIndex": id
+			}, function(data) {
+				if(data.result_code == '1') {
+					alert("删除成功!");
+					document.location.reload();
+				} else {
+					alert("删除失败，请重试！");
+					document.location.reload();
+				}
+			})
+		}
+
+		function workeditbtndclick(id) {
+			if(hasSelectItem) {
+				return;
+			}
+			var editobj = vm.experience[id];
+			vm.editstartdate = editobj.startdate;
+			vm.editenddate = editobj.enddate;
+			vm.editcompanyname = editobj.companyname;
+			vm.editgangwei = editobj.gangwei;
+			vm.editbrief = editobj.brief;
+			$('#workedititem' + id).show();
+			$('#workshowitem' + id).hide();
+			hasSelectItem = true;
+		}
+
+		function workcancelbtndclick(id) {
+			vm.editstartdate = '';
+			vm.editenddate = '';
+			vm.editcompanyname = '';
+			vm.editgangwei = '';
+			vm.editbrief = '';
+			$('#workedititem' + id).hide();
+			$('#workshowitem' + id).show();
+			hasSelectItem = false;
+		}
+
+		function workaddbtncancelclick() {
+			$('#workaddareaid').hide();
+			vm.newstartdate = '';
+			vm.newenddate = '';
+			vm.newcompanyname = '';
+			vm.newgangwei = '';
+			vm.newbrief = '';
+			hasSelectItem = false;
+		}
+
+		function workaddbtnclick() {
+			if(hasSelectItem) {
+				return;
+			}
+			$('#workaddareaid').show();
+			hasSelectItem = true;
+		}
+
+		function eduaddbtnclick() {
+			if(hasSelectItem) {
+				return;
+			}
+			$('#eduaddareaid').show();
+			hasSelectItem = true;
+		}
+
+		function eduaddbtncancelclick() {
+			$('#eduaddareaid').hide();
+			vm.newgraduationyear = '';
+			vm.newschoolname = '';
+			vm.newmajor = '';
+			vm.newxueli = '';
+			hasSelectItem = false;
+		}
+
+		function edudeletebtnclick(id) {
+			var mymessage = confirm("确认删除？");
+			if(mymessage == false) {
+				return;
+			}
+			post('/webQz/editPersonalBasicInfo', {
+				"userId": localStorage.userId,
+				"id": this.jobWanId,
+				"publishId": this.publishId,
+				"operationType": 0,
+				"educationIndex": id
+			}, function(data) {
+				if(data.result_code == '1') {
+					alert("删除成功!");
+					document.location.reload();
+				} else {
+					alert("删除失败，请重试！");
+					document.location.reload();
+				}
+			})
+		}
+
+		function edueditbtndclick(id) {
+			if(hasSelectItem) {
+				return;
+			}
+			var eduobj = vm.education[id];
+			vm.editgraduationyear = eduobj.graduationyear;
+			vm.editschoolname = eduobj.schoolname;
+			vm.editmajor = eduobj.major;
+			vm.editxueli = eduobj.xueli;
+			$('#eduedititem' + id).show();
+			$('#edushowitem' + id).hide();
+			hasSelectItem = true;
+		}
+
+		function educancelbtndclick(id) {
+			vm.editgraduationyear = '';
+			vm.editschoolname = '';
+			vm.editmajor = '';
+			vm.editxueli = '';
+			$('#eduedititem' + id).hide();
+			$('#edushowitem' + id).show();
+			hasSelectItem = false;
+		}
+		//---------------------------最下面--------------------------------------------------------------------------
+
+		function changeheadimg() {
+			$('#img_input').click();
+		}
+
+		function deleteheadimg() {
+			post('/webQz/editPersonalBasicInfo', {
+				"userId": localStorage.userId,
+				"id": jobWanId,
+				"publishId": publishId,
+				"lifePhotoImg": 'delete',
+			}, function(data) {
+				if(data.result_code == '1') {
+					hasTouxiang = false;
+					if(gender == 1) {
+						$('#headimg').attr('src', '../../static/img/man.png');
+					} else {
+						$('#headimg').attr('src', '../../static/img/woman.png');
+					}
+					alert("删除图像成功!");
+				} else {
+					alert("删除图像失败，请重试！");
+				}
+			})
+		}
+
+		function imagePreview(input) {
+			var files = input.files;
+			var file = files[0];
+			var imageType = /^image\//;
+			if(!imageType.test(file.type)) {
+				alert("请选择图片类型上传");
+				return;
+			}
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(e) {
+				$('#headimg').attr('src', e.target.result);
+				dealImage(e.target.result, {
+					quality: 0.1
+				}, function(value) {
+					post('/webQz/editPersonalBasicInfo', {
+						"userId": localStorage.userId,
+						"id": jobWanId,
+						"publishId": publishId,
+						"lifePhotoImg": value,
+					}, function(data) {
+						if(data.result_code == '1') {
+							hasTouxiang = true;
+							alert("更新成功!");
+						} else {
+							alert("更新失败，请重试！");
+						}
+					})
+				});
+			};
+		}
+
+		function checkBirth() {
+			var endTime = vm.birth;
+			var end = new Date(endTime.replace("-", "/").replace("-", "/"));
+			var current = new Date();
+			if(end > current) {
+				alert("出生日期必须在今天之前!");
+				vm.birth = birth;
+				return false;
+			}
+			return true;
+		}
+		//检查电话格式
+
+		function checkTel() {
+			if(!(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(vm.phone))) {
+				alert("电话格式不正确!");
+				return false;
+			}
+			return true;
+		}
+		//检查邮箱格式
+
+		function checkEmail() {
+			var email = vm.email;
+			if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+				alert("email格式不正确！请重新输入!");
+				return false;
+			}
+			return true;
+		}
+
+		function start(itemid) {
+			var endTime;
+			if(itemid >= 0) {
+				endTime = vm.editstartdate;
+			} else {
+				endTime = vm.newstartdate;
+			}
+			var end = new Date(endTime.replace("-", "/").replace("-", "/"));
+			var current = new Date();
+			if(end > current) {
+				alert('入职时间必须在今天之前!');
+				return false;
+			}
+			return true;
+		}
+
+		function end(itemid) {
+			var endTime;
+			if(itemid >= 0) {
+				endTime = vm.editenddate;
+			} else {
+				endTime = vm.newenddate;
+			}
+			var end = new Date(endTime.replace("-", "/").replace("-", "/"));
+			var current = new Date();
+			if(end > current) {
+				alert('离职时间必须在今天之前!');
+				return false;
+			}
+			return true;
+		}
+
+		function Trim(str, is_global) {
+			var result;
+			result = str.replace(/(^\s+)|(\s+$)/g, "");
+			if(is_global.toLowerCase() == "g") {
+				result = result.replace(/\s/g, "");
+			}
+			return result;
+		}
+		//		qqqqqqqqqqqqqqqqqqqqqqqqq
+
+		function update(type) {
+			if(type == 1) {
+				var showfullname111;
+				vm.showfullname = !vm.showfullname;
+				if(vm.showfullname) {
+					showfullname111 = 1;
+					$('#showfullnamebtn').addClass("wbg_gf");
+					$('#showfullnamebtn').removeClass("obg_wf");
+					$('#showfullnamebtn').html('*隐藏姓名全称');
+				} else {
+					showfullname111 = 0;
+					$('#showfullnamebtn').addClass("obg_wf");
+					$('#showfullnamebtn').removeClass("wbg_gf");
+					$('#showfullnamebtn').html('显示姓名全称');
+				}
+				dataa = {
+					"userId": localStorage.userId,
+					"id": this.jobWanId,
+					"publishId": this.publishId,
+					"showfullname": showfullname111
+				};
+			} else {
+				var showcompanyname111;
+				vm.showcompanyname = !vm.showcompanyname;
+				if(vm.showcompanyname) {
+					showcompanyname111 = 1;
+					$('#showcompnamebtn').addClass("wbg_gf");
+					$('#showcompnamebtn').removeClass("obg_wf");
+					$('#showcompnamebtn').html('*隐藏公司全称');
+				} else {
+					showcompanyname111 = 0;
+					$('#showcompnamebtn').addClass("obg_wf");
+					$('#showcompnamebtn').removeClass("wbg_gf");
+					$('#showcompnamebtn').html('显示公司全称');
+				}
+				dataa = {
+					"userId": localStorage.userId,
+					"id": this.jobWanId,
+					"publishId": this.publishId,
+					"showcompanyname": showcompanyname111
+				};
+			}
+			post('/webQz/editPersonalBasicInfo', dataa,
+				function(data) {
+					if(data.result_code == '1') {
+						alert("操作成功!");
+					} else {
+						alert("发布失败，请重试！");
+					}
+				})
+		}
+
+		function previewStatus() {
+			$.ajax({
+				type: "post",
+				url: ip + "/webQz/getResumeIsPerfect",
+				async: true,
+				traditional: true,
+				data: {
+					"publishId": this.publishId,
+					"userId": localStorage.userId,
+					"requestToken": localStorage.accessToken
+				},
+				success: function(data) {
+					console.log(data);
+					if(data.result_code != 1) {
+						preview = 0;
+					} else {
+						if(data.reason == 'accept') {
+							preview = 1;
+						} else {
+							preview = 0;
+						}
+					}
+				},
+				error: function() {
+					if(data.status != 510) {
+						alert("服务器连接失败!");
+					}
+				}
+			});
+		}
+
+		function previewbtnact() {
+			if(preview == 0) {
+				alert("信息填写完整才展示简历!");
+				return;
+			} else {
+				vm.showqiuzhi = !vm.showqiuzhi;
+				var sildOff;
+				if(vm.showqiuzhi) {
+					sildOff = 1;
+					$('#previewbtn').addClass("wbg_gf");
+					$('#previewbtn').removeClass("obg_wf");
+					$('#previewbtn').html('取消简历展示');
+				} else {
+					sildOff = 0;
+					$('#previewbtn').addClass("obg_wf");
+					$('#previewbtn').removeClass("wbg_gf");
+					$('#previewbtn').html('展示简历');
+				}
+				post('/webQz/showExhibitionJob', {
+					"showStatus": sildOff,
+					"publishId": publishId
+				}, function(data) {
+					if(data.result_code == '1') {
+						alert("操作成功!");
+					} else {
+						alert("操作失败，请重试！");
+					}
+				})
+			}
+		}
+	</script>
+
+</html>

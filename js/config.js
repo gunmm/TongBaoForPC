@@ -5,7 +5,7 @@ var provinceCity = '[{"deep":1,"name":"北京市","id":1,"sort":0,"parentId":0},
 
 var vm = new Vue();
 
-localStorage.userId = 837;
+localStorage.userId = 831;
 
 function asJump() {
 	as.jump();
@@ -56,6 +56,7 @@ function post(url, data, callback, loading, callback1) {
 				new Vue().$dialog.alert({
 					mes: data.reason
 				});
+				//				alert(data.reason);
 				if(callback1 != null) {
 					callback1();
 				}
@@ -96,6 +97,7 @@ function post1(url, async, data, callback) {
 				new Vue().$dialog.alert({
 					mes: data.reason
 				});
+				//				alert(data.reason);
 				return;
 			}
 			callback(data);
@@ -111,6 +113,7 @@ function post1(url, async, data, callback) {
 				}
 				return;
 			}
+			//			alert("服务器连接失败!");
 			vm.$dialog.alert({
 				mes: '服务器连接失败!'
 			});
@@ -274,6 +277,7 @@ function getDicTable(async, classId, callback) {
 				new Vue().$dialog.alert({
 					mes: data.reason
 				});
+				//				alert(data.reason);
 				return;
 			}
 			callback(data);
@@ -289,6 +293,7 @@ function getDicTable(async, classId, callback) {
 				}
 				return;
 			}
+			//			alert("服务器连接失败!");
 			vm.$dialog.alert({
 				mes: '服务器连接失败!'
 			});
@@ -314,6 +319,7 @@ function getClassifyTable(async, classType, callback) {
 				new Vue().$dialog.alert({
 					mes: data.reason
 				});
+				//				alert(data.reason);
 				return;
 			}
 			callback(data);
@@ -329,6 +335,7 @@ function getClassifyTable(async, classType, callback) {
 				}
 				return;
 			}
+			//			alert("服务器连接失败!");
 			vm.$dialog.alert({
 				mes: '服务器连接失败!'
 			});
@@ -390,7 +397,7 @@ function isWx() {
 
 /**
  * 图片压缩，默认同比例压缩
- * @param {Object} path 
+ * @param {Object} path
  *   pc端传入的路径可以为相对路径，但是在移动端上必须传入的路径是照相图片储存的绝对路径
  * @param {Object} obj
  *   obj 对象 有 width， height， quality(0-1)
@@ -403,7 +410,7 @@ function dealImage(path, obj, callback) {
 		return;
 	}
 
-	vm.$dialog.loading.open('');
+	//	vm.$dialog.loading.open('');
 
 	setTimeout(function() {
 		var img = new Image();
@@ -440,7 +447,7 @@ function dealImage(path, obj, callback) {
 					quality: 0.1
 				}, callback);
 			} else {
-				vm.$dialog.loading.close();
+				//				vm.$dialog.loading.close();
 				callback(base64);
 			}
 		}

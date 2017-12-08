@@ -23,8 +23,11 @@ a {
 }
 
 .header {
+	z-index: 9999;
 	height: 50px;
-	background: black;
+	background: #689fee;
+	position: fixed;
+	width: 100%;
 }
 
 .header .nav {
@@ -46,6 +49,8 @@ a {
 
 .header .nav li a {
 	color: #fff;
+	font-size: 15px;
+	font-weight: 800;
 }
 
 .header .nav li .second-nav {
@@ -60,8 +65,8 @@ a {
 	width: 100%;
 	height: 40px;
 	line-height: 40px;
-	background: black;
-	border-top: 0.5px solid white;
+	background: #689fee;
+	/*border-top: 0.5px solid white;*/
 }
 
 .header .nav li .second-nav li .third-nav {
@@ -70,5 +75,5 @@ a {
 	height: 200px;
 	display: none;
 	margin-left: 100%;
-	margin-top: -30px;
+	margin-top: -40px;
 }
