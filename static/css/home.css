@@ -211,6 +211,7 @@ select {
 	float: right;
 	margin-right: 15px;
 	border-radius: 3px;
+	cursor: pointer;
 }
 
 .mutaselect {

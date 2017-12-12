@@ -1,0 +1,158 @@
+.registercontent {
+	width: 800px;
+	height: 800px;
+	background: white;
+	margin: 0 auto;
+}
+.registertitle {
+	font-size: 24px;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	padding-left: 25px;
+	color: rgb(255, 149, 0);
+}
+.registerkey_value {
+	width: 100%;
+	display: flex;
+	float: left;
+	padding-left: 100px;
+	margin-top: 50px;
+}
+.registerkeytext {
+	width: 150px;
+	padding: 15px;
+	font-size: 18px;
+	text-align: right;
+	color: gray;
+}
+.registervaluetext {
+	width: 500px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	font-size: 16px;
+}
+.registervaluetext input {
+	text-align: right;
+	width: 400px;
+	height: 44px;
+	border: 0.5px solid lightgray;
+	font-size: 18px;
+	padding-right: 8px;
+}
+.sendmessagecodevaluetext {
+	width: 500px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	font-size: 16px;
+	display: flex;
+	float: left;
+}
+.sendmessagecodevaluetext input {
+	text-align: right;
+	width: 270px;
+	height: 44px;
+	border: 0.5px solid lightgray;
+	font-size: 18px;
+	padding-right: 8px;
+}
+.sendmessagecode {
+	font-size: 18px;
+	line-height: 44px;
+	margin-left: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 3px;
+	background: rgb(255, 149, 0);
+	color: white;
+}
+.protocoldiv {
+	width: 165px;
+	margin-left: 320px;
+	margin-top: 20px;
+}
+.registerbtn {
+	width: 400px;
+	height: 50px;
+	background: red;
+	margin-top: 50px;
+	margin-left: 200px;
+	font-size: 24px;
+	text-align: center;
+	line-height: 50px;
+	border-radius: 3px;
+	background: rgb(255, 149, 0);
+	color: white;
+}
+.orbg {
+	background: rgb(255, 149, 0);
+}
+.gabg {
+	background: gray;
+}
+
+
+
+.registerinfoarea {
+	display: flex;
+	float: left;
+}
+
+.bodyinfoarea {
+	width: 870px;
+	margin-top: 10px;
+}
+.registeraddressdetail {
+	padding: 10px;
+	padding-left: ;
+	font-size: 16px;
+	width: 50%;
+	display: flex;
+	float: left;
+}
+
+.registeraddressdetail input {
+	margin-left: 80px;
+	width: 292px;
+	height: 30px;
+	border: 0.5px solid lightgray;
+	font-size: 16px;
+	text-align: left;
+	padding-left: 8px;
+}
+
+.registertextarea {
+	margin: 15px;
+	font-size: 17px;
+	padding-left: 80px;
+}
+
+.registertextarea textarea {
+	width: 722px;
+	margin: 10px 0px;
+	font-size: 16px;
+	height: 150px;
+	padding-left: 8px;
+	padding-top: 8px;
+	border: 0.5px solid lightgray;
+}
+
+.registerphotoarea {
+	padding-left: 80px;
+	margin: 15px;
+	font-size: 17px;
+	width: 810px;
+}
+
+.registerziliao_div{
+	display: flex;
+	float: left;
+}
+
+.registerziliao_div span {
+	font-size: 13px;
+	color: gray;
+	/*padding-top: 85px;*/
+	margin-top: 60px;
+	margin-left: 20px;
+}
+
