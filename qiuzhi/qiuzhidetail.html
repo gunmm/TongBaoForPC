@@ -331,7 +331,7 @@
 				<li>
 					<a href="#">发布</a>
 					<ul class="second-nav">
-						<li>
+						<li id="zhaopin_fb" hidden>
 							<a target="_blank" href="../publish/zhaopinfabu.html">招聘发布</a>
 						</li>
 						<li>
@@ -340,7 +340,7 @@
 						<li>
 							<a target="_blank" href="../publish/gongyingfabu.html">供应发布</a>
 						</li>
-						<li>
+						<li id="qiuzhi_fb" hidden>
 							<a target="_blank" href="../publish/jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
@@ -473,16 +473,16 @@
 			<div class="b bg" style="padding-top: 0;">
 				<div class="ba">
 					<div class="b4" v-if="type!=1&&localStorage.userId!=userId">
-						<div class="b4-1" @click="shoucang()">
+						<div class="b4-1 cursor-pointer" @click="shoucang()">
 							<img class="b4-img" v-if="isShoucang" src="../static/img/shoucang2.png" alt="" />
 							<img class="b4-img" v-else src="../static/img/shoucang1.png" alt="" />
 							<span id="shoucang" class="b4-span">收藏</span>
 						</div>
-						<div class="b4-2">
+						<div class="b4-2 cursor-pointer">
 							<img class="b4-img" src="../static/img/xiaoxi.png" />
-							<span class="b4-span">立即沟通</span>
+							<span class="b4-span" @click="getChat(userInfo,userId)">立即沟通</span>
 						</div>
-						<div class="b4-3">
+						<div class="b4-3 cursor-pointer">
 							<span v-if="isToudi" class="b4-span" @click="toudi()">已邀请面试</span>
 							<span v-else class="b4-span" @click="toudi()">邀请面试</span>
 						</div>
@@ -535,7 +535,7 @@
 						</div>
 					</div>
 					<div v-if="localStorage.userId!=userId" style="margin-top: 30px;" class="tousu1">
-						<img class="fr sel" src="../img/ic_tousu.png" onclick="tousu()" />
+						<img class="fr sel cursor-pointer" src="../img/ic_tousu.png" onclick="tousu()" />
 					</div>
 				</div>
 				<div style="width: 1px;box-shadow: rgb(243, 238, 238) -1px 20px 1px 0px;"></div>
@@ -634,7 +634,7 @@
 				},
 				shoucang: function() {
 					if(vm.userInfo.regStatus != 1) {
-						window.location.href = '../../register/register.html';
+						window.location.href = '../register/register.html';
 						return;
 					}
 					post('/webSc/favorite', {
@@ -661,7 +661,7 @@
 				},
 				toudi: function() {
 					if(vm.userInfo.regStatus != 1) {
-						window.location.href = '../../register/register.html';
+						window.location.href = '../register/register.html';
 						return;
 					}
 					post('/webQz/Interview', {
@@ -735,10 +735,12 @@
 			vm.userInfo = data.result;
 			vm.type = data.result.type;
 			if(vm.userInfo.type == 1) {
+				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
 				$('#wdyxgs').show();
 			} else {
+				$('#zhaopin_fb').show();
 				$('#sc_qiuzhi').show();
 				$('#wddy_qiuzhi').show();
 				$('#wdfb_zhaopin').show();

@@ -126,7 +126,7 @@
 				<li>
 					<a href="#">发布</a>
 					<ul class="second-nav">
-						<li>
+						<li id="zhaopin_fb" hidden>
 							<a target="_blank" href="../publish/zhaopinfabu.html">招聘发布</a>
 						</li>
 						<li>
@@ -135,7 +135,7 @@
 						<li>
 							<a target="_blank" href="../publish/gongyingfabu.html">供应发布</a>
 						</li>
-						<li>
+						<li id="qiuzhi_fb" hidden>
 							<a target="_blank" href="../publish/jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
@@ -261,9 +261,9 @@
 						</a>
 						<div :id="item.id" class="none" style="width: 100%;height: 40px;line-height: 40px;">
 							<span @click="showToubiao(item.id)" style="width: 880px;height: 100%;"></span>
-							<span class="fr ml-10 mr-10">编辑</span>
-							<span class="fr ml-10" onclick="update1(this)">更新</span>
-							<span class="fr" onclick="delete1(this)" style="color: gray;">删除</span>
+							<span class="fr ml-10 mr-10 cursor-pointer" @click="bianji(item.id)">编辑</span>
+							<span class="fr ml-10 cursor-pointer" onclick="update1(this)">更新</span>
+							<span class="fr cursor-pointer" onclick="delete1(this)" style="color: gray;">删除</span>
 						</div>
 					</li>
 				</ul>
@@ -300,7 +300,7 @@
 										<span class="shenglue2" :title="item.content">{{item.content}}</span>
 										<div class="ml-10" style="width: 80px;display: flex;flex-direction: column;line-height: 25px;text-align: right;">
 											<span>{{item.createAt}}</span>
-											<span @click="deleteToubiao(item.id)" style="color: gray;">删除</span>
+											<span class="cursor-pointer" @click="deleteToubiao(item.id)" style="color: gray;">删除</span>
 										</div>
 									</li>
 								</ul>
@@ -309,7 +309,7 @@
 					</div>
 					<div style="margin-right: 20px;">
 						<!--<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;" onclick="confirmTousu()">确认投诉</span>-->
-						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;" onclick="$('#toubiao').addClass('none')">关闭</span>
+						<span class="fr cursor-pointer" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;" onclick="$('#toubiao').addClass('none')">关闭</span>
 					</div>
 				</div>
 			</div>
@@ -355,6 +355,9 @@
 							$('#' + id).remove();
 						})
 					}
+				},
+				bianji: function(id) {
+					window.open('../publish/zhaobiaofabu.html?id=' + id);
 				}
 			}
 		})
@@ -362,10 +365,12 @@
 		getUserInfo(localStorage.userId, function(data) {
 			userInfo = data.result;
 			if(userInfo.type == 1) {
+				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
 				$('#wdyxgs').show();
 			} else {
+				$('#zhaopin_fb').show();
 				$('#sc_qiuzhi').show();
 				$('#wddy_qiuzhi').show();
 				$('#wdfb_zhaopin').show();

@@ -124,7 +124,7 @@
 				<li>
 					<a href="#">发布</a>
 					<ul class="second-nav">
-						<li>
+						<li id="zhaopin_fb" hidden>
 							<a target="_blank" href="../publish/zhaopinfabu.html">招聘发布</a>
 						</li>
 						<li>
@@ -133,7 +133,7 @@
 						<li>
 							<a target="_blank" href="../publish/gongyingfabu.html">供应发布</a>
 						</li>
-						<li>
+						<li id="qiuzhi_fb" hidden>
 							<a target="_blank" href="../publish/jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
@@ -260,7 +260,7 @@
 						<div class="pd-10 none" style="width: 100%;">
 							<p class="f-15" style="font-weight: bold;">投标价格：{{item.toubiaoPrice}}元/{{item.unit}}</p>
 							<p class="mt-10">{{item.content}}</p>
-							<span class="fr mt-10" onclick="delete1(this)" style="color: gray;">删除</span>
+							<span class="fr mt-10 cursor-pointer" onclick="delete1(this)" style="color: gray;">删除</span>
 							<div style="clear: both;"></div>
 						</div>
 					</li>
@@ -295,10 +295,12 @@
 		getUserInfo(localStorage.userId, function(data) {
 			userInfo = data.result;
 			if(userInfo.type == 1) {
+				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
 				$('#wdyxgs').show();
 			} else {
+				$('#zhaopin_fb').show();
 				$('#sc_qiuzhi').show();
 				$('#wddy_qiuzhi').show();
 				$('#wdfb_zhaopin').show();

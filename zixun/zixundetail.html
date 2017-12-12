@@ -39,7 +39,7 @@
 				<li>
 					<a href="#">发布</a>
 					<ul class="second-nav">
-						<li>
+						<li id="zhaopin_fb" hidden>
 							<a target="_blank" href="../publish/zhaopinfabu.html">招聘发布</a>
 						</li>
 						<li>
@@ -48,7 +48,7 @@
 						<li>
 							<a target="_blank" href="../publish/gongyingfabu.html">供应发布</a>
 						</li>
-						<li>
+						<li id="qiuzhi_fb" hidden>
 							<a target="_blank" href="../publish/jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
@@ -159,11 +159,11 @@
 							<span class="ml-15">{{trueView}}人阅读</span>
 						</div>
 						<div style="width: 50%;">
-							<a style="display: flex;float: right;margin-left: 20px;" onclick="shoucang()">
+							<a class="cursor-pointer" style="display: flex;float: right;margin-left: 20px;" onclick="shoucang()">
 								<img style="width: 15px;height: 15px;" :src="isShoucang?'../static/img/shoucang2.png':'../static/img/shoucang1.png'" />
 								<span id="shoucang_tip" style="line-height: 15px;margin-left: 5px;">收藏</span>
 							</a>
-							<a style="display: flex;float: right;" onclick="zan()">
+							<a class="cursor-pointer" style="display: flex;float: right;" onclick="zan()">
 								<img style="width: 15px;height: 15px;" :src="isZan?'../static/img/zan2.png':'../static/img/zan1.png'" />
 								<span style="line-height: 15px;margin-left: 5px;">{{upTotal}}</span>
 							</a>
@@ -218,10 +218,12 @@
 		getUserInfo(localStorage.userId, function(data) {
 			vm.userInfo = data.result;
 			if(vm.userInfo.type == 1) {
+				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
 				$('#wdyxgs').show();
 			} else {
+				$('#zhaopin_fb').show();
 				$('#sc_qiuzhi').show();
 				$('#wddy_qiuzhi').show();
 				$('#wdfb_zhaopin').show();

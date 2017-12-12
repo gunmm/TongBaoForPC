@@ -93,7 +93,7 @@
 				<li>
 					<a href="#">发布</a>
 					<ul class="second-nav">
-						<li>
+						<li id="zhaopin_fb" hidden>
 							<a target="_blank" href="../publish/zhaopinfabu.html">招聘发布</a>
 						</li>
 						<li>
@@ -102,7 +102,7 @@
 						<li>
 							<a target="_blank" href="../publish/gongyingfabu.html">供应发布</a>
 						</li>
-						<li>
+						<li id="qiuzhi_fb" hidden>
 							<a target="_blank" href="../publish/jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
@@ -266,7 +266,7 @@
 							<span :id="item.id" v-for="item in quanbu" onclick="selusertype(this)">{{item.name}}</span>
 						</div>
 					</div>
-					<div class="filter-btn" onclick="filter()">筛选</div>
+					<div class="filter-btn cursor-pointer" onclick="filter()">筛选</div>
 				</div>
 			</div>
 			<div style="width: 1000px; margin: auto;">
@@ -384,10 +384,12 @@
 		getUserInfo(localStorage.userId, function(data) {
 			userInfo = data.result;
 			if(userInfo.type == 1) {
+				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
 				$('#wdyxgs').show();
 			} else {
+				$('#zhaopin_fb').show();
 				$('#sc_qiuzhi').show();
 				$('#wddy_qiuzhi').show();
 				$('#wdfb_zhaopin').show();

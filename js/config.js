@@ -12,16 +12,22 @@ function asJump() {
 }
 
 var urlStr = window.location.href;
-
-if(urlStr.indexOf('code=') > 0) {
+var sign = true;
+var wxsign = true;
+if(urlStr.indexOf('code=') > 0 && !localStorage.code) {
+	$('#app').hide();
+	wxsign = false;
 	var code = new QueryString()['code'];
 	localStorage.code = code;
-
 	post('/weixinCon/userInfoPC', {
 		code: code
 	}, function(data) {
-		localStorage.userId = data.userId;
-		localStorage.accessToken = data.requestToken;
+		$('#app').show();
+		wxsign = true;
+		localStorage.code = code;
+		localStorage.userId = data.result.userId;
+		localStorage.openid = data.result.openid;
+		localStorage.accessToken = data.result.requestToken;
 		window.location.reload();
 	})
 }
@@ -33,7 +39,6 @@ if(urlStr.indexOf('code=') > 0) {
 //	localStorage.accessToken = userInfo.requestToken;
 //}
 
-var sign = true;
 if(!localStorage.userId && !localStorage.code) {
 	wxAuthorization(window.location.href, function(data) {
 		window.location.replace(data.result);
@@ -51,6 +56,7 @@ log(localStorage.accessToken);
  */
 function post(url, data, callback, loading, callback1) {
 	data['userId'] = localStorage.userId;
+	data['openid'] = localStorage.openid;
 	data['requestToken'] = localStorage.accessToken;
 	if(loading == null ? true : false) {
 		addLoading();
@@ -76,7 +82,8 @@ function post(url, data, callback, loading, callback1) {
 		error: function(data) {
 			removeLoading();
 			if(data.status == 510) {
-				if(isWx() && sign) {
+				localStorage.clear();
+				if(sign && wxsign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -91,6 +98,7 @@ function post(url, data, callback, loading, callback1) {
 
 function post1(url, async, data, callback) {
 	data['userId'] = localStorage.userId;
+	data['openid'] = localStorage.openid;
 	data['requestToken'] = localStorage.accessToken;
 	addLoading();
 	$.ajax({
@@ -109,7 +117,8 @@ function post1(url, async, data, callback) {
 		error: function(data) {
 			removeLoading();
 			if(data.status == 510) {
-				if(isWx() && sign) {
+				localStorage.clear();
+				if(sign && wxsign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -270,7 +279,8 @@ function getDicTable(async, classId, callback) {
 		data: {
 			classId: classId,
 			requestToken: localStorage.accessToken,
-			userId: localStorage.userId
+			userId: localStorage.userId,
+			openid: localStorage.openid
 		},
 		success: function(data) {
 			removeLoading();
@@ -283,7 +293,8 @@ function getDicTable(async, classId, callback) {
 		error: function(data) {
 			removeLoading();
 			if(data.status == 510) {
-				if(isWx() && sign) {
+				localStorage.clear();
+				if(sign && wxsign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -306,7 +317,8 @@ function getClassifyTable(async, classType, callback) {
 		data: {
 			type: classType,
 			requestToken: localStorage.accessToken,
-			userId: localStorage.userId
+			userId: localStorage.userId,
+			openid: localStorage.openid
 		},
 		success: function(data) {
 			removeLoading();
@@ -319,7 +331,8 @@ function getClassifyTable(async, classType, callback) {
 		error: function(data) {
 			removeLoading();
 			if(data.status == 510) {
-				if(isWx() && sign) {
+				localStorage.clear();
+				if(sign && wxsign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -484,10 +497,10 @@ function myAlert(str) {
 		return;
 	}
 	$('body').append('<div id="alert11111" style="width: 100%;height: 100%;position: fixed;top: 0;z-index: 1000;display: flex;">' +
-		'<div style="margin: auto;padding: 20px; text-align: center;background: rgba(0, 0, 0, 0.5);border-radius: 10px;color: white;">' +
+		'<div style="margin: auto;padding: 20px; text-align: center;background: rgba(0, 0, 0, 0.8);border-radius: 10px;color: white;">' +
 		'<div style="max-width: 500px;min-width: 200px;font-size:16px">' + str + '</div>' +
 		'<div style="height: 1px;background: white;margin-top: 20px;"></div>' +
-		'<div style="padding-top: 20px;font-weight: bold;font-size: 16px;" onclick="$(this).parent().parent().remove()">确&nbsp;&nbsp;&nbsp;&nbsp;定</div>' +
+		'<div style="cursor: pointer;padding-top: 20px;font-weight: bold;font-size: 16px;" onclick="$(this).parent().parent().remove()">确&nbsp;&nbsp;&nbsp;&nbsp;定</div>' +
 		'</div>' +
 		'</div>');
 }
@@ -502,8 +515,8 @@ function feedback() {
 		'<textarea id="feedback_content_11111" style="margin-top: 10px;width: 100%;height: 180px;resize: none;font-size: 16px;line-height: 30px;padding: 10px;box-sizing: border-box;color: #998a8a;font-family: microsoft yahei;" placeholder="请填写您宝贵的建议"></textarea>' +
 		'</div>' +
 		'<div style="margin-right: 20px;">' +
-		'<span style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;float: right;" onclick="confirmFankui()">确认反馈</span>' +
-		'<span style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;float: right;" onclick="$(this).parent().parent().parent().remove()">取消</span>' +
+		'<span class="cursor-pointer" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;float: right;" onclick="confirmFankui()">确认反馈</span>' +
+		'<span class="cursor-pointer" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;float: right;" onclick="$(this).parent().parent().parent().remove()">取消</span>' +
 		'</div>' +
 		'</div>' +
 		'</div>')
@@ -524,4 +537,352 @@ function confirmFankui() {
 		$('#feedback11111').remove();
 		myAlert('感谢您的支持和理解我们会尽快对信息进行核实与处理');
 	})
+}
+
+function getChat(userInfo, toId) {
+	if(userInfo.regStatus != 1) {
+		window.location.href = '../register/register.html';
+		return;
+	}
+
+	$('body').append('<div id="chat11111" hidden style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.8);position: fixed;top: 0;z-index: 1000;display: flex;">' +
+		'<div style="width: 600px;height: 450px;margin: auto; background-color: white; padding: 10px; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">' +
+		'<ul id="chatContent11111" style="list-style: none;margin: 0;padding: 0;height: 300px;overflow: auto;">' +
+		'<li v-for="item in chatlist">' +
+		'<div style="text-align: center;margin-top: 5px;">{{item.strCreatedAt}}</div>' +
+		'<div v-if="item.fromUid!=localStorage.userId" style="display: inline-flex;">' +
+		'<img :src="item.toTouxiang?getAvatar(item.toTouxiang):\'../static/img/avatar_96x96.png\'" style="width: 40px;height: 40px;border-radius: 8px;" />' +
+		'<div style="margin-left: 10px;">' +
+		'<div style="font-size: 14px;">{{item.nickName}}</div>' +
+		'<div style="display: inline-flex;position: relative;color: white;">' +
+		'<div style="border-left: 8px solid transparent;content: \'\';width: 0;height: 0;border-top: 12px solid #0088CC;margin-top: 15px;"></div>' +
+		'<div style="margin-top: 5px;background-color: #0088CC;border-radius: 10px;padding: 8px;max-width: 300px;min-height: 20px;" v-html="strReplace(decodeURI(item.messageContent))"></div>' +
+		'</div>' +
+		'</div>' +
+		'</div>' +
+		'<div v-else style="display: inline-flex;float: right;">' +
+		'<div style="margin-right: 10px;">' +
+		'<div style="font-size: 14px;float: right;">{{userInfo.orgName}}</div>' +
+		'<div style="clear: both;"></div>' +
+		'<div style="display: inline-flex;position: relative;color: white;">' +
+		'<div style="margin-top: 5px;background-color: #128A28;border-radius: 10px;padding: 8px;max-width: 300px;min-height: 20px;" v-html="strReplace(decodeURI(item.messageContent))"></div>' +
+		'<div style="border-right: 8px solid transparent;content: \'\';width: 0;height: 0;border-top: 12px solid #128A28;margin-top: 15px;"></div>' +
+		'</div>' +
+		'</div>' +
+		'<img :src="userInfo.touxiang?getAvatar(userInfo.touxiang):\'../static/img/avatar_96x96.png\'" style="width: 40px;height: 40px;border-radius: 8px;" />' +
+		'</div>' +
+		'<div style="clear: both;"></div>' +
+		'</li>' +
+		'</ul>' +
+		'<textarea @keydown="keydown()" @keyup="keyup()" v-model="content" style="color:black;width: 100%;height: 80px;resize: none;box-sizing: border-box;padding: 8px;font-size: 16px;line-height: 20px;margin-top: 10px;margin-bottom: 5px;"></textarea>' +
+		'<div id="sendChat11111" class="cursor-pointer" @click="sendChat()" style="float: right;background: lightgray;width: 60px;height: 25px;line-height: 25px;text-align: center;font-size: 15px;margin-left: 10px;" onmouseenter="this.style.cssText=\'float: right;width: 60px;height: 25px;line-height: 25px;text-align: center;background: #128A28;color: white;font-size: 15px;margin-left: 10px;\'" onmouseleave="this.style.cssText=\'float: right;background: lightgray;width: 60px;height: 25px;line-height: 25px;text-align: center;font-size: 15px;margin-left: 10px;\'">发送</div>' +
+		'<div onclick="$(this).parent().parent().remove()" class="cursor-pointer" style="float: right;background: lightgray;width: 60px;height: 25px;line-height: 25px;text-align: center;font-size: 15px;">关闭</div>' +
+		'</div>' +
+		'</div>')
+
+	var vm = new Vue({
+		el: '#chat11111',
+		data: {
+			userInfo: userInfo,
+			chatlist: [],
+			content: '',
+			isEnt: false,
+			isCtrl: false
+		},
+		methods: {
+			sendChat: function() {
+				if(!vm.content) {
+					myAlert('内容不能为空');
+					return;
+				}
+				post('/webUser/mySendMessage', {
+					fromUid: localStorage.userId,
+					toUid: toId,
+					messageContent: encodeURI(vm.content)
+				}, function(data) {
+					var src = '';
+					if(vm.userInfo.touxiang) {
+						src = getAvatar(vm.userInfo.touxiang);
+					} else {
+						src = '../static/img/avatar_96x96.png';
+					}
+					$('#chatContent11111').append('<div style="display: inline-flex;float: right;margin-top: 5px;">' +
+						'<div style="margin-right: 10px;">' +
+						'<div style="font-size: 14px;float: right;">' + vm.userInfo.orgName + '</div>' +
+						'<div style="clear: both;"></div>' +
+						'<div style="display: inline-flex;position: relative;color: white;">' +
+						'<div style="margin-top: 5px;background-color: #128A28;border-radius: 10px;padding: 8px;max-width: 300px;min-height: 20px;">' + strReplace(vm.content) + '</div>' +
+						'<div style="border-right: 8px solid transparent;content: \'\';width: 0;height: 0;border-top: 12px solid #128A28;margin-top: 15px;"></div>' +
+						'</div>' +
+						'</div>' +
+						'<img src="' + src + '" style="width: 40px;height: 40px;border-radius: 8px;" />' +
+						'</div>' +
+						'<div style="clear: both;"></div>');
+					vm.content = '';
+					$('#chatContent11111').scrollTop($('#chatContent11111')[0].scrollHeight);
+				})
+			},
+			keydown: function() {
+				var code = event.keyCode || event.which || event.charCode;
+				if(code == 13) {
+					vm.isEnt = true;
+				}
+				if(code == 17) {
+					vm.isCtrl = true;
+				}
+				if(vm.isCtrl && vm.isEnt) {
+					vm.content += '\n';
+					return;
+				}
+				if(vm.isEnt) {
+					event.returnValue = false;
+					event.cancel = true;
+					$('#sendChat11111').click();
+				}
+			},
+			keyup: function() {
+				if(event.keyCode == 13) {
+					vm.isEnt = false;
+				}
+				if(event.keyCode == 17) {
+					vm.isCtrl = false;
+				}
+			}
+		}
+	})
+
+	post('/webUser/myAllMessage', {
+		userId: localStorage.userId,
+		toId: toId
+	}, function(data) {
+		vm.chatlist = data.result;
+		setTimeout(function() {
+			$('#chatContent11111').scrollTop($('#chatContent11111')[0].scrollHeight);
+		}, 300);
+	})
+}
+
+getUserInfo(localStorage.userId, function(data) {
+	initMeassage(data.result);
+})
+
+function initMeassage(userInfo) {
+	$(function() {
+		$('body').append('<div id="message111111" style="position: fixed;bottom: 50px;right: 10px;">' +
+			'<div style="position: relative;">' +
+			'<img style="width: 40px;height: 40px;cursor: pointer;" :src="getDir()+\'img/ic_message.png\'" @click="$(\'#msgdetail111\').show();getMsg();" />' +
+			'<div v-if="xiaoxi" style="width: 10px;height: 10px;background: red;border-radius: 100px;position: absolute;top: 0;left: 0;"></div>' +
+			'</div>' +
+			'<div id="msgdetail111" hidden>' +
+			'<div onclick="$(\'#msgdetail111\').hide()" style="cursor: pointer;background: white;position: fixed;right: 0;bottom: 400px;width: 600px;height: 28px;text-align: right;line-height: 28px;font-size: 15px;border: 1px solid lightgray;">关闭&nbsp;&nbsp;</div>' +
+			'<div style="width: 600px;height: 400px;position: fixed;right: 0;bottom: 0;display: inline-flex;border: 1px solid lightgray;background: white;">' +
+			'<div style="width: 200px;height: 100%;">' +
+			'<ul style="list-style: none;margin: 0;padding: 0;">' +
+			'<li v-if="systemMessage" onclick="$(this).addClass(\'select-bg\').siblings(\'li\').removeClass(\'select-bg\');" @click="systemMessage.read=1;chat(1,\'\')" style="padding: 8px;position: relative;display: inline-flex;box-sizing: border-box;width: 100%;cursor: pointer;" onmouseenter="$($(this).children()[3]).show();" onmouseleave="$($(this).children()[3]).hide()">' +
+			'<img :src="getDir()+\'static/img/Group@2x.png\'" style="width: 45px;height: 45px;border-radius: 8px;" />' +
+			'<div style="width: 130px;margin-left: 8px;font-size: 15px;line-height: 22px;">' +
+			'<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100px;">系统通知</div>' +
+			'<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100%;color: gray;">{{decodeURI(systemMessage.messageContent)}}</div>' +
+			'</div>' +
+			'<div v-show="systemMessage.read==0" style="width: 10px;height: 10px;background: red;border-radius: 50px;position: absolute;left: 5px;top: 5px;"></div>' +
+			'<img hidden id="system111" @click="deleteMessage(1, systemMessage.fromUid==localStorage.userId?systemMessage.toUid:systemMessage.fromUid)" :src="getDir()+\'static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png\'" style="width: 15px;height: 15px;position: absolute;right: 8px;display: none;" />' +
+			'</li>' +
+			'<li v-for="item in chatMessage" onclick="$(this).addClass(\'select-bg\').siblings(\'li\').removeClass(\'select-bg\');" @click="item.read=1;chat(2,item.fromUid==localStorage.userId?item.toUid:item.fromUid)" style="cursor: pointer;padding: 8px;position: relative;display: inline-flex;box-sizing: border-box;width: 100%;" onmouseenter="$($(this).children()[3]).show();" onmouseleave="$($(this).children()[3]).hide()">' +
+			'<img :src="item.toTouxiang?getAvatar(item.toTouxiang):getDir()+\'static/img/avatar_96x96.png\'" style="width: 45px;height: 45px;border-radius: 8px;" />' +
+			'<div style="width: 130px;margin-left: 8px;font-size: 15px;line-height: 22px;">' +
+			'<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100px;">{{item.nickName}}</div>' +
+			'<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100%;color: gray;">{{decodeURI(item.messageContent)}}</div>' +
+			'</div>' +
+			'<div v-show="item.fromUid!=localStorage.userId&&item.read==0" style="width: 10px;height: 10px;background: red;border-radius: 50px;position: absolute;left: 5px;top: 5px;"></div>' +
+			'<img hidden :id="item.fromUid==localStorage.userId?item.toUid:item.fromUid" @click="deleteMessage(2, item.fromUid==localStorage.userId?item.toUid:item.fromUid)" :src="getDir()+\'static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png\'" style="width: 15px;height: 15px;position: absolute;right: 8px;display: none;" />' +
+			'</li>' +
+			'</ul>' +
+			'</div>' +
+			'<div style="width: 1px;background: lightgray;"></div>' +
+			'<div hidden id="chatdetail1212" style="width: 400px;height: 100%;">' +
+			'<ul id="chatcontent1212" style="list-style: none;margin: 0;padding: 0;overflow: auto;height: 270px;">' +
+			'<li v-for="item in chatlist" style="padding: 8px;box-sizing: border-box;width: 100%;">' +
+			'<div style="text-align: center;margin-top: 5px;">{{item.strCreatedAt}}</div>' +
+			'<div v-if="item.fromUid!=localStorage.userId" style="display: inline-flex;">' +
+			'<img :src="item.toTouxiang?getAvatar(item.toTouxiang):getDir()+\'static/img/avatar_96x96.png\'" style="width: 40px;height: 40px;border-radius: 8px;" />' +
+			'<div style="margin-left: 10px;">' +
+			'<div style="font-size: 14px;">{{item.nickName}}</div>' +
+			'<div style="display: inline-flex;position: relative;color: white;">' +
+			'<div style="border-left: 8px solid transparent;content: \'\';width: 0;height: 0;border-top: 12px solid #0088CC;margin-top: 15px;"></div>' +
+			'<div style="margin-top: 5px;background-color: #0088CC;border-radius: 10px;padding: 8px;max-width: 200px;min-height: 20px;" v-html="strReplace(decodeURI(item.messageContent))"></div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div v-else style="display: inline-flex;float: right;">' +
+			'<div style="margin-right: 10px;">' +
+			'<div style="font-size: 14px;float: right;">{{userInfo.orgName}}</div>' +
+			'<div style="clear: both;"></div>' +
+			'<div style="display: inline-flex;position: relative;color: white;">' +
+			'<div style="margin-top: 5px;background-color: #128A28;border-radius: 10px;padding: 8px;max-width: 200px;min-height: 20px;" v-html="strReplace(decodeURI(item.messageContent))"></div>' +
+			'<div style="border-right: 8px solid transparent;content: \'\';width: 0;height: 0;border-top: 12px solid #128A28;margin-top: 15px;"></div>' +
+			'</div>' +
+			'</div>' +
+			'<img :src="userInfo.touxiang?getAvatar(userInfo.touxiang):getDir()+\'static/img/avatar_96x96.png\'" style="width: 40px;height: 40px;border-radius: 8px;" />' +
+			'</div>' +
+			'<div style="clear: both;"></div>' +
+			'</li>' +
+			'</ul>' +
+			'<textarea @keydown="keydown()" @keyup="keyup()" v-model="content" style="color:black;width: 100%;height: 80px;resize: none;box-sizing: border-box;padding: 8px;font-size: 16px;line-height: 20px;margin-top: 10px;margin-bottom: 5px;border: none;border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;"></textarea>' +
+			'<div id="sendChat1212" @click="sendChat()" style="float: right;background: lightgray;width: 60px;height: 25px;line-height: 25px;text-align: center;font-size: 15px;margin-right: 10px;" onmouseenter="this.style.cssText=\'cursor: pointer;float: right;width: 60px;height: 25px;line-height: 25px;text-align: center;background: #128A28;color: white;font-size: 15px;margin-right: 10px;\'" onmouseleave="this.style.cssText=\'float: right;background: lightgray;width: 60px;height: 25px;line-height: 25px;text-align: center;font-size: 15px;margin-right: 10px;\'">发送</div>' +
+			'</div>' +
+			'<div hidden id="sysdetail1212" style="width: 400px;height: 100%;">' +
+			'<ul id="syscontent1212" style="list-style: none;margin: 0;padding: 0;height: 100%;;overflow: auto;">' +
+			'<li v-for="item in sysmsglist" style="padding: 8px;box-sizing: border-box;width: 100%;align-items: center;display: flex;flex-direction: column;">' +
+			'<div style="text-align: center;">{{item.strCreatedAt}}</div>' +
+			'<div style="width: 80%;background: lightgray;padding: 8px;text-align: center;color: white;border-radius: 5px;font-weight: bold;" v-html="item.pcmessage"></div>' +
+			'</li>' +
+			'</ul>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>')
+
+		var vm = new Vue({
+			el: '#message111111',
+			data: {
+				userInfo: userInfo,
+				msg_empty: false,
+				systemMessage: '',
+				chatMessage: [],
+				chatlist: [],
+				sysmsglist: [],
+				content: '',
+				isEnt: false,
+				isCtrl: false,
+				toId: '',
+				xiaoxi: false
+			},
+			methods: {
+				keydown: function() {
+					var code = event.keyCode || event.which || event.charCode;
+					if(code == 13) {
+						vm.isEnt = true;
+					}
+					if(code == 17) {
+						vm.isCtrl = true;
+					}
+					if(vm.isCtrl && vm.isEnt) {
+						vm.content += '\n';
+						return;
+					}
+					if(vm.isEnt) {
+						event.returnValue = false;
+						event.cancel = true;
+						$('#sendChat1212').click();
+					}
+				},
+				keyup: function() {
+					if(event.keyCode == 13) {
+						vm.isEnt = false;
+					}
+					if(event.keyCode == 17) {
+						vm.isCtrl = false;
+					}
+				},
+				getMsg: function() {
+					vm.xiaoxi = false;
+					post('/webUser/myMessage', {
+						userId: localStorage.userId
+					}, function(data) {
+						vm.systemMessage = data.result.Message;
+						vm.chatMessage = data.result.ChatList;
+					})
+				},
+				chat: function(type, toId) {
+					vm.toId = toId;
+					if(type == 1) {
+						$('#chatdetail1212').hide();
+						post('/webUser/myAllSystemMessage', {
+							userId: localStorage.userId
+						}, function(data) {
+							$('#sysdetail1212').show();
+							vm.sysmsglist = data.result
+							setTimeout(function() {
+								$('#syscontent1212').scrollTop($('#syscontent1212')[0].scrollHeight);
+							}, 500);
+						})
+					} else {
+						$('#sysdetail1212').hide();
+						post('/webUser/myAllMessage', {
+							userId: localStorage.userId,
+							toId: toId
+						}, function(data) {
+							$('#chatdetail1212').show();
+							vm.chatlist = data.result;
+							setTimeout(function() {
+								$('#chatcontent1212').scrollTop($('#chatcontent1212')[0].scrollHeight);
+							}, 500);
+						})
+					}
+				},
+				deleteMessage: function(type, id) {
+					event.stopPropagation();
+					if(confirm("确定要删除吗?")) {
+						post('/webUser/deleteMessage', {
+							fromId: id,
+							toId: localStorage.userId,
+							messageType: type
+						}, function(data) {
+							if(type == 1) {
+								$('#system111').parent().remove();
+							} else {
+								$('#' + id).parent().remove();
+							}
+						})
+					}
+				},
+				sendChat: function() {
+					if(!vm.content) {
+						myAlert('内容不能为空');
+						return;
+					}
+					post('/webUser/mySendMessage', {
+						fromUid: localStorage.userId,
+						toUid: vm.toId,
+						messageContent: encodeURI(vm.content)
+					}, function(data) {
+						var src = '';
+						if(vm.userInfo.touxiang) {
+							src = getAvatar(vm.userInfo.touxiang);
+						} else {
+							src = getDir() + 'static/img/avatar_96x96.png';
+						}
+						$('#chatcontent1212').append('<div style="display: inline-flex;float: right;">' +
+							'<div style="margin-right: 10px;">' +
+							'<div style="font-size: 14px;float: right;">' + vm.userInfo.orgName + '</div>' +
+							'<div style="clear: both;"></div>' +
+							'<div style="display: inline-flex;position: relative;color: white;">' +
+							'<div style="margin-top: 5px;background-color: #128A28;border-radius: 10px;padding: 8px;max-width: 200px;min-height: 20px;">' + strReplace(vm.content) + '</div>' +
+							'<div style="border-right: 8px solid transparent;content: \'\';width: 0;height: 0;border-top: 12px solid #128A28;margin-top: 15px;"></div>' +
+							'</div>' +
+							'</div>' +
+							'<img src="' + src + '" style="width: 40px;height: 40px;border-radius: 8px;" />' +
+							'</div>' +
+							'<div style="clear: both;"></div>');
+						vm.content = '';
+						$('#chatcontent1212').scrollTop($('#chatcontent1212')[0].scrollHeight);
+					})
+				}
+			}
+		})
+
+		post('/webUser/allNotReadMessage', {
+			userId: localStorage.userId
+		}, function(data) {
+			vm.xiaoxi = data.result ? true : false;
+		})
+	})
+}
+
+function getDir() {
+	if(window.location.href.indexOf('index.html') > 0) {
+		return '';
+	} else {
+		return '../';
+	}
 }

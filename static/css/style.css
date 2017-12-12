@@ -52,7 +52,7 @@ a {
 	float: left;
 	width: 25%;
 	height: 50px;
-	line-height: 50px;
+	line-height: 48px;
 	text-align: center;
 }
 
@@ -83,6 +83,14 @@ a {
 	width: 150px;
 	height: 200px;
 	display: none;
-	margin-left: 151px;
+	margin-left: 150px;
 	margin-top: -30px;
+}
+
+.select-bg {
+	background: lightgray;
+}
+
+.cursor-pointer {
+	cursor: pointer;
 }

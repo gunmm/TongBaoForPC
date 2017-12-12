@@ -5,7 +5,6 @@
 		<meta charset="utf-8">
 		<title>闵哲</title>
 		<link rel="icon" href="img/logo.ico" type="img/x-ico" />
-		<link rel="stylesheet" href="static/css/home.css" />
 		<link rel="stylesheet" href="css/loading.css" />
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<style>
@@ -52,29 +51,203 @@
 			.sel:hover {
 				border: 3px solid transparent;
 			}
+			
+			.swsw {
+				background: red;
+			}
 		</style>
 	</head>
 
 	<body>
 
 		<div style="width: 100%;height: 10000px;">
-			<img src="static/img/3.jpg" onclick="alert(111)" />
+			<img src="static/img/3.jpg" width="100%" height="100%" onclick="alert(111)" />
 
-			<div style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.8);position: fixed;top: 0;z-index: 1000;display: flex;">
-				<div style="width: 600px;height: 350px;margin: auto; background-color: white; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">
-					<div style="margin: 30px 20px 30px 20px;">
-						<div style="display: flex; align-items: center;margin-bottom: 10px;">
-							<span style="font-size: 16px;font-weight: bold;">意见反馈</span>
+			<!--<div style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.8);position: fixed;top: 0;z-index: 1000;display: flex;">
+				<div style="width: 600px;height: 430px;margin: auto; background-color: white; padding: 10px; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">
+					<ul id="aaa" style="list-style: none;margin: 0;padding: 0;height: 300px;overflow: auto;">
+						<li v-for="item in chatlist">
+							<div style="text-align: center;">{{item.strCreatedAt}}</div>
+							<div v-if="item.fromUid!=localStorage.userId" style="display: inline-flex;">
+								<img :src="item.toTouxiang?getAvatar(item.toTouxiang):'../static/img/avatar_96x96.png'" style="width: 40px;height: 40px;" />
+								<div style="margin-left: 10px;">
+									<div style="font-size: 14px;">姓名</div>
+									<div style="display: inline-flex;position: relative;color: white;">
+										<div style="border-left: 15px solid transparent;content: '';width: 0;height: 0;border-top: 15px solid #0088CC;margin-top: 15px;"></div>
+										<div style="margin-top: 5px;background-color: #0088CC;border-radius: 10px;padding: 8px;max-width: 300px;min-height: 20px;">{{decodeURI(item.messageContent)}}</div>
+									</div>
+								</div>
+							</div>
+							<div v-else style="display: inline-flex;float: right;">
+								<div style="margin-right: 10px;">
+									<div style="font-size: 14px;float: right;">姓名</div>
+									<div style="clear: both;"></div>
+									<div style="display: inline-flex;position: relative;color: white;">
+										<div style="margin-top: 5px;background-color: #128A28;border-radius: 10px;padding: 8px;max-width: 300px;min-height: 20px;">{{decodeURI(item.messageContent)}}</div>
+										<div style="border-right: 15px solid transparent;content: '';width: 0;height: 0;border-top: 15px solid #128A28;margin-top: 15px;"></div>
+									</div>
+								</div>
+								<img :src="userInfo.touxiang?getAvatar(userInfo.touxiang):'../static/img/avatar_96x96.png'" style="width: 40px;height: 40px;" />
+							</div>
+							<div style="clear: both;"></div>
+						</li>
+					</ul>
+					<textarea @keydown="keydown()" onkeydown="KeyDown()" v-model="content" style="outline:hidden; width: 100%;height: 80px;resize: none;box-sizing: border-box;padding: 8px;font-size: 16px;line-height: 20px;margin-top: 10px;margin-bottom: 5px;"></textarea>
+					<div @click="sendChat()" style="float: right;background: lightgray;width: 60px;height: 25px;line-height: 25px;text-align: center;font-size: 15px;margin-left: 10px;" onmouseenter="this.style.cssText='float: right;width: 60px;height: 25px;line-height: 25px;text-align: center;background: #128A28;color: white;font-size: 15px;margin-left: 10px;'" onmouseleave="this.style.cssText='float: right;background: lightgray;width: 60px;height: 25px;line-height: 25px;text-align: center;font-size: 15px;margin-left: 10px;'">发送</div>
+					<div onclick="$(this).parent().parent().remove()" style="float: right;background: lightgray;width: 60px;height: 25px;line-height: 25px;text-align: center;font-size: 15px;">关闭</div>
+				</div>
+			</div>-->
+
+			<div style="position: fixed;bottom: 50px;right: 10px;">
+				<div style="position: relative;">
+					<img style="width: 40px;height: 40px;" src="img/ic_message.png" onclick="$('#chatdetail111').show()" />
+					<div style="width: 10px;height: 10px;background: red;border-radius: 100px;position: absolute;top: 0;left: 0;"></div>
+				</div>
+				<div id="chatdetail111" hidden>
+					<div onclick="$('#chatdetail111').hide()" style="background: white;position: fixed;right: 0;bottom: 400px;width: 600px;height: 28px;text-align: right;line-height: 28px;font-size: 15px;border: 1px solid lightgray;">关闭&nbsp;&nbsp;</div>
+					<div style="width: 600px;height: 400px;position: fixed;right: 0;bottom: 0;display: inline-flex;border: 1px solid lightgray;background: white;">
+						<div style="width: 200px;height: 100%;">
+							<ul class="qwqw" style="list-style: none;margin: 0;padding: 0;">
+								<li v-if="systemMessage" onclick="setsel(this)" @click="chat(item.fromUid==localStorage.userId?item.toUid:item.fromUid)" style="padding: 8px;position: relative;display: inline-flex;box-sizing: border-box;width: 100%;" onmouseenter="$($(this).children()[3]).show();" onmouseleave="$($(this).children()[3]).hide()">
+									<img src="static/img/Group@2x.png" style="width: 45px;height: 45px;border-radius: 8px;" />
+									<div style="width: 130px;margin-left: 8px;font-size: 15px;line-height: 22px;">
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100px;">系统通知</div>
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100%;color: gray;">{{decodeURI(systemMessage.messageContent)}}</div>
+									</div>
+									<div v-if="systemMessage.read==0" style="width: 10px;height: 10px;background: red;border-radius: 50px;position: absolute;left: 5px;top: 5px;"></div>
+									<img hidden @click="deleteMessage(1, systemMessage.fromUid==localStorage.userId?systemMessage.toUid:systemMessage.fromUid)" src="static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png" style="width: 15px;height: 15px;position: absolute;right: 8px;" />
+								</li>
+								<li v-for="item in chatMessage" onclick="setsel(this)" @click="chat(item.fromUid==localStorage.userId?item.toUid:item.fromUid)" style="padding: 8px;position: relative;display: inline-flex;box-sizing: border-box;width: 100%;" onmouseenter="$($(this).children()[3]).show();" onmouseleave="$($(this).children()[3]).hide()">
+									<img :src="item.toTouxiang?getAvatar(item.toTouxiang):'../static/img/avatar_96x96.png'" style="width: 45px;height: 45px;border-radius: 8px;" />
+									<div style="width: 130px;margin-left: 8px;font-size: 15px;line-height: 22px;">
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100px;">{{item.nickName}}</div>
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100%;color: gray;">{{decodeURI(item.messageContent)}}</div>
+									</div>
+									<div style="width: 10px;height: 10px;background: red;border-radius: 50px;position: absolute;left: 5px;top: 5px;"></div>
+									<img hidden @click="deleteMessage(2, item.fromUid==localStorage.userId?item.toUid:item.fromUid)" src="static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png" style="width: 15px;height: 15px;position: absolute;right: 8px;" />
+								</li>
+								<li v-for="item in chatMessage" onclick="setsel(this)" @click="chat(item.fromUid==localStorage.userId?item.toUid:item.fromUid)" style="padding: 8px;position: relative;display: inline-flex;box-sizing: border-box;width: 100%;" onmouseenter="$($(this).children()[3]).show();" onmouseleave="$($(this).children()[3]).hide()">
+									<img :src="item.toTouxiang?getAvatar(item.toTouxiang):'../static/img/avatar_96x96.png'" style="width: 45px;height: 45px;border-radius: 8px;" />
+									<div style="width: 130px;margin-left: 8px;font-size: 15px;line-height: 22px;">
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100px;">{{item.nickName}}</div>
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100%;color: gray;">{{decodeURI(item.messageContent)}}</div>
+									</div>
+									<div style="width: 10px;height: 10px;background: red;border-radius: 50px;position: absolute;left: 5px;top: 5px;"></div>
+									<img hidden @click="deleteMessage(2, item.fromUid==localStorage.userId?item.toUid:item.fromUid)" src="static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png" style="width: 15px;height: 15px;position: absolute;right: 8px;" />
+								</li>
+								<li v-for="item in chatMessage" onclick="setsel(this)" @click="chat(item.fromUid==localStorage.userId?item.toUid:item.fromUid)" style="padding: 8px;position: relative;display: inline-flex;box-sizing: border-box;width: 100%;" onmouseenter="$($(this).children()[3]).show();" onmouseleave="$($(this).children()[3]).hide()">
+									<img :src="item.toTouxiang?getAvatar(item.toTouxiang):'../static/img/avatar_96x96.png'" style="width: 45px;height: 45px;border-radius: 8px;" />
+									<div style="width: 130px;margin-left: 8px;font-size: 15px;line-height: 22px;">
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100px;">{{item.nickName}}</div>
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100%;color: gray;">{{decodeURI(item.messageContent)}}</div>
+									</div>
+									<div style="width: 10px;height: 10px;background: red;border-radius: 50px;position: absolute;left: 5px;top: 5px;"></div>
+									<img hidden @click="deleteMessage(2, item.fromUid==localStorage.userId?item.toUid:item.fromUid)" src="static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png" style="width: 15px;height: 15px;position: absolute;right: 8px;" />
+								</li>
+								<li v-for="item in chatMessage" onclick="setsel(this)" @click="chat(item.fromUid==localStorage.userId?item.toUid:item.fromUid)" style="padding: 8px;position: relative;display: inline-flex;box-sizing: border-box;width: 100%;" onmouseenter="$($(this).children()[3]).show();" onmouseleave="$($(this).children()[3]).hide()">
+									<img :src="item.toTouxiang?getAvatar(item.toTouxiang):'../static/img/avatar_96x96.png'" style="width: 45px;height: 45px;border-radius: 8px;" />
+									<div style="width: 130px;margin-left: 8px;font-size: 15px;line-height: 22px;">
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100px;">{{item.nickName}}</div>
+										<div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 100%;color: gray;">{{decodeURI(item.messageContent)}}</div>
+									</div>
+									<div style="width: 10px;height: 10px;background: red;border-radius: 50px;position: absolute;left: 5px;top: 5px;"></div>
+									<img hidden @click="deleteMessage(2, item.fromUid==localStorage.userId?item.toUid:item.fromUid)" src="static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png" style="width: 15px;height: 15px;position: absolute;right: 8px;" />
+								</li>
+							</ul>
 						</div>
-						<textarea id="feedback11111" style="margin-top: 10px;width: 100%;height: 180px;resize: none;font-size: 16px;line-height: 30px;padding: 10px;box-sizing: border-box;color: #998a8a;font-family: microsoft yahei;" placeholder="请填写您宝贵的建议"></textarea>
-					</div>
-					<div style="margin-right: 20px;">
-						<span style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;float: right;" onclick="confirmFankui()">确认反馈</span>
-						<span style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;float: right;" onclick="$(this).parent().parent.parent.remove()">取消</span>
+						<div style="width: 1px;background: lightgray;"></div>
+						<div hidden style="width: 400px;height: 100%;">
+							<ul style="list-style: none;margin: 0;padding: 0;height: 300px;overflow: auto;">
+								<li v-for="item in chatlist" style="padding: 8px;box-sizing: border-box;width: 100%;">
+									<div style="text-align: center;margin-top: 5px;">{{item.strCreatedAt}}</div>
+									<div v-if="item.fromUid!=localStorage.userId" style="display: inline-flex;">
+										<img :src="item.toTouxiang?getAvatar(item.toTouxiang):'../static/img/avatar_96x96.png'" style="width: 40px;height: 40px;border-radius: 8px;" />
+										<div style="margin-left: 10px;">
+											<div style="font-size: 14px;">{{item.nickName}}</div>
+											<div style="display: inline-flex;position: relative;color: white;">
+												<div style="border-left: 15px solid transparent;content: '';width: 0;height: 0;border-top: 15px solid #0088CC;margin-top: 15px;"></div>
+												<div style="margin-top: 5px;background-color: #0088CC;border-radius: 10px;padding: 8px;max-width: 200px;min-height: 20px;" v-html="decodeURI(item.messageContent)"></div>
+											</div>
+										</div>
+									</div>
+									<div v-else style="display: inline-flex;float: right;">
+										<div style="margin-right: 10px;">
+											<div style="font-size: 14px;float: right;">{{userInfo.orgName}}</div>
+											<div style="clear: both;"></div>
+											<div style="display: inline-flex;position: relative;color: white;">
+												<div style="margin-top: 5px;background-color: #128A28;border-radius: 10px;padding: 8px;max-width: 200px;min-height: 20px;" v-html="decodeURI(item.messageContent)"></div>
+												<div style="border-right: 15px solid transparent;content: '';width: 0;height: 0;border-top: 15px solid #128A28;margin-top: 15px;"></div>
+											</div>
+										</div>
+										<img :src="userInfo.touxiang?getAvatar(userInfo.touxiang):'../static/img/avatar_96x96.png'" style="width: 40px;height: 40px;border-radius: 8px;" />
+									</div>
+									<div style="clear: both;"></div>
+								</li>
+							</ul>
+						</div>
+						<div style="width: 400px;height: 100%;">
+							<ul style="list-style: none;margin: 0;padding: 0;height: 300px;overflow: auto;">
+								<li v-for="item in sysmsglist" style="padding: 8px;box-sizing: border-box;width: 100%;align-items: center;display: flex;flex-direction: column;">
+									<div style="text-align: center;">2017-12-07 16:16</div>
+									<div style="width: 80%;background: lightgray;padding: 8px;text-align: center;color: white;border-radius: 5px;font-weight: bold;"></div>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</body>
+
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<!--<script type="text/javascript" src="js/config.js"></script>-->
+	<script>
+		//		chating("");
+
+		//		h = $('#aaa')[0].scrollHeight;
+		//
+		//		log(h)
+		//
+		//		setTimeout(function() {
+		//			$('#aaa').scrollTop(h);
+		//		}, 500)
+		//
+		//		function KeyDown() {
+		//			var isAlt = 0;
+		//			var isEnt = 0;
+		//
+		//			var code = event.keyCode || event.which || event.charCode;
+		//
+		//			log(code);
+		//
+		//			if(code == 13) {
+		//				isEnt = 1;
+		//			}
+		//			if(code == 17) {
+		//				isAlt = 1;
+		//			}
+		//			// 判读Alt+Enter组合键
+		//			if(isAlt == 1 && isEnt == 1) {
+		//				console.log("Alt+Enter");
+		//				return;
+		//			} else if(code == 13) {
+		//				event.returnValue = false;
+		//				event.cancel = true;
+		//				alert(11111)
+		//			}
+		//		}
+
+		function qaqa(obj) {
+			log()
+			$($(obj).children()[3]).show();
+		}
+
+		function setsel(obj) {
+			log($(obj).siblings('.qwqw li'));
+			//			$($(obj)[0]).attr('background', 'red');
+			$(obj).attr('color', 'red');
+			$(obj).siblings('li').removeClass('swsw');
+		}
+	</script>
 
 </html>

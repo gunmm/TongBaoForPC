@@ -61,7 +61,7 @@
 				<li>
 					<a href="#">发布</a>
 					<ul class="second-nav">
-						<li>
+						<li id="zhaopin_fb" hidden>
 							<a target="_blank" href="../publish/zhaopinfabu.html">招聘发布</a>
 						</li>
 						<li>
@@ -70,7 +70,7 @@
 						<li>
 							<a target="_blank" href="../publish/gongyingfabu.html">供应发布</a>
 						</li>
-						<li>
+						<li id="qiuzhi_fb" hidden>
 							<a target="_blank" href="../publish/jianlifabu.html">求职发布</a>
 						</li>
 					</ul>
@@ -174,10 +174,10 @@
 			<div style="width: 1000px;margin: auto;display: flex;flex-direction: row; border: 1px solid lightgrey;">
 				<div style="width: 30%;">
 					<ul class="category">
-						<li class="hover selected" id="" style="padding: 10px 10px 10px 20px;" onclick="selcategory(this)">
+						<li class="hover selected cursor-pointer" id="" style="padding: 10px 10px 10px 20px;" onclick="selcategory(this)">
 							推荐
 						</li>
-						<li class="hover" v-for="item in categories" :id="item.id" style="padding: 10px 10px 10px 20px;" onclick="selcategory(this)">
+						<li class="hover cursor-pointer" v-for="item in categories" :id="item.id" style="padding: 10px 10px 10px 20px;" onclick="selcategory(this)">
 							{{item.title}}
 						</li>
 					</ul>
@@ -234,10 +234,12 @@
 		getUserInfo(localStorage.userId, function(data) {
 			userInfo = data.result;
 			if(userInfo.type == 1) {
+				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
 				$('#wdyxgs').show();
 			} else {
+				$('#zhaopin_fb').show();
 				$('#sc_qiuzhi').show();
 				$('#wddy_qiuzhi').show();
 				$('#wdfb_zhaopin').show();

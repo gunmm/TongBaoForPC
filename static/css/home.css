@@ -21,8 +21,7 @@ body {
 	height: 200px;
 }
 
-#yd_slider a,
-img {
+#yd_slider a img {
 	height: 200px;
 	margin: 10px 40px;
 }
