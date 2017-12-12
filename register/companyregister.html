@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>企业信息</title>
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		<link rel="stylesheet" href="../css/loading.css" />
+		<link rel="stylesheet" href="../static/css/style.css" />
+		<link rel="stylesheet" href="../static/css/home.css" />
+		<link rel="stylesheet" href="../static/css/jianli.css" />
+
+		<link rel="stylesheet" href="../static/css/mkui.css">
+		<link rel="stylesheet" href="../static/css/register.css" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/config.js"></script>
+
+		<style>
+			.avatarchange1 {
+				width: 100%;
+				text-align: center;
+				color: rgb(22, 122, 255);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="bgdiv">
+			<div id="app" class="content">
+				<div class="registertitle">企业信息</div>
+				<div style="background: rgb(255, 149, 0);height: 1px;width: 1000px;margin-top: 10px;"></div>
+
+				<div class="registerinfoarea">
+					<div class="headimgarea" style="margin: 10px;">
+						<img id="logocompany" src="../static/img/man.png" alt="头像" />
+						<input id="ip_logo" class="fr compile-pic" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" hidden="true" onchange="uploadLogo(this)">
+						<div class="textarea">
+							<div class="avatarchange1" onclick="chooseImg(1)">修改</div>
+						</div>
+
+					</div>
+
+					<div class="bodyinfoarea">
+						<div class="jianli_key_value">
+							<div class="jianli_keytext">
+								<p><span style="color:#FF0000;">*</span><span> 企业名称：</span></p>
+							</div>
+							<div class="jianli_valuetext">
+								<input type="text" placeholder="请填写企业名称" value="" v-model="companyname" />
+							</div>
+						</div>
+						<div class="jianli_key_value">
+							<div class="jianli_keytext">
+								<p><span style="color:#FF0000;">*</span><span> 座机电话：</span></p>
+							</div>
+							<div class="jianli_valuetext">
+								<input type="text" placeholder="请填写座机电话" value="" v-model="companyphone" onchange="checkTel()" />
+							</div>
+						</div>
+						<div class="jianli_key_value">
+							<div class="jianli_keytext">
+								<p><span style="color:#FF0000;">*</span><span> 企业邮箱：</span></p>
+							</div>
+							<div class="jianli_valuetext">
+								<input type="email" placeholder="请填写企业邮箱" value="" v-model="companyemail" onchange="checkEmail()" />
+							</div>
+						</div>
+						<div class="jianli_key_value">
+							<div class="jianli_keytext">
+								<p><span style="color:#FF0000;">*</span><span> 公司规模：</span></p>
+							</div>
+							<div class="jianli_valuetext">
+								<select v-model="companyscale">
+									<option value="">请选择</option>
+									<option v-for="item in companyscales" :value="item.itemCode">{{item.itemName}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="jianli_key_value">
+							<div class="jianli_keytext">
+								<p><span style="color:#FF0000;">*</span><span> 公司性质：</span></p>
+							</div>
+							<div class="jianli_valuetext">
+								<select v-model="companytype">
+									<option value="">请选择</option>
+									<option v-for="item in companytypes" :value="item.itemCode">{{item.itemName}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="clear"></div>
+						<div class="jianli_key_value">
+							<div class="jianli_keytext">
+								<p><span style="color:#FF0000;">*</span><span> 所在城市：</span></p>
+							</div>
+							<div class="jianli_valuetext">
+								<select class="jianlijilianselect" onchange="selectprovince(this)" id="selectprovince">
+									<option v-for="item in province" :value="item.id">{{item.name}}</option>
+								</select>
+								<select class="jianlijilianselect" id="selectcity">
+									<option value="">请选择</option>
+									<option v-for="item in nowcity" :value="item.id">{{item.name}}</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="registeraddressdetail">
+							<input type="text" value="" placeholder="请填写详细地址" v-model="companyaddress" />
+						</div>
+
+						<div class="registertextarea">
+							<div>
+								公司简介
+							</div>
+							<textarea name="" rows="" cols="" placeholder="请填写公司简介" v-model="companybrief"></textarea>
+						</div>
+
+						<div class="registerphotoarea">
+							<div>
+								实力展示
+							</div>
+							<div class="show-pic fl" style="width: 100%;">
+								<ul class="" id="showul">
+									<li id="xz" class='pos-r fl'>
+										<div class='zhanshi2 pos-r'>
+											<img src="../static/img/zhaoxiang.png" onclick="chooseImg(2)" />
+											<input id="ip_shili" class="fr compile-pic" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple hidden="true" onchange="uploadShiLi(this)">
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="registerphotoarea">
+							<div>
+								认证资料
+							</div>
+							<div class="show-pic fl" style="width: 100%;">
+								<div class="registerziliao_div">
+									<div class='zhanshi2 pos-r' style="margin: 30px;">
+										<img id="ziliao" src="../static/img/zhaoxiang.png" onclick="chooseImg(3)" />
+										<input id="ip_ziliao" class="fr compile-pic" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" hidden="true" onchange="uploadZiLiao(this)">
+									</div>
+									<span>上传营业执照副本照片</span>
+								</div>
+
+							</div>
+
+						</div>
+						<div class="h-20"></div>
+						<div class="sure-btn" @click="zhuce()" style="margin-top: 20px;margin-bottom: 20px;margin-right: 55px;">
+							确认上传
+						</div>
+						<div class="h-20"></div>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+
+			</div>
+		</div>
+	</body>
+
+	<script>
+		var Request = new QueryString();
+		var itemid = Request["id"];
+		var name = Request["name"];
+		var obj;
+		var companyname, companyphone, companyemail, companyscale, companytype, companyaddress, companybrief, picarray, logostr, renzhengpic;
+		if (itemid) {
+			post1('/webUser/findUserMessage', false, {
+				userId: localStorage.userId
+			}, function(data) {
+				console.log(data);
+				this.obj = data.result.compnay;
+				this.companyname = data.result.compnay.orgName;
+				this.companyphone = data.result.compnay.communicationPhone;
+				this.companyemail = data.result.compnay.orgEmail;
+				this.companyscale = data.result.compnay.orgScale;
+				this.companytype = data.result.compnay.orgType;
+				this.companyaddress = data.result.compnay.orgAddress;
+				this.companybrief = data.result.compnay.orgBrief;
+				if (data.result.compnay.companyshowFileName) {
+					this.picarray = data.result.compnay.companyshowFileName;
+					for (var i = 0; i < data.result.compnay.companyshowFileName.length; i++) {
+						var str = data.result.compnay.companyshowFileName[i];
+						$("#xz").before(
+							"<li class='pos-r fl'>" +
+							"<div class='zhanshi2 pos-r'>" +
+							"<img src='" + ip + str + "'/>" +
+							"<input type='hidden' name='shilizhanshi' value=''/>" +
+							"<div id='" + str + "' class='delet-pic' onclick='removeLi(this)'>" +
+							"<img src='../static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png' />" +
+							"</div>" +
+							"</div>" +
+							"</li>");
+					}
+				} else {
+					this.picarray = [];
+				}
+				if (data.result.compnay.logo) {
+					this.logostr = data.result.compnay.logo;
+					$('#logocompany').attr('src', ip + data.result.compnay.logo);
+				}
+				if (data.result.compnay.companycertification) {
+					this.renzhengpic = data.result.compnay.companycertification;
+					$('#ziliao').attr('src', ip + data.result.compnay.companycertification);
+				}
+			})
+		} else {
+			this.picarray = [];
+			this.companyname = '';
+			this.companyscale = '';
+		}
+		var province;
+		var city;
+		var nowcity;
+		getCity(function(p, c) {
+			province = p;
+			city = c;
+			nowcity = city['1'];
+			selectProvinceAndCity();
+		});
+		post('/webItem/ItemData', {
+			classId: "009"
+		}, function(data) {
+			vm.companyscales = data.result;
+		})
+		 post('/webItem/ItemData', {
+			classId: "010"
+		}, function(data) {
+			vm.companytypes = data.result;
+		})
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				//				hasTouxiang: hasTouxiang,
+				logostr: this.logostr,
+				renzhengpic: this.renzhengpic,
+				shilipic: this.picarray,
+				province: province,
+				city: city,
+				nowcity: nowcity,
+				companyscales: [],
+				companytypes: [],
+				companyname: this.companyname,
+				companyphone: this.companyphone,
+				companyemail: this.companyemail,
+				companyscale: this.companyscale,
+				companytype: this.companytype,
+				companyaddress: this.companyaddress,
+				companybrief: this.companybrief,
+			},
+			methods: {
+				zhuce: function() {
+					var shilizhanshi = '';
+					$("input[name='shilizhanshi']").each(function(index) {
+						shilizhanshi += this.value + ",";
+					});
+					if (shilizhanshi.length > 1) {
+						$("#companyshow").val(shilizhanshi.substring(0, shilizhanshi.length - 1));
+					}
+					if (!checkEmail() || !checkTel()) {
+						return false;
+					}
+					vm.companyname = Trim(vm.companyname, 'g');
+					if (vm.companyname == "") {
+						alert('请填写企业名称')
+						return
+					}
+					if (vm.companyscale == "") {
+						alert('请选择企业规模')
+						return
+					}
+					if (vm.companytype == "") {
+						alert('请选择企业性质')
+						return
+					}
+					if ($("#selectcity option:selected").text() == '请选择') {
+						alert('请选择城市')
+						return
+					}
+					if (vm.companyaddress == "") {
+						alert('请填写详细地址')
+						return
+					}
+					if (vm.companybrief == "") {
+						alert('请填写企业介绍')
+						return
+					}
+					post('/webCompnay/companyEdit', {
+						"userId": localStorage.userId,
+						"orgName": vm.companyname,
+						"communicationPhone": vm.companyphone,
+						"orgEmail": vm.companyemail,
+						"orgScale": vm.companyscale,
+						"orgType": vm.companytype,
+						"province": $("#selectprovince").val(),
+						"city": $("#selectcity").val(),
+						"orgAddress": vm.companyaddress,
+						"orgBrief": vm.companybrief,
+						"logoPic": vm.logostr,
+						"companycertificationPic": vm.renzhengpic,
+						"companyshowPic": vm.shilipic
+					}, function(data) {
+//						if (name == 'register') {
+							window.location.replace('../index.html');
+//						} else {
+//							window.history.go(-1);
+//						}
+					}, function() {})
+				}
+			}
+		})
+
+		function selectprovince(obj) {
+			vm.nowcity = vm.city[obj.value];
+			$('#selectcity').val('');
+		}
+
+		function selectProvinceAndCity() {
+			if (this.obj) {
+				if (this.obj.province) {
+					setTimeout(function() {
+						vm.nowcity = city[this.obj.province];
+						$("#selectprovince").val(this.obj.province);
+						setTimeout(function() {
+							$("#selectcity").val(this.obj.city);
+						}, 50);
+					}, 50);
+				}
+			}
+		}
+
+		function chooseImg(e) {
+			switch (e) {
+				case 1:
+					$('#ip_logo').click();
+					break;
+				case 2:
+					$('#ip_shili').click();
+					break;
+				case 3:
+					$('#ip_ziliao').click();
+					break;
+			}
+		};
+
+		function uploadLogo(input) {
+			var files = input.files;
+			var file = files[0];
+			var imageType = /^image\//;
+			if (!imageType.test(file.type)) {
+				alert("请选择图片类型上传");
+				return;
+			}
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(e) {
+				$('#logocompany').attr('src', e.target.result);
+				dealImage(e.target.result, {
+					quality: 0.1
+				}, function(value) {
+					post('/upload/fileMobileBase', {
+							"imgBases": value
+						},
+						function(data) {
+							if (data.result.length > 0) {
+								vm.logostr = data.result[0];
+							}
+						})
+				});
+			};
+		}
+
+		function uploadZiLiao(input) {
+			var files = input.files;
+			for (var i = 0; i < files.length; i++) { //预览新添加的图片
+				var file = files[i];
+				var imageType = /^image\//;
+				if (!imageType.test(file.type)) {
+					alert("请选择图片类型上传");
+					continue;
+				}
+				var reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = function(e) {
+					$('#ziliao').attr('src', e.target.result);
+					dealImage(e.target.result, {
+						quality: 0.1
+					}, function(value) {
+						post('/upload/fileMobileBase', {
+								"imgBases": value
+							},
+							function(data) {
+								if (data.result.length > 0) {
+									vm.renzhengpic = data.result[0];
+								}
+							})
+					});
+				};
+			}
+		}
+
+		function uploadShiLi(input) {
+			var files = input.files;
+			for (var i = 0; i < files.length; i++) { //预览新添加的图片
+				var file = files[i];
+				var imageType = /^image\//;
+				if (!imageType.test(file.type)) {
+					myAlert("请选择图片类型上传");
+					continue;
+				}
+				var reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = function(e) {
+					$("#xz").before(
+						"<li class='pos-r fl'>" +
+						"<div class='zhanshi2 pos-r'>" +
+						"<img src='" + e.target.result + "'/>" +
+						"<input type='hidden' name='shilizhanshi' value=''/>" +
+						"<div id='" + e.target.result + "' class='delet-pic' onclick='removeLi(this)'>" +
+						"<img src='../static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png' />" +
+						"</div>" +
+						"</div>" +
+						"</li>");
+					dealImage(e.target.result, {
+						quality: 0.1
+					}, function(value) {
+						post('/upload/fileMobileBase', {
+								"imgBases": value
+							},
+							function(data) {
+								if (data.result.length > 0) {
+									vm.shilipic.push(data.result[0]);
+								}
+							})
+					});
+				};
+			}
+		}
+
+		function removeLi(obj) {
+			$(obj).parent().parent().remove();
+			vm.shilipic.remove(obj.id);
+		}
+
+		function Trim(str, is_global) {
+			var result;
+			result = str.replace(/(^\s+)|(\s+$)/g, "");
+			if (is_global.toLowerCase() == "g") {
+				result = result.replace(/\s/g, "");
+			}
+			return result;
+		}
+
+		function checkEmail() {
+			var email = vm.companyemail;
+			if (!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+				myAlert('email格式不正确！请重新输入!');
+				return false;
+			}
+			return true;
+		}
+
+		function checkTel() {
+			if (!(/^0\d{2,3}-\d{7,8}(-\d{1,6})?$/.test(vm.companyphone))) {
+				myAlert('电话格式不正确!固定电话请在区号后和分机号前加-,如:010-6501345-123');
+				return false;
+			}
+			return true;
+		}
+	</script>
+
+</html>

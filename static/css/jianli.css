@@ -14,6 +14,7 @@
 	font-size: 17px;
 	border-radius: 3px;
 	font-weight: 500;
+	cursor: pointer;
 }
 
 .wbg_gf {
@@ -100,6 +101,7 @@
 	text-align: right;
 	padding-right: 10px;
 	color: rgb(22, 122, 255);
+	cursor: pointer;
 }
 .avatarline {
 	text-align: center;
@@ -110,6 +112,7 @@
 	text-align: left;
 	padding-left: 10px;
 	color: red;
+	cursor: pointer;
 }
 .infodetailarea {
 	width: 810px;
@@ -147,10 +150,12 @@
 .colororange {
 	background: orange;
 	color: white;
+	cursor: pointer;
 }
 .colorwhite {
 	background: white;
 	color: black;
+	cursor: pointer;
 }
 .jianli_valuetext input,
 select {
@@ -209,6 +214,7 @@ select {
 	border-radius: 3px;
 	background: rgb(247, 82, 0);
 	color: white;
+	cursor: pointer;
 }
 .btnspan2 {
 	width: 80px;
@@ -219,6 +225,7 @@ select {
 	border: 0.5px solid lightgray;
 	border-radius: 3px;
 	color: gray;
+	cursor: pointer;
 }
 .namediv {
 	font-size: 25px;
@@ -234,6 +241,7 @@ select {
 	height: 20px;
 	width: 60px;
 	margin: 0px;
+	cursor: pointer;
 }
 .nameandbtn img {
 	width: 20px;
@@ -309,6 +317,7 @@ select {
 	background: white;
 	color: gray;
 	flex-direction: column;
+	cursor: pointer;
 }
 
 .workaddarea {
@@ -354,6 +363,7 @@ select {
 .workbtndiv {
 	width: 40px;
 	height: 40px;
+	cursor: pointer;
 }
 
 

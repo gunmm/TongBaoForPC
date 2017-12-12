@@ -13,7 +13,7 @@ function asJump() {
 
 var urlStr = window.location.href;
 
-if(urlStr.indexOf('code=') > 0) {
+if (urlStr.indexOf('code=') > 0) {
 	var code = new QueryString()['code'];
 	localStorage.code = code;
 
@@ -34,7 +34,7 @@ if(urlStr.indexOf('code=') > 0) {
 //}
 
 var sign = true;
-if(!localStorage.userId && !localStorage.code) {
+if (!localStorage.userId && !localStorage.code) {
 	wxAuthorization(window.location.href, function(data) {
 		window.location.replace(data.result);
 	})
@@ -52,7 +52,7 @@ log(localStorage.accessToken);
 function post(url, data, callback, loading, callback1) {
 	data['userId'] = localStorage.userId;
 	data['requestToken'] = localStorage.accessToken;
-	if(loading == null ? true : false) {
+	if (loading == null ? true : false) {
 		addLoading();
 	}
 	$.ajax({
@@ -64,9 +64,9 @@ function post(url, data, callback, loading, callback1) {
 		success: function(data) {
 			log(url + "==>>" + JSON.stringify(data));
 			removeLoading();
-			if(data.result_code != 1) {
+			if (data.result_code != 1) {
 				myAlert(data.reason);
-				if(callback1 != null) {
+				if (callback1 != null) {
 					callback1();
 				}
 				return;
@@ -75,8 +75,8 @@ function post(url, data, callback, loading, callback1) {
 		},
 		error: function(data) {
 			removeLoading();
-			if(data.status == 510) {
-				if(isWx() && sign) {
+			if (data.status == 510) {
+				if (isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -100,7 +100,7 @@ function post1(url, async, data, callback) {
 		data: data,
 		success: function(data) {
 			removeLoading();
-			if(data.result_code != 1) {
+			if (data.result_code != 1) {
 				myAlert(data.reason);
 				return;
 			}
@@ -108,8 +108,8 @@ function post1(url, async, data, callback) {
 		},
 		error: function(data) {
 			removeLoading();
-			if(data.status == 510) {
-				if(isWx() && sign) {
+			if (data.status == 510) {
+				if (isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -128,9 +128,9 @@ function QueryString() {
 	var num = str.indexOf("?")
 	str = str.substr(num + 1);
 	var arrtmp = str.split("&");
-	for(i = 0; i < arrtmp.length; i++) {
+	for (i = 0; i < arrtmp.length; i++) {
 		num = arrtmp[i].indexOf("=");
-		if(num > 0) {
+		if (num > 0) {
 			name = arrtmp[i].substring(0, num);
 			value = arrtmp[i].substr(num + 1);
 			this[name] = value;
@@ -143,7 +143,7 @@ function QueryString() {
  * @param {Object} str
  */
 function strReplace(str) {
-	if(str) {
+	if (str) {
 		return str.replace(/\ /g, "&nbsp;").replace(/\n/g, "<br/>");
 	}
 }
@@ -153,10 +153,10 @@ function strReplace(str) {
  * @param {Object} str
  */
 function hideStr(str) {
-	if(str) {
+	if (str) {
 		var s = str[0];
-		for(var i = 0; i < str.length; i++) {
-			if(i > 0) {
+		for (var i = 0; i < str.length; i++) {
+			if (i > 0) {
 				s += '*';
 			}
 		}
@@ -165,15 +165,15 @@ function hideStr(str) {
 }
 
 Array.prototype.indexOf = function(val) {
-	for(var i = 0; i < this.length; i++) {
-		if(this[i] == val) return i;
+	for (var i = 0; i < this.length; i++) {
+		if (this[i] == val) return i;
 	}
 	return -1;
 };
 
 Array.prototype.remove = function(val) {
 	var index = this.indexOf(val);
-	if(index > -1) {
+	if (index > -1) {
 		this.splice(index, 1);
 	}
 };
@@ -187,22 +187,22 @@ function getCity(callback) {
 	var province = [];
 	var city = [];
 	var cityM = {};
-	for(var i = 0; i < list.length; i++) {
+	for (var i = 0; i < list.length; i++) {
 		var obj = list[i];
-		if(obj.deep == 1) {
+		if (obj.deep == 1) {
 			province.push(obj);
-		} else if(obj.deep == 2) {
+		} else if (obj.deep == 2) {
 			city.push(obj);
 		}
 	}
-	for(var i = 0; i < province.length; i++) {
+	for (var i = 0; i < province.length; i++) {
 		var array = [];
 		array.push({
 			'name': '全' + province[i].name,
 			'id': province[i].id
 		});
-		for(var j = 0; j < city.length; j++) {
-			if(city[j].parentId == i + 1) {
+		for (var j = 0; j < city.length; j++) {
+			if (city[j].parentId == i + 1) {
 				array.push(city[j]);
 				cityM['' + (i + 1)] = array;
 			}
@@ -274,7 +274,7 @@ function getDicTable(async, classId, callback) {
 		},
 		success: function(data) {
 			removeLoading();
-			if(data.result_code != 1) {
+			if (data.result_code != 1) {
 				myAlert(data.reason);
 				return;
 			}
@@ -282,8 +282,8 @@ function getDicTable(async, classId, callback) {
 		},
 		error: function(data) {
 			removeLoading();
-			if(data.status == 510) {
-				if(isWx() && sign) {
+			if (data.status == 510) {
+				if (isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -310,7 +310,7 @@ function getClassifyTable(async, classType, callback) {
 		},
 		success: function(data) {
 			removeLoading();
-			if(data.result_code != 1) {
+			if (data.result_code != 1) {
 				myAlert(data.reason);
 				return;
 			}
@@ -318,8 +318,8 @@ function getClassifyTable(async, classType, callback) {
 		},
 		error: function(data) {
 			removeLoading();
-			if(data.status == 510) {
-				if(isWx() && sign) {
+			if (data.status == 510) {
+				if (isWx() && sign) {
 					wxAuthorization(window.location.href, function(data) {
 						window.location.replace(data.result);
 					})
@@ -338,7 +338,7 @@ function getClassifyTable(async, classType, callback) {
  * @param {Object} callback
  */
 function getUserInfo(userId, callback) {
-	if(userId) {
+	if (userId) {
 		post('/webUser/findUserMessage', {}, function(data) {
 			callback(data);
 		})
@@ -354,7 +354,7 @@ function wxAuthorization(url, callback) {
 }
 
 function log(str) {
-	if(true) {
+	if (true) {
 		console.log(str);
 	}
 }
@@ -370,7 +370,7 @@ function addressToLatlng(address, callback) {
 
 function isIPhone() {
 	var u = navigator.userAgent;
-	if(u.indexOf('iPhone') > -1) {
+	if (u.indexOf('iPhone') > -1) {
 		return true;
 	}
 	return false;
@@ -378,7 +378,7 @@ function isIPhone() {
 
 function isWx() {
 	var u = navigator.userAgent;
-	if(u.indexOf('MicroMessenger') > -1) {
+	if (u.indexOf('MicroMessenger') > -1) {
 		return true;
 	}
 	return false;
@@ -394,7 +394,7 @@ function isWx() {
  *   回调函数有一个参数，base64的字符串数据
  */
 function dealImage(path, obj, callback) {
-	if(path.length < 1 * 1024 * 1024) {
+	if (path.length < 1 * 1024 * 1024) {
 		callback(path);
 		return;
 	}
@@ -425,13 +425,13 @@ function dealImage(path, obj, callback) {
 			canvas.setAttributeNode(anh);
 			ctx.drawImage(that, 0, 0, w, h);
 			// 图像质量
-			if(obj.quality && obj.quality <= 1 && obj.quality > 0) {
+			if (obj.quality && obj.quality <= 1 && obj.quality > 0) {
 				quality = obj.quality;
 			}
 			// quality值越小，所绘制出的图像越模糊
 			var base64 = canvas.toDataURL('image/jpeg', quality);
 
-			if(base64.length > 1 * 1024 * 1024) {
+			if (base64.length > 1 * 1024 * 1024) {
 				dealImage(base64, {
 					quality: 0.1
 				}, callback);
@@ -444,8 +444,8 @@ function dealImage(path, obj, callback) {
 }
 
 function getAvatar(url) {
-	if(url) {
-		if(url.indexOf('http') >= 0) {
+	if (url) {
+		if (url.indexOf('http') >= 0) {
 			return url;
 		} else {
 			return ip + url;
@@ -454,7 +454,7 @@ function getAvatar(url) {
 }
 
 function addLoading() {
-	if($('#loading11111').html()) {
+	if ($('#loading11111').html()) {
 		return;
 	}
 
@@ -477,15 +477,15 @@ function removeLoading() {
 }
 
 function myAlert(str) {
-	if($('#alert11111').html()) {
+	if ($('#alert11111').html()) {
 		return;
 	}
-	if(!str) {
+	if (!str) {
 		return;
 	}
 	$('body').append('<div id="alert11111" style="width: 100%;height: 100%;position: fixed;top: 0;z-index: 1000;display: flex;">' +
 		'<div style="margin: auto;padding: 20px; text-align: center;background: rgba(0, 0, 0, 0.5);border-radius: 10px;color: white;">' +
-		'<div style="max-width: 500px;min-width: 200px;font-size:16px">' + str + '</div>' +
+		'<div style="max-width: 500px;min-width: 200px;font-size:16px; word-wrap: break-word;overflow: auto;max-height: 500px;">' + str + '</div>' +
 		'<div style="height: 1px;background: white;margin-top: 20px;"></div>' +
 		'<div style="padding-top: 20px;font-weight: bold;font-size: 16px;" onclick="$(this).parent().parent().remove()">确&nbsp;&nbsp;&nbsp;&nbsp;定</div>' +
 		'</div>' +
@@ -512,7 +512,7 @@ function feedback() {
 function confirmFankui() {
 	var content = $('#feedback_content_11111').val();
 
-	if(content == '') {
+	if (content == '') {
 		myAlert('请填写您的建议')
 		return
 	}
@@ -525,3 +525,276 @@ function confirmFankui() {
 		myAlert('感谢您的支持和理解我们会尽快对信息进行核实与处理');
 	})
 }
+
+function personinfoview(name, imgurl, telephone, type) {
+	$('body').append(
+		'<div onmouseenter="showdetail()" onmouseleave="hidedetail()">' +
+		'<div style="background: #689fee;height: 50px;width: 200px;z-index: 99999;position: fixed;right: 0px;top: 0px;margin-right: 0px;display: flex;float: left;">' +
+		'<div style="background: white; width: 36px;height: 36px;margin: 0px;margin-top: 7px;margin-left: 30px;border-radius: 18px;"><img style="margin: 0px;width: 36px;height: 36px;border-radius: 18px;" id="logocompany" src="' + ip + imgurl + '" alt="" /></div>' +
+		'<div style="padding-left: 10px;margin-top: 7px;line-height: 36px;height: 36px;font-size: 15px;color: white;"><nobr>' + name + '</nobr></div>' +
+		'</div>' +
+
+		'<div id="infodetaildiv" style="background: white;top: 50px;right:0px;margin-right: 0px;width: 200px;position: fixed;" hidden>' +
+		'<div style="width: 200px;text-align: center;margin: 10px;font-size: 14px;color: gray;">手机号码：' + telephone + '</div>' +
+		'<div id="changeinfoheadimg" style="width: 200px;text-align: center;margin: 10px;" hidden><a style="color:#689fee;" href="javascript:changeinfoheadimg()">修改图像</a></div>' +
+		'<input id="changeinfoheadimginput" class="fr compile-pic" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" hidden="true" onchange="changeinfoheadimgact(this)">' +
+		'<div style="width: 200px;text-align: center;margin: 10px;"><a style="color:#689fee;" href="javascript:addressfun(' + type + ')">编辑信息</a></div>' +
+		'</div>' +
+		'</div>'
+	);
+	if (type == 2) {
+		$('#changeinfoheadimg').hide();
+	} else {
+		$('#changeinfoheadimg').show();
+	}
+}
+
+function showdetail() {
+	$('#infodetaildiv').show();
+}
+
+function hidedetail() {
+	$('#infodetaildiv').hide();
+}
+
+function addressfun(type) {
+	var href1 = '../publish/jianlifabu.html';
+	var href2 = '../register/companyregister.html?id=id';
+	var urlStr = window.location.href;
+	if (urlStr.indexOf('index.html') > 0) {
+		href1 = 'publish/jianlifabu.html';
+		href2 = 'register/companyregister.html?id=id';
+	}
+	if (type == 1) {
+		window.open(href1);
+	} else if (type == 2) {
+		window.open(href2);
+	}
+}
+
+function changeinfoheadimg() {
+	$('#changeinfoheadimginput').click();
+}
+
+function changeinfoheadimgact(input) {
+	var files = input.files;
+	var file = files[0];
+	var Orientation = null;
+	var imageType = /^image\//;
+	if (!imageType.test(file.type)) {
+		alert("请选择图片类型上传");
+		return;
+	}
+
+	//获取照片方向角属性，用户旋转控制  
+	EXIF.getData(file, function() {
+		// alert(EXIF.pretty(this));  
+		EXIF.getAllTags(this);
+		//alert(EXIF.getTag(this, 'Orientation'));   
+		Orientation = EXIF.getTag(this, 'Orientation');
+		//return;  
+	});
+
+
+	var reader = new FileReader();
+	reader.readAsDataURL(file);
+	reader.onload = function(e) {
+		$('#changeinfoheadimginput').attr('src', e.target.result);
+		dealImage(e.target.result, {
+			quality: 0.1
+		}, function(value) {
+
+
+
+			var image = new Image();
+			image.src = value;
+			image.onload = function() {
+				var expectWidth = this.naturalWidth;
+				var expectHeight = this.naturalHeight;
+
+				if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 800) {
+					expectWidth = 800;
+					expectHeight = expectWidth * this.naturalHeight / this.naturalWidth;
+				} else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 1200) {
+					expectHeight = 1200;
+					expectWidth = expectHeight * this.naturalWidth / this.naturalHeight;
+				}
+				var canvas = document.createElement("canvas");
+				var ctx = canvas.getContext("2d");
+				canvas.width = expectWidth;
+				canvas.height = expectHeight;
+				ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
+				var base64 = null;
+				//修复ios  
+				if (navigator.userAgent.match(/iphone/i)) {
+					console.log('iphone');
+					//alert(expectWidth + ',' + expectHeight);  
+					//如果方向角不为1，都需要进行旋转 added by lzk  
+					if (Orientation != "" && Orientation != 1) {
+						alert('旋转处理');
+						switch (Orientation) {
+							case 6: //需要顺时针（向左）90度旋转  
+								rotateImg(this, 'left', canvas);
+								break;
+							case 8: //需要逆时针（向右）90度旋转  
+								rotateImg(this, 'right', canvas);
+								break;
+							case 3: //需要180度旋转  
+								rotateImg(this, 'right', canvas); //转两次  
+								rotateImg(this, 'right', canvas);
+								break;
+						}
+					}
+
+					/*var mpImg = new MegaPixImage(image); 
+					mpImg.render(canvas, { 
+					    maxWidth: 800, 
+					    maxHeight: 1200, 
+					    quality: 0.8, 
+					    orientation: 8 
+					});*/
+					base64 = canvas.toDataURL("image/jpeg", 0.8);
+				} else if (navigator.userAgent.match(/Android/i)) { // 修复android  
+					var encoder = new JPEGEncoder();
+					base64 = encoder.encode(ctx.getImageData(0, 0, expectWidth, expectHeight), 80);
+				} else {
+					//alert(Orientation);  
+					if (Orientation != "" && Orientation != 1) {
+						//alert('旋转处理');  
+						switch (Orientation) {
+							case 6: //需要顺时针（向左）90度旋转  
+								rotateImg(this, 'left', canvas);
+								break;
+							case 8: //需要逆时针（向右）90度旋转  
+								rotateImg(this, 'right', canvas);
+								break;
+							case 3: //需要180度旋转  
+								rotateImg(this, 'right', canvas); //转两次  
+								rotateImg(this, 'right', canvas);
+								break;
+						}
+					}
+
+					base64 = canvas.toDataURL("image/jpeg", 0.8);
+				}
+
+				console.log(base64);
+
+				$('#changeinfoheadimginput').attr('src', base64);
+				post('/webUser/changeMyTouxiang', {
+						'userId': localStorage.userId,
+						'img': base64
+					},
+					function(data) {
+						console.log(data);
+						if (data.result_code == 1) {
+							myAlert("修改成功！");
+							window.location.reload();
+						} else {
+							myAlert("修改失败，请重试！");
+							window.location.reload();
+						}
+					})
+
+
+
+
+
+			}
+		});
+	};
+}
+
+//对图片旋转处理 added by lzk  
+function rotateImg(img, direction, canvas) { //alert(img);  
+	//最小与最大旋转方向，图片旋转4次后回到原方向    
+	var min_step = 0;
+	var max_step = 3;
+	//var img = document.getElementById(pid);    
+	if (img == null) return;
+	//img的高度和宽度不能在img元素隐藏后获取，否则会出错    
+	var height = img.height;
+	var width = img.width;
+	//var step = img.getAttribute('step');    
+	var step = 2;
+	if (step == null) {
+		step = min_step;
+	}
+	if (direction == 'right') {
+		step++;
+		//旋转到原位置，即超过最大值    
+		step > max_step && (step = min_step);
+	} else {
+		step--;
+		step < min_step && (step = max_step);
+	}
+	//img.setAttribute('step', step);    
+	/*var canvas = document.getElementById('pic_' + pid);   
+	if (canvas == null) {   
+	    img.style.display = 'none';   
+	    canvas = document.createElement('canvas');   
+	    canvas.setAttribute('id', 'pic_' + pid);   
+	    img.parentNode.appendChild(canvas);   
+	}  */
+	//旋转角度以弧度值为参数    
+	var degree = step * 90 * Math.PI / 180;
+	var ctx = canvas.getContext('2d');
+	switch (step) {
+		case 0:
+			canvas.width = width;
+			canvas.height = height;
+			ctx.drawImage(img, 0, 0);
+			break;
+		case 1:
+			canvas.width = height;
+			canvas.height = width;
+			ctx.rotate(degree);
+			ctx.drawImage(img, 0, -height);
+			break;
+		case 2:
+			canvas.width = width;
+			canvas.height = height;
+			ctx.rotate(degree);
+			ctx.drawImage(img, -width, -height);
+			break;
+		case 3:
+			canvas.width = height;
+			canvas.height = width;
+			ctx.rotate(degree);
+			ctx.drawImage(img, -width, 0);
+			break;
+	}
+}
+
+getUserInfo(localStorage.userId, function(data) {
+	var urlStr = window.location.href;
+	if (urlStr.indexOf('companyregister.html') > 0 || urlStr.indexOf('register.html') > 0) {
+		return
+	}
+
+	if (urlStr.indexOf('index.html') > 0 || urlStr.indexOf('zixundetail.html') > 0 || urlStr.indexOf('zixunlist.html') > 0 || urlStr.indexOf('zhaopindetail.html') > 0 || urlStr.indexOf('zhaopinlist.html') > 0 || urlStr.indexOf('zhaobiaodetail.html') > 0 || urlStr.indexOf('zhaobiaolist.html') > 0 || urlStr.indexOf('qiuzhidetail.html') > 0 || urlStr.indexOf('qiuzhilist.html') > 0 || urlStr.indexOf('gongyingdetail.html') > 0 || urlStr.indexOf('gongyinglist.html') > 0) {} else {
+		if (data.result.regStatus != 1) {
+			window.location.href = "../register/register.html";
+			return;
+		} else {
+			if (data.result.type == 2) {
+				if (data.result.regist == 0) {
+					window.location.href = "../register/companyregister.html";
+					return;
+				} else {
+					if (data.result.expire == 0) {
+						alert("您的注册申请正在审核中,审核通过后会有消息提醒");
+						window.location.href = "../index.html";
+						return;
+					}
+				}
+			}
+		}
+	}
+
+	if (data.result.orgName) {
+		personinfoview(data.result.orgName, data.result.touxiang, data.result.telephone, data.result.type);
+	}
+
+
+})

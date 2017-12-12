@@ -10,8 +10,10 @@
 		<link rel="stylesheet" href="../static/css/home.css" />
 		<link rel="stylesheet" href="../static/css/jianli.css" />
 		<link rel="stylesheet" href="../static/css/mkui.css">
+		<link rel="stylesheet" href="../static/css/person.css">
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/exif.js" ></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 
 		<link rel="stylesheet" href="../css/reset.css" />
@@ -161,6 +163,18 @@
 					</ul>
 				</li>
 			</ul>
+
+			<!--<div style="z-index: 99999;position: fixed;right: 0px;top: 0px;background: red;height: 200px;">
+				<div style="height: 50px;padding-right: 100px; display: flex;float: left;background: green;">
+					<div style="background: white; width: 36px;height: 36px;margin: 0px;margin-top: 7px;margin-left: 30px;border-radius: 18px;"><img style="margin: 0px;width: 36px;height: 36px;border-radius: 18px;" id="logocompany" src="../static/img/man.png" alt="头像" /></div>
+					<div style="padding-left: 10px;margin-top: 7px;line-height: 36px;height: 36px;font-size: 19px;color: white;">闵哲</div>
+				</div>
+				<div id="infodetaildiv" style="background: white;top: 52px;right: 0px;margin-right: 125px;width: 200px;position: fixed;">
+					<div style="width: 200px;text-align: center;margin: 10px;font-size: 14px;color: gray;">手机号码：13001689161</div>
+					<div style="width: 200px;text-align: center;margin: 10px;"><a style="color:#689fee;" href="#">编辑信息</a></div>
+				</div>
+			</div>-->
+
 		</div>
 
 		<div class="bgdiv" style="bottom: 0px;">
@@ -272,6 +286,7 @@
 
 					</div>
 				</div>
+
 				<div class="dingyuebody" style="margin-top: 10px;">
 					<div style="width: 940px; margin: auto;">
 						<div class="list1">
@@ -373,6 +388,23 @@
 			nowcity2 = city['1'];
 		});
 		getUserInfo(localStorage.userId, function(data) {
+			if (data.result.regStatus != 1) {
+				window.location.href = "../register/register.html";
+				return;
+			} else {
+				if (data.result.type == 2) {
+					if (data.result.regist == 0) {
+						window.location.href = "../register/companyregister.html";
+						return;
+					} else {
+						if (data.result.expire == 0) {
+							alert("您的注册申请正在审核中,审核通过后会有消息提醒");
+							window.location.href = "../index.html";
+							return;
+						}
+					}
+				}
+			}
 			userInfo = data.result;
 			$('#app').show();
 			if (userInfo.type == 1) {

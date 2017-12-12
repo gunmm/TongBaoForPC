@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="../static/css/mkui.css">
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/exif.js" ></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 		<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
 		<script type="text/javascript">
@@ -369,7 +370,24 @@
 				selectProvinceAndCity();
 			}
 		});
-		 getUserInfo(localStorage.userId, function(data) {
+		getUserInfo(localStorage.userId, function(data) {
+			if (data.result.regStatus != 1) {
+				window.location.href = "../register/register.html";
+				return;
+			} else {
+				if (data.result.type == 2) {
+					if (data.result.regist == 0) {
+						window.location.href = "../register/companyregister.html";
+						return;
+					} else {
+						if (data.result.expire == 0) {
+							alert("您的注册申请正在审核中,审核通过后会有消息提醒");
+							window.location.href = "../index.html";
+							return;
+						}
+					}
+				}
+			}
 			userInfo = data.result;
 			$('#app').show();
 			if (userInfo.type == 1) {
