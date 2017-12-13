@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="../static/css/register.css" />
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/exif.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 
 		<style>
@@ -303,11 +304,11 @@
 						"companycertificationPic": vm.renzhengpic,
 						"companyshowPic": vm.shilipic
 					}, function(data) {
-//						if (name == 'register') {
-							window.location.replace('../index.html');
-//						} else {
-//							window.history.go(-1);
-//						}
+						//						if (name == 'register') {
+						window.location.replace('../index.html');
+						//						} else {
+						//							window.history.go(-1);
+						//						}
 					}, function() {})
 				}
 			}
@@ -354,21 +355,29 @@
 				alert("请选择图片类型上传");
 				return;
 			}
+			var Orientation = null;
+			//获取照片方向角属性，用户旋转控制  
+			EXIF.getData(file, function() {
+				EXIF.getAllTags(this);
+				Orientation = EXIF.getTag(this, 'Orientation');
+			});
 			var reader = new FileReader();
 			reader.readAsDataURL(file);
 			reader.onload = function(e) {
-				$('#logocompany').attr('src', e.target.result);
 				dealImage(e.target.result, {
 					quality: 0.1
 				}, function(value) {
-					post('/upload/fileMobileBase', {
-							"imgBases": value
-						},
-						function(data) {
-							if (data.result.length > 0) {
-								vm.logostr = data.result[0];
-							}
-						})
+					managerotateImg(value, Orientation, function(base64) {
+						$('#logocompany').attr('src', base64);
+						post('/upload/fileMobileBase', {
+								"imgBases": base64
+							},
+							function(data) {
+								if (data.result.length > 0) {
+									vm.logostr = data.result[0];
+								}
+							})
+					})
 				});
 			};
 		}
@@ -382,21 +391,29 @@
 					alert("请选择图片类型上传");
 					continue;
 				}
+				var Orientation = null;
+				//获取照片方向角属性，用户旋转控制  
+				EXIF.getData(file, function() {
+					EXIF.getAllTags(this);
+					Orientation = EXIF.getTag(this, 'Orientation');
+				});
 				var reader = new FileReader();
 				reader.readAsDataURL(file);
 				reader.onload = function(e) {
-					$('#ziliao').attr('src', e.target.result);
 					dealImage(e.target.result, {
 						quality: 0.1
 					}, function(value) {
-						post('/upload/fileMobileBase', {
-								"imgBases": value
-							},
-							function(data) {
-								if (data.result.length > 0) {
-									vm.renzhengpic = data.result[0];
-								}
-							})
+						managerotateImg(value, Orientation, function(base64) {
+							$('#ziliao').attr('src', base64);
+							post('/upload/fileMobileBase', {
+									"imgBases": base64
+								},
+								function(data) {
+									if (data.result.length > 0) {
+										vm.renzhengpic = data.result[0];
+									}
+								})
+						})
 					});
 				};
 			}

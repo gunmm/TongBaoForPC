@@ -269,7 +269,7 @@
 							<div :id="'dingyueshowitem'+item.id" class="dingyuelistareaitem divcover" @mouseover="workmouseover(item.id)" @mouseout="workmouseout(item.id)">
 								<div class="worktimeandbtndiv f-l-f">
 									<div class="worktimediv" style="color: black;font-size: 18px;">{{item.categoryName}}</div>
-									<div class="f-l-f">
+									<div class="f-l-f" style="margin-top: 10px;">
 										<div hidden :id="'workdelete'+item.id" @click="workdeletebtnclick(item.id)" class="workbtndiv"><img src="../static/img/detele2.png"></div>
 										<div hidden :id="'workedit'+item.id" @click="workeditbtndclick(item.id)" class="workbtndiv"><img src="../static/img/edit2.png" /></div>
 									</div>

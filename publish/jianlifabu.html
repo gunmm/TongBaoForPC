@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="../static/css/mkui.css">
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
-		<script type="text/javascript" src="../js/exif.js" ></script>
+		<script type="text/javascript" src="../js/exif.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 		<script type="text/javascript">
 			$(function() {
@@ -640,7 +640,7 @@
 						<div id="tworkarea" class="tworkarea divcover" onmouseover="mouseover(2)" onmouseout="mouseout(2)">
 							<div class="tworkheaddiv f-l-f">
 								<div class="tworkheadtitle">{{vm.gangwei}}</div>
-								<div class="f-l-f">
+								<div class="f-l-f" style="margin-top: 10px;">
 									<div id="tworkheadtitlebtn" onclick="btndivclick(2)" class="workbtndiv" hidden><img src="../static/img/edit2.png" /></div>
 								</div>
 							</div>
@@ -998,7 +998,6 @@
 				$('#zhaopin_fb').show();
 				$('#qiuzhi_dy').show();
 			}
-			
 		})
 		var isrepetition = false;
 		var vm = new Vue({
@@ -1295,7 +1294,6 @@
 						myAlert('请选择期望月薪')
 						return
 					}
-
 					if (vm.ondutyId != 0 && vm.ondutyId != 1 || vm.ondutyId == '') {
 						myAlert('请选择是否在职')
 						return
@@ -1670,25 +1668,33 @@
 				myAlert("请选择图片类型上传");
 				return;
 			}
+			var Orientation = null;
+			//获取照片方向角属性，用户旋转控制  
+			EXIF.getData(file, function() {
+				EXIF.getAllTags(this);
+				Orientation = EXIF.getTag(this, 'Orientation');
+			});
 			var reader = new FileReader();
 			reader.readAsDataURL(file);
 			reader.onload = function(e) {
-				$('#headimg').attr('src', e.target.result);
 				dealImage(e.target.result, {
 					quality: 0.1
 				}, function(value) {
-					post('/webQz/editPersonalBasicInfo', {
-						"userId": localStorage.userId,
-						"id": jobWanId,
-						"publishId": publishId,
-						"lifePhotoImg": value,
-					}, function(data) {
-						if (data.result_code == '1') {
-							hasTouxiang = true;
-							myAlert("更新成功!");
-						} else {
-							myAlert("更新失败，请重试！");
-						}
+					managerotateImg(value, Orientation, function(base64) {
+						$('#headimg').attr('src', base64);
+						post('/webQz/editPersonalBasicInfo', {
+							"userId": localStorage.userId,
+							"id": jobWanId,
+							"publishId": publishId,
+							"lifePhotoImg": base64,
+						}, function(data) {
+							if (data.result_code == '1') {
+								hasTouxiang = true;
+								myAlert("更新成功!");
+							} else {
+								myAlert("更新失败，请重试！");
+							}
+						})
 					})
 				});
 			};
