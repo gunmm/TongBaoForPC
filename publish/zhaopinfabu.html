@@ -4,6 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>发布招聘</title>
+		<link rel="icon" href="../img/ic_logo.ico" type="img/x-ico" />
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 		<link rel="stylesheet" href="../css/loading.css" />
 		<link rel="stylesheet" href="../static/css/style.css" />
@@ -11,7 +12,7 @@
 		<link rel="stylesheet" href="../static/css/mkui.css">
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
-		<script type="text/javascript" src="../js/exif.js" ></script>
+		<script type="text/javascript" src="../js/exif.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 		<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
 		<script type="text/javascript">
@@ -492,7 +493,7 @@
 			}
 		})
 		 getUserInfo(localStorage.userId, function(data) {
-		 	if (data.result.regStatus != 1) {
+			if (data.result.regStatus != 1) {
 				window.location.href = "../register/register.html";
 				return;
 			} else {
