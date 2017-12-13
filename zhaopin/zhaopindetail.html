@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="../static/css/common.css" />
 
 		<link rel="stylesheet" href="../static/css/style.css" />
-		<script type="text/javascript" src="../js/exif.js" ></script>
+		<script type="text/javascript" src="../js/exif.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 
 		<style>
@@ -98,6 +98,7 @@
 				text-align: end;
 				margin-top: 59px;
 				font-size: 25px;
+				color: white;
 			}
 			
 			.a2-2 {
@@ -282,12 +283,6 @@
 				color: black;
 			}
 			
-			a,
-			a:hover {
-				color: #080808;
-				text-decoration: none;
-			}
-			
 			.list1 {
 				width: 100%;
 				display: flex;
@@ -446,7 +441,7 @@
 					</div>
 					<div class="a2">
 						<!--<span class="mt-20" style="text-align: right;"></span>-->
-						<span class="a2-1">{{pingtai}}</span>
+						<a class="a2-1 cursor-pointer" :href="'../company/companyInfo.html?id='+userId" target="_blank">{{pingtai}}</a>
 						<span class="a2-2">规模：{{guimo}}</span>
 						<span class="a2-3">性质：{{xingzhi}}</span>
 						<span class="a2-3">联系电话：{{phone}}</span>
@@ -485,7 +480,7 @@
 					<p class="b1" v-html="qiyejianjie"></p>
 					<ul class="b3">
 						<li v-for="item in qiyetupian" onclick="showimg(this)">
-							<img class="sel" :src="ip+item" />
+							<img class="sel cursor-pointer" :src="ip+item" />
 						</li>
 					</ul>
 					<div v-if="localStorage.userId!=userId" style="clear: both;" class="tousu1 pt-15 cursor-pointer">
@@ -512,10 +507,10 @@
 				</div>
 			</div>
 			<div id="show_img" class="i none">
-				<img class="i1 sel" src="../img/ic_close.png" onclick="$('#show_img').addClass('none')" />
+				<img class="i1 sel cursor-pointer" src="../img/ic_close.png" onclick="$('#show_img').addClass('none')" />
 				<img class="i2" src="" />
-				<img class="i3 sel" src="../img/ic_left.png" onclick="switchImg(-1)" />
-				<img class="i4 sel" src="../img/ic_right.png" onclick="switchImg(1)" />
+				<img class="i3 sel cursor-pointer" src="../img/ic_left.png" onclick="switchImg(-1)" />
+				<img class="i4 sel cursor-pointer" src="../img/ic_right.png" onclick="switchImg(1)" />
 			</div>
 			<div id="tousu" class="i none">
 				<div style="width: 600px;height: 380px;margin: auto; background-color: white; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">

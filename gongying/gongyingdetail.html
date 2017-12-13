@@ -15,7 +15,7 @@
 		<link rel="stylesheet" href="../static/css/common.css" />
 
 		<link rel="stylesheet" href="../static/css/style.css" />
-		<script type="text/javascript" src="../js/exif.js" ></script>
+		<script type="text/javascript" src="../js/exif.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 
 		<style>
@@ -483,7 +483,7 @@
 					<p class="b1" v-html=""></p>
 					<ul class="b3">
 						<li v-for="item in imglist" onclick="showimg(this)">
-							<img :src="ip+item" />
+							<img class="cursor-pointer" :src="ip+item" />
 						</li>
 					</ul>
 					<div style="clear: both;"></div>
@@ -521,10 +521,10 @@
 				</div>
 			</div>
 			<div id="show_img" class="i none">
-				<img class="i1 sel" src="../img/ic_close.png" onclick="$('#show_img').addClass('none')" />
+				<img class="i1 sel cursor-pointer" src="../img/ic_close.png" onclick="$('#show_img').addClass('none')" />
 				<img class="i2" src="" />
-				<img class="i3 sel" src="../img/ic_left.png" onclick="switchImg(-1)" />
-				<img class="i4 sel" src="../img/ic_right.png" onclick="switchImg(1)" />
+				<img class="i3 sel cursor-pointer" src="../img/ic_left.png" onclick="switchImg(-1)" />
+				<img class="i4 sel cursor-pointer" src="../img/ic_right.png" onclick="switchImg(1)" />
 			</div>
 			<div id="tousu" class="i none">
 				<div style="width: 600px;height: 380px;margin: auto; background-color: white; box-shadow: rgb(204, 204, 204) 1px 1px 8px 0px;">
@@ -536,8 +536,8 @@
 						<textarea v-model="ts_content" class="mt-10" placeholder="请填写投诉内容"></textarea>
 					</div>
 					<div style="margin-right: 20px;">
-						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;" onclick="confirmTousu()">确认投诉</span>
-						<span class="fr" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;" onclick="$('#tousu').addClass('none')">取消</span>
+						<span class="fr cursor-pointer" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: #097ed8; color: white; border-radius: 5px; margin-left: 20px;" onclick="confirmTousu()">确认投诉</span>
+						<span class="fr cursor-pointer" style="width: 100px; height: 30px; line-height: 30px; text-align: center; background-color: gray; color: white; border-radius: 5px;" onclick="$('#tousu').addClass('none')">取消</span>
 					</div>
 				</div>
 			</div>

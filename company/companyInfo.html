@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<link rel="stylesheet" href="../css/loading.css" />
+		<link rel="stylesheet" href="../css/pagination.css" />
+		<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+		<link rel="stylesheet" href="../static/css/mkui.css" />
+		<link rel="stylesheet" href="../static/css/style.css" />
+		<script type="text/javascript" src="../js/exif.js"></script>
+		<script type="text/javascript" src="../js/config.js"></script>
+
+		<style>
+			.i-line {
+				width: 1px;
+				height: 12px;
+				border-right: 2px solid white;
+				margin-left: 10px;
+				margin-right: 10px;
+				display: inline-block;
+			}
+			
+			.tab {
+				margin-right: 45px;
+				padding: 15px 0;
+				cursor: pointer;
+			}
+			
+			.tab-sel {
+				border-bottom: 3px #62d5c8 solid;
+			}
+			
+			.b3 {
+				width: 100%;
+			}
+			
+			.b3 li {
+				float: left;
+			}
+			
+			.b3 li img {
+				width: 120px;
+				height: 120px;
+				border-radius: 10px;
+				margin-right: 20px;
+				margin-bottom: 20px;
+			}
+			
+			.i {
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				position: fixed;
+				top: 0;
+				z-index: 1000;
+				display: flex;
+			}
+			
+			.i .i1 {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				top: 80px;
+				right: 30px;
+			}
+			
+			.i .i2 {
+				margin: auto;
+				max-width: 80%;
+				max-height: 80%;
+			}
+			
+			.i .i3 {
+				width: 40px;
+				height: 50px;
+				position: absolute;
+				top: 45%;
+				left: 20px;
+			}
+			
+			.i .i4 {
+				width: 40px;
+				height: 50px;
+				position: absolute;
+				top: 45%;
+				right: 20px;
+			}
+			
+			.sel:hover {
+				border: 3px solid transparent;
+			}
+			
+			.list1 {
+				width: 100%;
+				padding: 10px;
+				display: inline-flex;
+				background-color: darkslategray;
+			}
+			
+			.list1 div {
+				font-weight: bold;
+				font-size: 15px;
+				color: white;
+			}
+			
+			.list2 {
+				width: 100%;
+				padding: 10px;
+				display: inline-flex;
+				border-bottom: 1px solid lightgray;
+			}
+			
+			.list2:hover {
+				background: #eee;
+			}
+			
+			.none {
+				display: none;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="header">
+			<ul class="nav">
+				<li>
+					<a href="../index.html">首页</a>
+				</li>
+				<li>
+					<a href="#">发布</a>
+					<ul class="second-nav">
+						<li id="zhaopin_fb" hidden>
+							<a target="_blank" href="../publish/zhaopinfabu.html">招聘发布</a>
+						</li>
+						<li>
+							<a target="_blank" href="../publish/zhaobiaofabu.html">招标发布</a>
+						</li>
+						<li>
+							<a target="_blank" href="../publish/gongyingfabu.html">供应发布</a>
+						</li>
+						<li id="qiuzhi_fb" hidden>
+							<a target="_blank" href="../publish/jianlifabu.html">求职发布</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">找信息</a>
+					<ul class="second-nav">
+						<li>
+							<a target="_blank" href="../zhaopin/zhaopinlist.html">招聘信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="../zhaobiao/zhaobiaolist.html">招标信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="../gongying/gongyinglist.html">供应信息</a>
+						</li>
+						<li>
+							<a target="_blank" href="../qiuzhi/qiuzhilist.html">求职信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">我的</a>
+					<ul class="second-nav">
+						<li>
+							<a href="#">收藏</a>
+							<ul class="third-nav">
+								<li id="sc_qiuzhi" hidden>
+									<a target="_blank" href="../qiuzhi/qiuzhicollection.html">求职</a>
+								</li>
+								<li id="sc_zhaopin" hidden>
+									<a target="_blank" href="../zhaopin/zhaopincollection.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="../zhaobiao/zhaobiaocollection.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../gongying/gongyingcollection.html">供应</a>
+								</li>
+								<li>
+									<a target="_blank" href="../zixun/zixuncollection.html">资讯</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">我的订阅</a>
+							<ul class="third-nav">
+								<li id="wddy_zhaopin" hidden>
+									<a target="_blank" href="../dingyue/dingyuezhaopin.html">招聘</a>
+								</li>
+								<li id="wddy_qiuzhi" hidden>
+									<a target="_blank" href="../dingyue/dingyueqiuzhi.html">求职</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuezhaobiao.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../dingyue/dingyuegongying.html">供应</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">我的发布</a>
+							<ul class="third-nav">
+								<li id="wdfb_zhaopin" hidden>
+									<a target="_blank" href="../mypublish/zhaopinmypublish.html">招聘</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/zhaobiaomypublish.html">招标</a>
+								</li>
+								<li>
+									<a target="_blank" href="../mypublish/gongyingmypublish.html">供应</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a target="_blank" href="../mytoubiao/mytoubiao.html">我的投标</a>
+						</li>
+						<li id="jlgl" hidden>
+							<a id="jlgl" href="#">简历管理</a>
+							<ul class="third-nav">
+								<li>
+									<a target="_blank" href="../jianliguanli/Intervieweedelivery.html">应聘者投递</a>
+								</li>
+								<li>
+									<a target="_blank" href="../jianliguanli/myinvitation.html">我邀请过的</a>
+								</li>
+							</ul>
+						</li>
+						<li id="wdyxgs" hidden>
+							<a target="_blank" href="../jianliguanli/myintentioncompany.html">我的意向公司</a>
+						</li>
+						<li>
+							<a href="javascript:feedback()">意见反馈</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div id="app">
+			<div style="background: #444c5f;padding-top: 50px;">
+				<div style="width: 1000px;margin: auto;">
+					<div style="display: inline-flex;color: white;align-items: center;padding: 30px;margin-top: 20px;">
+						<img :src="ip+companyInfo.logo" style="width: 80px;height:80px;border-radius: 5px;" />
+						<div class="ml-30">
+							<div class="f-25">{{companyInfo.orgName}}</div>
+							<!--<div class="mt-10"><i class="i-line"></i></div>-->
+							<div class="mt-10">座机：{{companyInfo.communicationPhone}}</div>
+							<div class="mt-10">邮箱：{{companyInfo.orgEmail}}</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div style="display: inline-flex;color: white;font-size: 16px;margin: 0 30px;">
+						<div class="tab tab-sel">公司简介</div>
+						<div class="tab">招聘信息</div>
+						<div class="tab">招标信息</div>
+						<div class="tab">供应信息</div>
+					</div>
+				</div>
+			</div>
+			<div class="bg" style="padding-top: 0;">
+				<div id="company_info">
+					<h2 class="f-20" style="padding: 20px 30px;">企业简介</h2>
+					<div style="width: 20px;height: 3px;background: rgb(9, 126, 216);margin-left: 30px;"></div>
+					<p v-html="companyInfo.orgBrief" style="padding: 20px 30px;font-size: 18px;"></p>
+					<h2 class="f-20" style="padding: 20px 30px;">实力展示</h2>
+					<div style="width: 20px;height: 3px;background: rgb(9, 126, 216);margin-left: 30px;"></div>
+					<ul class="b3" style="padding: 20px 30px;">
+						<li v-for="item in companyInfo.companyshowFileName" onclick="showimg(this)">
+							<img class="sel cursor-pointer" :src="ip+item" />
+						</li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+				<div id="company_zhaopin" hidden>
+					<div class="list1">
+						<div style="width: 20%;">职位名称</div>
+						<div style="width: 100px;">工作地点</div>
+						<div style="width: 20%;">公司名称</div>
+						<div style="width: 90px;">学历要求</div>
+						<div style="width: 100px;">经验要求</div>
+						<div style="width: 90px;">年龄要求</div>
+						<div style="width: 90px;">性别要求</div>
+						<div style="width: 130px;">职位月薪</div>
+					</div>
+					<a class="list2" v-for="item in zplist" target="_blank" :href='"../zhaopin/zhaopindetail.html?id="+item.id'>
+						<div style="width: 20%;">{{item.title}}</div>
+						<div style="width: 100px;">{{item.city}}</div>
+						<div style="width: 20%;">{{item.orgName}}</div>
+						<div style="width: 90px;">{{item.education}}</div>
+						<div style="width: 100px;">{{item.experience}}</div>
+						<div style="width: 90px;">{{item.age}}</div>
+						<div style="width: 90px;">{{item.gender}}</div>
+						<div style="width: 130px;">{{item.salary}}</div>
+					</a>
+				</div>
+				<div id="company_zhaobiao" hidden>
+					<div class="list1">
+						<div style="width: 210px;">招标名称</div>
+						<div style="width: 140px;">招标地址</div>
+						<div style="width: 210px;">公司名称</div>
+						<div style="width: 160px;">类别</div>
+						<div style="width: 130px;">数量</div>
+						<div style="width: 130px;">单价</div>
+					</div>
+					<a class="list2" v-for="item in zblist" target="_blank" :href='"../zhaobiao/zhaobiaodetail.html?id="+item.id'>
+						<div style="width: 210px">{{item.title}}</div>
+						<div style="width: 140px;">{{item.city}}</div>
+						<div style="width: 210px;">{{item.orgName}}</div>
+						<div style="width: 160px;">{{item.category}}</div>
+						<div style="width: 130px;">{{item.quantity==-1||item.quantity==''?'已招标文件为主 单位：':item.quantity}}{{item.unit}}</div>
+						<div style="width: 130px;">{{item.price==''?'面议':item.price+'元'}}/{{item.unit}}</div>
+					</a>
+				</div>
+				<div id="company_gongying" hidden>
+					<div class="list1">
+						<div style="width: 210px;">供应名称</div>
+						<div style="width: 140px;">供应地址</div>
+						<div style="width: 210px;">公司名称</div>
+						<div style="width: 160px;">类别</div>
+						<div style="width: 130px;">数量</div>
+						<div style="width: 130px;">单价</div>
+					</div>
+					<a class="list2" v-for="item in gylist" target="_blank" :href='"../gongying/gongyingdetail.html?id="+item.id'>
+						<div style="width: 210px">{{item.title}}</div>
+						<div style="width: 140px;">{{item.city}}</div>
+						<div style="width: 210px;">{{item.orgName}}</div>
+						<div style="width: 160px;">{{item.category}}</div>
+						<div style="width: 130px;">{{item.quantity==-1||item.quantity==''?'已招标文件为主 单位：':item.quantity}}{{item.unit}}</div>
+						<div style="width: 130px;">{{item.price==''?'面议':item.price+'元'}}/{{item.unit}}</div>
+					</a>
+				</div>
+				<div class="pages" hidden>
+					<div id="Pagination"></div>
+					<div class="searchPage">
+						<span class="page-sum">共<strong class="allPage">1</strong>页</span>
+						<span class="page-go">跳转<input type="text">页</span>
+						<a href="javascript:;" class="page-btn">GO</a>
+					</div>
+				</div>
+			</div>
+			<div id="show_img" class="i none">
+				<img class="i1 sel cursor-pointer" src="../img/ic_close.png" onclick="$('#show_img').addClass('none')" />
+				<img class="i2" src="" />
+				<img class="i3 sel cursor-pointer" src="../img/ic_left.png" onclick="switchImg(-1)" />
+				<img class="i4 sel cursor-pointer" src="../img/ic_right.png" onclick="switchImg(1)" />
+			</div>
+		</div>
+	</body>
+
+	<script type="text/javascript ">
+		var qs = new QueryString();
+		var id = parseInt(qs['id']) ? parseInt(qs['id']) : 837;
+
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				page: 1,
+				pagesize: 10,
+				companyInfo: '',
+				zplist: [],
+				zblist: [],
+				gylist: []
+			}
+		})
+
+		getUserInfo(id, function(data) {
+			vm.companyInfo = data.result.compnay;
+			$(document).attr('title', data.result.orgName + '-仝仝生态')
+		})
+
+		getUserInfo(localStorage.userId, function(data) {
+			type = data.result.type;
+			if(type == 1) {
+				$('#qiuzhi_fb').show();
+				$('#sc_zhaopin').show();
+				$('#wddy_zhaopin').show();
+				$('#wdyxgs').show();
+			} else {
+				$('#zhaopin_fb').show();
+				$('#sc_qiuzhi').show();
+				$('#wddy_qiuzhi').show();
+				$('#wdfb_zhaopin').show();
+				$('#jlgl').show();
+			}
+		})
+
+		var index = 0;
+
+		function showimg(obj) {
+			index = $(obj).index();
+			var src = ip + vm.companyInfo.companyshowFileName[index];
+			$('#show_img').removeClass('none');
+			$('#show_img .i2').attr('src', src);
+		}
+
+		function switchImg(num) {
+			index += num;
+			var src;
+			if(index < 0) {
+				index = vm.companyInfo.companyshowFileName.length - 1;
+			} else if(index >= vm.companyInfo.companyshowFileName.length) {
+				index = 0;
+			}
+			src = ip + vm.companyInfo.companyshowFileName[index];
+			$('#show_img .i2').attr('src', src);
+		}
+
+		$(function() {
+			$('.tab').click(function() {
+				$(this).addClass('tab-sel').siblings('.tab').removeClass('tab-sel');
+				var index = $(this).index();
+				$('.pages').show();
+				switch(index) {
+					case 0:
+						$('#company_info').show();
+						$('#company_zhaopin').hide();
+						$('#company_zhaobiao').hide();
+						$('#company_gongying').hide();
+						$('.pages').hide();
+						break;
+					case 1:
+						$('#company_info').hide();
+						$('#company_zhaopin').show();
+						$('#company_zhaobiao').hide();
+						$('#company_gongying').hide();
+
+						post('/webUser/Publish', {
+							pageNo: vm.page,
+							pageSize: vm.pagesize,
+							messageType: 3,
+							publishUserId: id
+						}, function(data) {
+							vm.zplist = data.result;
+							$('.allPage').html(Math.ceil(data.reason / vm.pagesize));
+							$("#Pagination").pagination(data.reason / vm.pagesize, {
+								callback: function(page) { // 回调函数
+									post('/webUser/Publish', {
+										pageNo: page + 1,
+										pageSize: vm.pagesize,
+										messageType: 3,
+										publishUserId: id
+									}, function(data) {
+										vm.zplist = data.result;
+									})
+								}
+							});
+						})
+						break;
+					case 2:
+						$('#company_info').hide();
+						$('#company_zhaopin').hide();
+						$('#company_zhaobiao').show();
+						$('#company_gongying').hide();
+
+						post('/webUser/Publish', {
+							pageNo: vm.page,
+							pageSize: vm.pagesize,
+							messageType: 2,
+							publishUserId: id
+						}, function(data) {
+							vm.zblist = data.result;
+							$('.allPage').html(Math.ceil(data.reason / vm.pagesize));
+							$("#Pagination").pagination(data.reason / vm.pagesize, {
+								callback: function(page) { // 回调函数
+									post('/webUser/Publish', {
+										pageNo: page + 1,
+										pageSize: vm.pagesize,
+										messageType: 2,
+										publishUserId: id
+									}, function(data) {
+										vm.zblist = data.result;
+									})
+								}
+							});
+						})
+						break;
+					case 3:
+						$('#company_info').hide();
+						$('#company_zhaopin').hide();
+						$('#company_zhaobiao').hide();
+						$('#company_gongying').show();
+
+						post('/webUser/Publish', {
+							pageNo: vm.page,
+							pageSize: vm.pagesize,
+							messageType: 5,
+							publishUserId: id
+						}, function(data) {
+							vm.gylist = data.result;
+							$('.allPage').html(Math.ceil(data.reason / vm.pagesize));
+							$("#Pagination").pagination(data.reason / vm.pagesize, {
+								callback: function(page) { // 回调函数
+									post('/webUser/Publish', {
+										pageNo: page + 1,
+										pageSize: vm.pagesize,
+										messageType: 5,
+										publishUserId: id
+									}, function(data) {
+										vm.gylist = data.result;
+									})
+								}
+							});
+						})
+						break;
+				}
+			})
+
+			var _this1 = null;
+			$('.nav>li').hover(function() {
+				_this1 = $(this);
+				_this1.find('.second-nav').show();
+				var _this2 = null;
+				_this1.find('.second-nav').find('li').hover(function() {
+					_this2 = $(this);
+					_this2.find('.third-nav').show();
+					_this2.find('.third-nav').hover(function() {
+						$(this).show();
+					}, function() {
+						$(this).hide();
+					});
+				}, function() {
+					_this2.find('.third-nav').hide();
+				});
+			}, function() {
+				_this1.find('.second-nav').hide();
+			});
+		});
+	</script>
+
+</html>

@@ -114,3 +114,11 @@
 	font-size: 14px;
 	text-decoration: none;
 }
+
+#Pagination a {
+	line-height: 1.2;
+}
+
+a {
+	color: black;
+}
