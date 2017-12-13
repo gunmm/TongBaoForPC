@@ -200,6 +200,7 @@ select {
 	height: 30px;
 	width: 45%;
 	text-align: right;
+	
 }
 .btndiv2 {
 	height: 30px;
@@ -242,10 +243,12 @@ select {
 	width: 60px;
 	margin: 0px;
 	cursor: pointer;
+	
 }
 .nameandbtn img {
 	width: 20px;
 	height: 20px;
+	margin-left: 40px;
 }
 .infodiv {} .infodivline1 {
 	background: white;
@@ -357,20 +360,20 @@ select {
 	font-size: 15px;
 	padding: 10px;
 	color: gray;
-	width: 810px;
+	width: 850px;
 }
 
 .workbtndiv {
 	width: 40px;
-	height: 40px;
+	height: 20px;
 	cursor: pointer;
+	/*background: red;*/
 }
 
 
 .workbtndiv img {
 	width: 20px;
 	height: 20px;
-	
 }
 
 .worklistareaitem1 {
@@ -399,7 +402,7 @@ select {
 	font-size: 15px;
 	padding: 10px;
 	color: gray;
-	width: 850px;
+	width: 880px;
 }
 
 .tworkarea {
