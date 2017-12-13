@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>我的发布</title>
-
+		<link rel="icon" href="../img/ic_logo.ico" type="img/x-ico" />
 		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
 		<script type="text/javascript" src="../js/ydui.js"></script>
@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="../static/css/ydui.rem.css" />
 		<link rel="stylesheet" href="../static/css/common.css" />
 		<link rel="stylesheet" href="../static/css/style.css" />
-		<script type="text/javascript" src="../js/exif.js" ></script>
+		<script type="text/javascript" src="../js/exif.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 
 		<style>
@@ -31,16 +31,13 @@
 				font-size: 14px;
 				background: 150px center no-repeat #fff;
 			}
-			
 			.none {
 				display: none;
 			}
-			
 			.filter {
 				width: 1000px;
 				margin: auto;
 			}
-			
 			.filter-btn {
 				background: dodgerblue;
 				width: 120px;
@@ -53,27 +50,23 @@
 				text-align: center;
 				border-radius: 10px;
 			}
-			
 			.list1 {
 				width: 100%;
 				padding: 10px;
 				display: inline-flex;
 				background-color: darkslategray;
 			}
-			
 			.list1 div {
 				font-weight: bold;
 				font-size: 15px;
 				color: white;
 			}
-			
 			.list2 {
 				width: 100%;
 				padding: 10px;
 				display: flex;
 				flex-direction: row;
 			}
-			
 			.li:hover {
 				background: #eee;
 			}
@@ -261,10 +254,9 @@
 				}
 			}
 		})
-
-		getUserInfo(localStorage.userId, function(data) {
+		 getUserInfo(localStorage.userId, function(data) {
 			userInfo = data.result;
-			if(userInfo.type == 1) {
+			if (userInfo.type == 1) {
 				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
@@ -277,8 +269,7 @@
 				$('#jlgl').show();
 			}
 		})
-
-		post('/webUser/Publish', {
+		 post('/webUser/Publish', {
 			pageNo: vm.page,
 			pageSize: vm.pagesize,
 			messageType: 3
@@ -309,7 +300,7 @@
 
 		function delete1(obj) {
 			var id = $(obj).parent()[0].id;
-			if(confirm('确定删除吗?')) {
+			if (confirm('确定删除吗?')) {
 				post('/webUser/DeleteById', {
 					id: id
 				}, function(data) {
@@ -333,7 +324,6 @@
 				});
 			})
 		}
-
 		$(function() {
 			var _this1 = null;
 			$('.nav>li').hover(function() {
@@ -352,7 +342,7 @@
 					_this2.find('.third-nav').hide();
 				});
 			}, function() {
-				if(_this1) {
+				if (_this1) {
 					_this1.find('.second-nav').hide();
 				}
 			});

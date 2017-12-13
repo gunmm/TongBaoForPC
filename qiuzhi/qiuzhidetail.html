@@ -4,6 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>求职详情</title>
+		<link rel="icon" href="../img/ic_logo.ico" type="img/x-ico" />
 
 		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
@@ -14,7 +15,7 @@
 		<link rel="stylesheet" href="../static/css/common.css" />
 
 		<link rel="stylesheet" href="../static/css/style.css" />
-		<script type="text/javascript" src="../js/exif.js" ></script>
+		<script type="text/javascript" src="../js/exif.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 
 		<style>
@@ -26,49 +27,45 @@
 				padding-left: 10px;
 				padding-right: 10px;
 			}
-			
 			.a {
 				width: 100%;
 				/*background-color: darkslategray;*/
+				
 				background: url(../img/detail-bg.jpg);
 				color: whitesmoke;
 				font-size: 15px;
 				padding-bottom: 30px;
 			}
-			
 			.a1 {
 				width: 100%;
 				display: flex;
 				flex-direction: column;
 				position: relative;
 			}
-			
 			.a1-1 {
 				/*position: absolute;*/
+				
 				margin-top: 20px;
 				font-size: 13px;
 			}
-			
 			.a1-2 {
 				/*position: absolute;*/
+				
 				margin-top: 20px;
 				font-size: 25px;
 				display: flex;
 				text-align: center;
 				align-items: center;
 			}
-			
 			.a1-2 img {
 				width: 60px;
 				height: 60px;
 				border-radius: 360px;
 			}
-			
 			.a1-2 span {
 				line-height: 60px;
 				margin-left: 25px;
 			}
-			
 			.a1-2 .a1-2-2 {
 				font-size: 13px;
 				background-color: #EB5211;
@@ -76,11 +73,9 @@
 				padding: 2px 15px 2px 15px;
 				margin-left: 10px;
 			}
-			
 			.a1-3 {
 				margin-top: 20px;
 			}
-			
 			.a1-3 i {
 				width: 1px;
 				height: 12px;
@@ -89,73 +84,61 @@
 				margin-right: 10px;
 				display: inline-block;
 			}
-			
 			.a1-4 {
 				margin-top: 25px;
 			}
-			
 			.a1-4 span {
 				border: 1px solid white;
 				padding: 5px;
 				border-radius: 8px;
 			}
-			
 			.a2 {
 				width: 50%;
 				display: flex;
 				flex-direction: column;
 				position: relative;
 			}
-			
 			.a2-1 {
 				float: right;
 				text-align: end;
 				margin-top: 59px;
 				font-size: 25px;
 			}
-			
 			.a2-2 {
 				float: right;
 				text-align: end;
 				margin-top: 20px;
 			}
-			
 			.a2-3 {
 				float: right;
 				text-align: end;
 				margin-top: 20px;
 			}
-			
 			.b {
 				width: 1000px;
 				margin: auto;
 				display: flex;
 			}
-			
 			.ba {
 				width: 70%;
 				padding-left: 10px;
 				padding-right: 10px;
 			}
-			
 			.bb {
 				width: 30%;
 				padding-left: 10px;
 				padding-right: 10px;
 			}
-			
 			.b h3 {
 				font-size: 20px;
 				margin-top: 30px;
 				margin-bottom: 20px;
 			}
-			
 			.b1 {
 				font-size: 16px;
 				margin-top: 20px;
 				margin-bottom: 30px;
 			}
-			
 			.b1 i {
 				width: 1px;
 				height: 12px;
@@ -164,24 +147,20 @@
 				margin-right: 10px;
 				display: inline-block;
 			}
-			
 			.b2 {
 				width: 100%;
 				margin-top: 20px;
 				position: relative;
 				/*box-shadow: -2px -2px 10px 0px #ccc;*/
 			}
-			
 			.b2 .b2-1 {
 				display: flex;
 				align-items: center;
 			}
-			
 			.b2 .b2-1 img {
 				width: 10px;
 				height: 10px;
 			}
-			
 			.b2 .b2-1 span i {
 				width: 1px;
 				height: 12px;
@@ -190,21 +169,17 @@
 				margin-right: 18px;
 				display: inline-block;
 			}
-			
 			.b2 iframe {
 				width: 100%;
 				height: 208px;
 				border: none;
 			}
-			
 			.b3 {
 				width: 100%;
 			}
-			
 			.b3 li {
 				float: left;
 			}
-			
 			.b3 li img {
 				width: 120px;
 				height: 120px;
@@ -212,7 +187,6 @@
 				margin-right: 20px;
 				margin-bottom: 20px;
 			}
-			
 			.b4 {
 				height: 40px;
 				margin-top: 30px;
@@ -220,46 +194,38 @@
 				flex-direction: row;
 				float: right;
 			}
-			
 			.b4-1 {
 				width: 120px;
 				display: inline-flex;
 				background-color: #CCCCCC;
 				align-items: center;
 			}
-			
 			.b4-img {
 				width: 22px;
 				height: 22px;
 				margin: auto;
 			}
-			
 			.b4-span {
 				margin: auto;
 			}
-			
 			.b4-2 {
 				width: 120px;
 				display: inline-flex;
 				background-color: #097ED8;
 				align-items: center;
 			}
-			
 			.b4-2 span {
 				color: white;
 			}
-			
 			.b4-3 span {
 				color: white;
 			}
-			
 			.b4-3 {
 				width: 120px;
 				display: inline-flex;
 				background-color: #128A28;
 				align-items: center;
 			}
-			
 			.i {
 				width: 100%;
 				height: 100%;
@@ -269,52 +235,42 @@
 				z-index: 1000;
 				display: flex;
 			}
-			
 			.i .i1 {
 				position: absolute;
 				top: 50px;
 				right: 50px;
 			}
-			
 			.i .i2 {
 				margin: auto;
 				height: 80%;
 			}
-			
 			.bb1 {
 				font-size: 20px;
 			}
-			
 			.bb2 {
 				float: right;
 				color: gray;
 			}
-			
 			.bb2:hover {
 				color: black;
 			}
-			
 			a,
 			a:hover {
 				color: #080808;
 				text-decoration: none;
 			}
-			
 			.list1 {
 				width: 100%;
 				display: flex;
 				flex-direction: column;
 			}
-			
 			.tousu1 img {
 				width: 48px;
 				height: 48px;
 			}
-			
 			.sel:hover {
 				border: 3px solid transparent;
 			}
-			
 			.none {
 				display: none;
 			}
@@ -585,12 +541,10 @@
 	<script type="text/javascript">
 		var qs = new QueryString();
 		var id = parseInt(qs['id']) ? parseInt(qs['id']) : 2;
-
 		post('/webUser/addBrowser', {
 			userId: localStorage.userId,
 			articleId: id
 		}, function(data) {})
-
 		var vm = new Vue({
 			el: '#app',
 			data: {
@@ -633,7 +587,7 @@
 					$('#show_img .i2').attr('src', src);
 				},
 				shoucang: function() {
-					if(vm.userInfo.regStatus != 1) {
+					if (vm.userInfo.regStatus != 1) {
 						window.location.href = '../register/register.html';
 						return;
 					}
@@ -643,7 +597,7 @@
 						shoucang: !vm.isShoucang
 					}, function(data) {
 						vm.isShoucang = !vm.isShoucang;
-						if(vm.isShoucang) {
+						if (vm.isShoucang) {
 							$('#shoucang').css('color', '#D58512');
 							$('#shoucang').html('已收藏');
 							vm.favourite += 1;
@@ -660,7 +614,7 @@
 					})
 				},
 				toudi: function() {
-					if(vm.userInfo.regStatus != 1) {
+					if (vm.userInfo.regStatus != 1) {
 						window.location.href = '../register/register.html';
 						return;
 					}
@@ -679,16 +633,14 @@
 				}
 			}
 		})
-
 		var xuelis;
 		getDicTable(true, "003", function(data) {
 			xuelis = data.result;
-
 			post('/webQz/QiuzhiById', {
 				id: id
 			}, function(data) {
 				var d = data.result;
-				if(d.showfullname == 1) {
+				if (d.showfullname == 1) {
 					vm.name = d.name;
 				} else {
 					vm.name = hideStr(d.name);
@@ -717,10 +669,9 @@
 				vm.gender = d.sex == '男';
 				vm.showcompanyname = d.showcompanyname == 1;
 				vm.userId = d.userId;
-				if(d.admin) {
+				if (d.admin) {
 					$('.b4-3').hide();
 				}
-
 				post('/webQz/Qiuzhi', {
 					pageNo: 1,
 					pageSize: 5,
@@ -730,11 +681,10 @@
 				})
 			})
 		})
-
-		getUserInfo(localStorage.userId, function(data) {
+		 getUserInfo(localStorage.userId, function(data) {
 			vm.userInfo = data.result;
 			vm.type = data.result.type;
-			if(vm.userInfo.type == 1) {
+			if (vm.userInfo.type == 1) {
 				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
@@ -747,19 +697,17 @@
 				$('#jlgl').show();
 			}
 		})
-
-		post('/webSc/isFavorite', {
+		 post('/webSc/isFavorite', {
 			id: id,
 			userId: localStorage.userId
 		}, function(data) {
 			vm.isShoucang = data.result;
-			if(data.result) {
+			if (data.result) {
 				$('#shoucang').css('color', '#D58512');
 				$('#shoucang').html('已收藏');
 			}
 		})
-
-		post('/webQz/isInterview', {
+		 post('/webQz/isInterview', {
 			id: id,
 			userId: localStorage.userId
 		}, function(data) {
@@ -767,8 +715,8 @@
 		})
 
 		function getXueli(id) {
-			for(var i = 0; i < xuelis.length; i++) {
-				if(xuelis[i].itemCode == id) {
+			for (var i = 0; i < xuelis.length; i++) {
+				if (xuelis[i].itemCode == id) {
 					return xuelis[i].itemName;
 				}
 			}
@@ -779,7 +727,7 @@
 		}
 
 		function confirmTousu() {
-			if(vm.ts_content == '') {
+			if (vm.ts_content == '') {
 				myAlert('请填写投诉内容')
 				return
 			}
@@ -799,7 +747,6 @@
 				});
 			})
 		}
-
 		$(function() {
 			var _this1 = null;
 			$('.nav>li').hover(function() {
