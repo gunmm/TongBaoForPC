@@ -485,17 +485,17 @@
 								"imgBases": value
 							},
 							function(data) {
-								$("#xz").before(
-									"<li class='pos-r fl'>" +
-									"<div class='zhanshi2 pos-r'>" +
-									"<img onclick='showimg(this)' src='" + ip+data.result[0]+ "'/>" +
-									"<input type='hidden' name='shilizhanshi' value=''/>" +
-									"<div id='" + data.result[0] + "' class='delet-pic' onclick='removeLi(this)'>" +
-									"<img src='../static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png' />" +
-									"</div>" +
-									"</div>" +
-									"</li>");
 								if (data.result.length > 0) {
+									$("#xz").before(
+										"<li class='pos-r fl'>" +
+										"<div class='zhanshi2 pos-r'>" +
+										"<img onclick='showimg(this)' src='" + ip + data.result[0] + "'/>" +
+										"<input type='hidden' name='shilizhanshi' value=''/>" +
+										"<div id='" + data.result[0] + "' class='delet-pic' onclick='removeLi(this)'>" +
+										"<img src='../static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png' />" +
+										"</div>" +
+										"</div>" +
+										"</li>");
 									vm.shilipic.push(data.result[0]);
 								}
 							})
