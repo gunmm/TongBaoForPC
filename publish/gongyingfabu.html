@@ -38,6 +38,50 @@
 				});
 			});
 		</script>
+
+		<style>
+			.i {
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				position: fixed;
+				top: 0;
+				z-index: 1000;
+				display: flex;
+			}
+			.i .i1 {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				top: 80px;
+				right: 30px;
+			}
+			.i .i2 {
+				margin: auto;
+				max-width: 80%;
+				max-height: 80%;
+			}
+			.i .i3 {
+				width: 40px;
+				height: 50px;
+				position: absolute;
+				top: 45%;
+				left: 20px;
+			}
+			.i .i4 {
+				width: 40px;
+				height: 50px;
+				position: absolute;
+				top: 45%;
+				right: 20px;
+			}
+			.sel:hover {
+				border: 3px solid transparent;
+			}
+			.none {
+				display: none;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -299,8 +343,16 @@
 					<br>
 					<br>
 					<br>
+
 				</div>
 			</div>
+		</div>
+
+		<div id="show_img" class="i none">
+			<img class="i1 sel cursor-pointer" src="../img/ic_close.png" onclick="$('#show_img').addClass('none')" />
+			<img class="i2" src="" />
+			<img class="i3 sel cursor-pointer" src="../img/ic_left.png" onclick="switchImg(-1)" />
+			<img class="i4 sel cursor-pointer" src="../img/ic_right.png" onclick="switchImg(1)" />
 		</div>
 
 	</body>
@@ -332,7 +384,7 @@
 						$("#xz").before(
 							"<li class='pos-r fl'>" +
 							"<div class='zhanshi2 pos-r'>" +
-							"<img src='" + ip + str + "'/>" +
+							"<img onclick='showimg(this)' src='" + ip + str + "'/>" +
 							"<input type='hidden' name='shilizhanshi' value=''/>" +
 							"<div id='" + str + "' class='delet-pic' onclick='removeLi(this)'>" +
 							"<img src='../static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png' />" +
@@ -723,16 +775,6 @@
 				var reader = new FileReader();
 				reader.readAsDataURL(file);
 				reader.onload = function(e) {
-					$("#xz").before(
-						"<li class='pos-r fl'>" +
-						"<div class='zhanshi2 pos-r'>" +
-						"<img src='" + e.target.result + "'/>" +
-						"<input type='hidden' name='shilizhanshi' value=''/>" +
-						"<div id='" + e.target.result + "' class='delet-pic' onclick='removeLi(this)'>" +
-						"<img src='../static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png' />" +
-						"</div>" +
-						"</div>" +
-						"</li>");
 					dealImage(e.target.result, {
 						quality: 0.1
 					}, function(value) {
@@ -741,12 +783,42 @@
 							},
 							function(data) {
 								if (data.result.length > 0) {
+									$("#xz").before(
+										"<li class='pos-r fl'>" +
+										"<div class='zhanshi2 pos-r'>" +
+										"<img onclick='showimg(this)' src='" + ip+data.result[0]+ "'/>" +
+										"<input type='hidden' name='shilizhanshi' value=''/>" +
+										"<div id='" +data.result[0] + "' class='delet-pic' onclick='removeLi(this)'>" +
+										"<img src='../static/img/9E9E7268-4F63-4B93-8850-DFF862172AEA@2x.png' />" +
+										"</div>" +
+										"</div>" +
+										"</li>");
 									vm.productpic.push(data.result[0]);
 								}
 							})
 					});
 				};
 			}
+		}
+		
+		var index = 0;
+		function showimg(obj) {
+			index = $(obj).parent().parent().index();
+			var src = ip + vm.productpic[index];
+			$('#show_img').removeClass('none');
+			$('#show_img .i2').attr('src', src);
+		}
+
+		function switchImg(num) {
+			index += num;
+			var src;
+			if (index < 0) {
+				index = vm.productpic.length - 1;
+			} else if (index >= vm.productpic.length) {
+				index = 0;
+			}
+			src = ip + vm.productpic[index];
+			$('#show_img .i2').attr('src', src);
 		}
 	</script>
 
