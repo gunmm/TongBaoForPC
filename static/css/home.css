@@ -18,9 +18,9 @@ body {
 }
 
 .listarea_zixun {
-	width: 920px;
+	width: 960px;
 	height: 50px;
-	margin: 10px 40px;
+	margin: 10px 20px;
 	background: white;
 }
 
@@ -31,21 +31,21 @@ body {
 }
 
 .listitem_left {
-	width: 500px;
+	width: 460px;
 	background: white;
 	float: left;
-	margin: 10px;
-	margin-left: 40px;
+	/*margin: 10px;*/
+	margin-left: 20px;
 	margin-right: 20px;
 }
 
 .listitem_right {
-	width: 500px;
+	width: 460px;
 	background: white;
 	float: left;
-	margin: 10px;
+	/*margin: 10px;*/
 	margin-left: 20px;
-	margin-right: 40px;
+	margin-right: 20px;
 }
 
 .fabutitle {

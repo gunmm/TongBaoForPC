@@ -28,6 +28,14 @@
 				-webkit-line-clamp: 2;
 				-webkit-box-orient: vertical;
 			}
+			
+			.zx_content img {
+				width: 100%;
+			}
+			
+			.zx_content nobr {
+				white-space: normal;
+			}
 		</style>
 	</head>
 
@@ -170,7 +178,7 @@
 							</a>
 						</div>
 					</div>
-					<p v-html="content" style="font-size: 16px;margin-top: 20px;"></p>
+					<p class="zx_content" v-html="content" style="font-size: 16px;margin-top: 20px;box-sizing: border-box;"></p>
 				</div>
 				<div style="width: 1px; background-color: lightgray;"></div>
 				<div style="width: 40%;padding: 20px;margin-top: 40px;">

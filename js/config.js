@@ -5,7 +5,7 @@ var provinceCity = '[{"deep":1,"name":"北京市","id":1,"sort":0,"parentId":0},
 
 var vm = new Vue();
 
-//localStorage.userId = 837;
+//localStorage.userId = 831;
 
 function asJump() {
 	as.jump();
@@ -850,20 +850,29 @@ function initMeassage(userInfo) {
 						} else {
 							src = getDir() + 'static/img/avatar_96x96.png';
 						}
-						$('#chatcontent1212').append('<div style="display: inline-flex;float: right;">' +
-							'<div style="margin-right: 10px;">' +
-							'<div style="font-size: 14px;float: right;">' + vm.userInfo.orgName + '</div>' +
-							'<div style="clear: both;"></div>' +
-							'<div style="display: inline-flex;position: relative;color: white;">' +
-							'<div style="margin-top: 5px;background-color: #128A28;border-radius: 10px;padding: 8px;max-width: 200px;min-height: 20px;">' + strReplace(vm.content) + '</div>' +
-							'<div style="border-right: 8px solid transparent;content: \'\';width: 0;height: 0;border-top: 12px solid #128A28;margin-top: 15px;"></div>' +
-							'</div>' +
-							'</div>' +
-							'<img src="' + src + '" style="width: 40px;height: 40px;border-radius: 8px;" />' +
-							'</div>' +
-							'<div style="clear: both;"></div>');
+						//						$('#chatcontent1212').append('<div style="display: inline-flex;float: right;">' +
+						//							'<div style="margin-right: 10px;">' +
+						//							'<div style="font-size: 14px;float: right;">' + vm.userInfo.orgName + '</div>' +
+						//							'<div style="clear: both;"></div>' +
+						//							'<div style="display: inline-flex;position: relative;color: white;">' +
+						//							'<div style="margin-top: 5px;background-color: #128A28;border-radius: 10px;padding: 8px;max-width: 200px;min-height: 20px;">' + strReplace(vm.content) + '</div>' +
+						//							'<div style="border-right: 8px solid transparent;content: \'\';width: 0;height: 0;border-top: 12px solid #128A28;margin-top: 15px;"></div>' +
+						//							'</div>' +
+						//							'</div>' +
+						//							'<img src="' + src + '" style="width: 40px;height: 40px;border-radius: 8px;" />' +
+						//							'</div>' +
+						//							'<div style="clear: both;"></div>');
+						post('/webUser/myAllMessage', {
+							userId: localStorage.userId,
+							toId: vm.toId
+						}, function(data) {
+							$('#chatdetail1212').show();
+							vm.chatlist = data.result;
+							setTimeout(function() {
+								$('#chatcontent1212').scrollTop($('#chatcontent1212')[0].scrollHeight);
+							}, 500);
+						})
 						vm.content = '';
-						$('#chatcontent1212').scrollTop($('#chatcontent1212')[0].scrollHeight);
 					})
 				}
 			}
@@ -886,10 +895,16 @@ function getDir() {
 }
 
 function personinfoview(name, imgurl, telephone, type) {
+	if(imgurl) {
+		imgurl = ip + imgurl;
+	} else {
+		imgurl = getDir() + 'static/img/avatar_96x96.png';
+	}
+
 	$('body').append(
 		'<div onmouseenter="showdetail()" onmouseleave="hidedetail()">' +
 		'<div style="background: #689fee;height: 50px;width: 200px;z-index: 99999;position: fixed;right: 0px;top: 0px;margin-right: 0px;display: flex;float: left;">' +
-		'<div style="background: white; width: 36px;height: 36px;margin: 0px;margin-top: 7px;margin-left: 30px;border-radius: 18px;"><img style="margin: 0px;width: 36px;height: 36px;border-radius: 18px;" id="logocompany" src="' + ip + imgurl + '" alt="" /></div>' +
+		'<div style="background: white; width: 36px;height: 36px;margin: 0px;margin-top: 7px;margin-left: 30px;border-radius: 18px;"><img style="margin: 0px;width: 36px;height: 36px;border-radius: 18px;" id="logocompany" src="' + imgurl + '" alt="" /></div>' +
 		'<div style="padding-left: 10px;margin-top: 7px;line-height: 36px;height: 36px;font-size: 15px;color: white;"><nobr>' + name + '</nobr></div>' +
 		'</div>' +
 
@@ -1102,7 +1117,9 @@ getUserInfo(localStorage.userId, function(data) {
 		urlStr.indexOf('qiuzhilist.html') > 0 ||
 		urlStr.indexOf('gongyingdetail.html') > 0 ||
 		urlStr.indexOf('gongyinglist.html') > 0 ||
-		urlStr.indexOf('stpc.tongtongww.com/?code=') > 0) {} else {
+		urlStr.indexOf('companyInfo.html') > 0 ||
+		urlStr.indexOf('stpc.tongtongww.com/?code=') > 0 ||
+		urlStr == 'http://stpc.tongtongww.com/') {} else {
 		if(data.result.regStatus != 1) {
 			window.location.href = "../register/register.html";
 			return;

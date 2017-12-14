@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>简单地图</title>
+		<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+
+		<style type="text/css">
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			body,
+			button,
+			input,
+			select,
+			textarea {
+				font: 12px/16px Verdana, Helvetica, Arial, sans-serif;
+			}
+			
+			p {
+				width: 603px;
+				padding-top: 3px;
+				overflow: hidden;
+			}
+			
+			.btn {
+				width: 142px;
+			}
+			
+			#container {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--   定义地图显示容器   -->
+		<div id="container"></div>
+	</body>
+
+	<script>
+		window.onload = function() {
+			//直接加载地图
+			//初始化地图函数  自定义函数名init
+			function init() {
+				//定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器
+				var map = new qq.maps.Map(document.getElementById("container"), {
+					center: new qq.maps.LatLng(39.916527, 116.397128), // 地图的中心地理坐标。
+					zoom: 10, // 地图的中心地理坐标。
+					panControl: false, //平移控件的初始启用/停用状态。      
+					zoomControl: false, //缩放控件的初始启用/停用状态。
+					scaleControl: false
+				});
+
+				var center = new qq.maps.LatLng(39.916527, 116.397128);
+				var marker = new qq.maps.Marker({
+					position: center,
+					map: map
+				});
+			}
+			//调用初始化函数地图
+			init();
+		}
+
+		function QueryString() {
+			var name, value, i;
+			var str = decodeURI(location.href);
+			var num = str.indexOf("?")
+			str = str.substr(num + 1);
+			var arrtmp = str.split("&");
+			for(i = 0; i < arrtmp.length; i++) {
+				num = arrtmp[i].indexOf("=");
+				if(num > 0) {
+					name = arrtmp[i].substring(0, num);
+					value = arrtmp[i].substr(num + 1);
+					this[name] = value;
+				}
+			}
+		}
+	</script>
+
+</html>

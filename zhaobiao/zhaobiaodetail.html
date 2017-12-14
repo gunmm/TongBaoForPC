@@ -142,6 +142,10 @@
 				margin-bottom: 30px;
 			}
 			
+			.b1 nobr {
+				white-space: normal;
+			}
+			
 			.b2 {
 				width: 100%;
 				height: 250px;
@@ -442,13 +446,13 @@
 							<img class="b4-img" v-else src="../static/img/shoucang1.png" alt="" />
 							<span id="shoucang" class="b4-span">收藏</span>
 						</div>
-						<div class="b4-2 cursor-pointer">
+						<div class="b4-2 cursor-pointer" @click="getChat(userInfo,userId)">
 							<img class="b4-img" src="../static/img/xiaoxi.png" />
-							<span class="b4-span" @click="getChat(userInfo,userId)">立即沟通</span>
+							<span class="b4-span">立即沟通</span>
 						</div>
-						<div class="b4-3 cursor-pointer">
+						<div class="b4-3 cursor-pointer" @click="toudi()">
 							<span v-if="isToudi" class="b4-span">已投标</span>
-							<span v-else class="b4-span" @click="toudi()">立即投标</span>
+							<span v-else class="b4-span">立即投标</span>
 						</div>
 					</div>
 					<div style="clear: both;"></div>
