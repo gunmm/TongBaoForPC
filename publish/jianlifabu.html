@@ -613,7 +613,7 @@
 								</div>
 								<div class="jianli_valuetext">
 									<select v-model="ondutyId">
-										<option value="">请选择</option>
+										<option value=-1>请选择</option>
 										<option v-for="item in ondutys" :value="item.itemCode">{{item.itemName}}</option>
 									</select>
 								</div>
@@ -795,8 +795,10 @@
 				ondutyId = data.result.ondutyId;
 				if (data.result.ondutyId == 1) {
 					onduty = "在职";
-				} else {
+				} else if(data.result.ondutyId == 0) {
 					onduty = "离职";
+				}else{
+					ondutyId = -1;
 				}
 			}
 		})
@@ -1295,10 +1297,11 @@
 						myAlert('请选择期望月薪')
 						return
 					}
-					if (vm.ondutyId != 0 && vm.ondutyId != 1 || vm.ondutyId == '') {
+					if (vm.ondutyId != 1 && vm.ondutyId != 0) {
 						myAlert('请选择是否在职')
 						return
 					}
+					
 					if (vm.keruzhishijianId == "") {
 						myAlert('请选择入职时间')
 						return
