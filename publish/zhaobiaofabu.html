@@ -47,7 +47,7 @@
 			var itemid = Request["id"];
 			var obj;
 			var title, quantity, price, unit, end_at, address, contact, phone, content;
-			if (itemid) {
+			if(itemid) {
 				post1('/webZb/ZhaobiaoDetail', false, {
 					id: itemid,
 				}, function(data) {
@@ -63,7 +63,7 @@
 					this.content = data.result.content;
 					console.log(this.obj);
 				})
-			}else{
+			} else {
 				this.title = '';
 				this.quantity = '';
 				this.price = '';
@@ -290,7 +290,7 @@
 						</div>
 					</div>
 					<div class="addressdetail">
-						<input type="text" value="" placeholder="请填写详细地址" v-model="address" />
+						<input type="text" value="" placeholder="请填写详细地址" v-model="address" style="width: 405px;" />
 					</div>
 					<br>
 					<br>
@@ -305,7 +305,7 @@
 						<div>
 							招标详情
 						</div>
-						<textarea name="" rows="" cols="" placeholder="请填写招标详细描述" v-model="content"></textarea>
+						<textarea name="" rows="" cols="" placeholder="请填写招标详细描述" v-model="content" style="resize: none;"></textarea>
 
 					</div>
 
@@ -325,7 +325,7 @@
 	</body>
 
 	<script>
-		 //类别
+		//类别
 		var job;
 		var jobList;
 		var nowJobList;
@@ -334,26 +334,26 @@
 			var job = [];
 			var jobList = [];
 			var jobM = {};
-			for (var i = 0; i < list.length; i++) {
+			for(var i = 0; i < list.length; i++) {
 				var obj = list[i];
-				if (obj.pid == 0) {
+				if(obj.pid == 0) {
 					job.push(obj);
 				} else {
 					jobList.push(obj);
 				}
 			}
-			for (var i = 0; i < job.length; i++) {
+			for(var i = 0; i < job.length; i++) {
 				var array = [];
-				for (var j = 0; j < jobList.length; j++) {
-					if (job[i].id == jobList[j].pid) {
+				for(var j = 0; j < jobList.length; j++) {
+					if(job[i].id == jobList[j].pid) {
 						array.push(jobList[j]);
 						jobM['' + job[i].id] = array;
 					}
 				}
 			}
-			for (var i = 0; i < job.length - 1; i++) {
-				for (var j = 0; j < job.length - 1 - i; j++) {
-					if (job[j].id > job[j + 1].id) {
+			for(var i = 0; i < job.length - 1; i++) {
+				for(var j = 0; j < job.length - 1 - i; j++) {
+					if(job[j].id > job[j + 1].id) {
 						var temp = job[j];
 						job[j] = job[j + 1];
 						job[j + 1] = temp;
@@ -362,11 +362,11 @@
 			}
 			this.job = job;
 			this.jobList = jobM;
-			for (var key in jobM) {
+			for(var key in jobM) {
 				this.nowJobList = jobM[key];
 				break;
 			}
-			if (this.obj) {
+			if(this.obj) {
 				selectGangweiA();
 			}
 		})
@@ -377,21 +377,21 @@
 			province = p;
 			city = c;
 			nowcity = city['1'];
-			if (this.obj) {
+			if(this.obj) {
 				selectProvinceAndCity();
 			}
 		});
 		getUserInfo(localStorage.userId, function(data) {
-			if (data.result.regStatus != 1) {
+			if(data.result.regStatus != 1) {
 				window.location.href = "../register/register.html";
 				return;
 			} else {
-				if (data.result.type == 2) {
-					if (data.result.regist == 0) {
+				if(data.result.type == 2) {
+					if(data.result.regist == 0) {
 						window.location.href = "../register/companyregister.html";
 						return;
 					} else {
-						if (data.result.expire == 0) {
+						if(data.result.expire == 0) {
 							alert("您的注册申请正在审核中,审核通过后会有消息提醒");
 							window.location.href = "../index.html";
 							return;
@@ -401,7 +401,7 @@
 			}
 			userInfo = data.result;
 			$('#app').show();
-			if (userInfo.type == 1) {
+			if(userInfo.type == 1) {
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
 				$('#wdyxgs').show();
@@ -442,65 +442,65 @@
 					$("input[name='specification']").each(function(index) {
 						guigecanshu.push(this.value);
 					});
-					if (!checkEndAt() || !checkTel() || !checkint || !checkfushu()) {
+					if(!checkEndAt() || !checkTel() || !checkint || !checkfushu()) {
 						return false;
 					}
-					if ($("#selectjobvalue option:selected").text() == '请选择') {
+					if($("#selectjobvalue option:selected").text() == '请选择') {
 						myAlert('请选择招标类别')
 						return
 					}
-					if (vm.title == "") {
+					if(vm.title == "") {
 						myAlert('请填写招标标题')
 						return
 					}
-					if (vm.quantity == "") {
+					if(vm.quantity == "") {
 						myAlert('请填写招标数量')
 						return
 					}
-					if (vm.quantity.length > 10) {
+					if(vm.quantity.length > 10) {
 						myAlert('输入的供应数量不合法')
 						return
 					}
-					if (vm.price.length > 10) {
+					if(vm.price.length > 10) {
 						myAlert('输入的单价不合法')
 						return
 					}
-					if (vm.unit == "") {
+					if(vm.unit == "") {
 						myAlert('请填写单位')
 						return
 					}
-					if (vm.end_at == '') {
+					if(vm.end_at == '') {
 						myAlert('请选择有效日期')
 						return
 					}
-					if ($("#selectcity option:selected").text() == '请选择') {
+					if($("#selectcity option:selected").text() == '请选择') {
 						myAlert('请选择工作城市')
 						return
 					}
-					if (vm.address == "") {
+					if(vm.address == "") {
 						myAlert('请填写详细地址')
 						return
 					}
-					if (vm.contact == "") {
+					if(vm.contact == "") {
 						myAlert('请填写联系人姓名')
 						return
 					}
-					if (vm.content == "") {
+					if(vm.content == "") {
 						myAlert('请填写招标详细描述')
 						return
 					}
 					var yes = 1;
 					$(".inp").each(function() {
-						if ($(this).val() == '') {
+						if($(this).val() == '') {
 							yes = 0;
 							return;
 						}
 					})
-					if (yes == 0) {
+					if(yes == 0) {
 						myAlert('参数规格填写不完整!');
 						return;
 					}
-					if (isrepetition) {
+					if(isrepetition) {
 						return;
 					}
 					isrepetition = true;
@@ -509,7 +509,7 @@
 							var dataa, urlstr;
 							var Request = new QueryString();
 							var itemid = Request["id"];
-							if (itemid) {
+							if(itemid) {
 								urlstr = '/webZb/editZhaobiao';
 								dataa = {
 									"publishId": itemid,
@@ -555,7 +555,7 @@
 								function(data) {
 									console.log(data);
 									isrepetition = false;
-									if (data.result_code == 1) {
+									if(data.result_code == 1) {
 										myAlert("发布成功！");
 										window.location.replace("../zhaobiao/zhaobiaodetail.html?id=" + data.result.publishId);
 									}
@@ -580,19 +580,19 @@
 
 		function selectjobitem(obj) {
 			var descriptions = [];
-			for (var i = 0; i < vm.nowjoblist.length; i++) {
+			for(var i = 0; i < vm.nowjoblist.length; i++) {
 				var obj1 = vm.nowjoblist[i];
-				if (obj1.id == obj.value) {
+				if(obj1.id == obj.value) {
 					descriptions = obj1.descriptions;
 				}
 			}
 			$("#guigecanshu").html('');
-			if (descriptions) {
+			if(descriptions) {
 				$("#guigecanshu").append('<div class="guigetitle"> 规格参数</div>');
 			} else {
 				return;
 			}
-			for (i = 0; i < descriptions.length; i++) {
+			for(i = 0; i < descriptions.length; i++) {
 				$("#guigecanshu").append(
 					'<div class="key_value"><div class="keytext">' +
 					'<p><span style="color:#FF0000;"></span><span>' + descriptions[i] + '：</span></p>' +
@@ -607,7 +607,7 @@
 			var endTime = vm.end_at;
 			var end = Date.parse(new Date(endTime.replace(/\-/g, "/").replace(/\-/g, "/")));
 			var current = Date.parse(new Date());
-			if (end < current) {
+			if(end < current) {
 				myAlert("有效日期必须在今天之后!");
 				return false;
 			}
@@ -615,7 +615,7 @@
 		}
 
 		function checkfushu() {
-			if (vm.price != '' && !(/^\d+(\.\d{2})?$/.test(vm.price))) {
+			if(vm.price != '' && !(/^\d+(\.\d{2})?$/.test(vm.price))) {
 				myAlert("请输入数字");
 				return false;
 			}
@@ -623,7 +623,7 @@
 		}
 
 		function checkTel() {
-			if (!(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(vm.phone))) {
+			if(!(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(vm.phone))) {
 				myAlert("电话格式不正确!");
 				return false;
 			}
@@ -631,7 +631,7 @@
 		}
 
 		function checkint() {
-			if (!(/^[A-Z|a-z\u4e00-\u9fa5]*$/.test(vm.unit))) {
+			if(!(/^[A-Z|a-z\u4e00-\u9fa5]*$/.test(vm.unit))) {
 				myAlert("单位只能输入中文或英文");
 				return false;
 			}
@@ -650,11 +650,11 @@
 
 		function selectGangweiA() {
 			var firstid;
-			for (var key in this.jobList) {
+			for(var key in this.jobList) {
 				var dataArr = this.jobList[key];
-				for (var i = 0; i < dataArr.length; i++) {
+				for(var i = 0; i < dataArr.length; i++) {
 					var midObj = dataArr[i];
-					if (midObj.id == this.obj.categoryId) {
+					if(midObj.id == this.obj.categoryId) {
 						firstid = midObj.pid;
 					}
 				}

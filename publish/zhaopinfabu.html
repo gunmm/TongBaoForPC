@@ -47,7 +47,7 @@
 			var itemid = Request["id"];
 			var obj;
 			var title, address, content, quantity, contact, phone, email, fuli, gender;
-			if (itemid) {
+			if(itemid) {
 				post1('/webZp/ZhaopinById', false, {
 					id: itemid,
 				}, function(data) {
@@ -61,9 +61,9 @@
 					this.phone = data.result.phone;
 					this.email = data.result.email;
 					var sexyaoqiu = data.result.sexyaoqiu;
-					if (sexyaoqiu == '男') {
+					if(sexyaoqiu == '男') {
 						this.gender = 1;
-					} else if (sexyaoqiu == '女') {
+					} else if(sexyaoqiu == '女') {
 						this.gender = 2;
 					} else {
 						this.gender = '';
@@ -80,7 +80,7 @@
 				this.phone = '';
 				this.email = '';
 				this.gender = '';
-				
+
 				this.fuli = [];
 			}
 		</script>
@@ -374,7 +374,7 @@
 						<div>
 							招聘详情
 						</div>
-						<textarea name="" rows="" cols="" placeholder="请填写招聘详细描述" v-model="content"></textarea>
+						<textarea name="" rows="" cols="" placeholder="请填写招聘详细描述" v-model="content" style="resize: none;"></textarea>
 
 					</div>
 
@@ -391,7 +391,7 @@
 		</div>
 	</body>
 	<script>
-		 //类别
+		//类别
 		var job;
 		var jobList;
 		var nowJobList;
@@ -400,18 +400,18 @@
 			var job = [];
 			var jobList = [];
 			var jobM = {};
-			for (var i = 0; i < list.length; i++) {
+			for(var i = 0; i < list.length; i++) {
 				var obj = list[i];
-				if (!obj.pid) {
+				if(!obj.pid) {
 					job.push(obj);
 				} else {
 					jobList.push(obj);
 				}
 			}
-			for (var i = 0; i < job.length; i++) {
+			for(var i = 0; i < job.length; i++) {
 				var array = [];
-				for (var j = 0; j < jobList.length; j++) {
-					if (job[i].id == jobList[j].pid) {
+				for(var j = 0; j < jobList.length; j++) {
+					if(job[i].id == jobList[j].pid) {
 						array.push(jobList[j]);
 						jobM['' + job[i].itemCode] = array;
 					}
@@ -419,11 +419,11 @@
 			}
 			this.job = job;
 			this.jobList = jobM;
-			for (var key in jobM) {
+			for(var key in jobM) {
 				this.nowJobList = jobM[key];
 				break;
 			}
-			if (this.obj) {
+			if(this.obj) {
 				selectGangweiA();
 			}
 		})
@@ -434,83 +434,83 @@
 			province = p;
 			city = c;
 			nowcity = city['1'];
-			if (this.obj) {
+			if(this.obj) {
 				selectProvinceAndCity();
 			}
 		});
-		 //福利待遇
+		//福利待遇
 		var fulidic;
 		getDicTable(false, "002", function(data) {
-				this.fulidic = data.result;
-				if (this.obj) {
-					selectFuli();
-				}
-			})
-			//薪资
-		 getDicTable(true, "001", function(data) {
-				vm.xinzidic = data.result;
-				if (this.obj) {
-					for (var i = 0; i < vm.xinzidic.length; i++) {
-						var obj = vm.xinzidic[i];
-						if (obj.itemName == this.obj.xinzi) {
-							vm.xinzi = obj.itemCode;
-						}
+			this.fulidic = data.result;
+			if(this.obj) {
+				selectFuli();
+			}
+		})
+		//薪资
+		getDicTable(true, "001", function(data) {
+			vm.xinzidic = data.result;
+			if(this.obj) {
+				for(var i = 0; i < vm.xinzidic.length; i++) {
+					var obj = vm.xinzidic[i];
+					if(obj.itemName == this.obj.xinzi) {
+						vm.xinzi = obj.itemCode;
 					}
 				}
-			})
-			//学历要求
-		 getDicTable(true, "003", function(data) {
-				vm.xuelidic = data.result;
-				if (this.obj) {
-					for (var i = 0; i < vm.xuelidic.length; i++) {
-						var obj = vm.xuelidic[i];
-						if (obj.itemName == this.obj.xueliyaoqiu) {
-							vm.xueli = obj.itemCode;
-						}
+			}
+		})
+		//学历要求
+		getDicTable(true, "003", function(data) {
+			vm.xuelidic = data.result;
+			if(this.obj) {
+				for(var i = 0; i < vm.xuelidic.length; i++) {
+					var obj = vm.xuelidic[i];
+					if(obj.itemName == this.obj.xueliyaoqiu) {
+						vm.xueli = obj.itemCode;
 					}
 				}
-			})
-			//经验要求
-		 getDicTable(true, "004", function(data) {
-				vm.jingyandic = data.result;
-				if (this.obj) {
-					for (var i = 0; i < vm.jingyandic.length; i++) {
-						var obj = vm.jingyandic[i];
-						if (obj.itemName == this.obj.jingyanyaoqiu) {
-							vm.jingyan = obj.itemCode;
-						}
+			}
+		})
+		//经验要求
+		getDicTable(true, "004", function(data) {
+			vm.jingyandic = data.result;
+			if(this.obj) {
+				for(var i = 0; i < vm.jingyandic.length; i++) {
+					var obj = vm.jingyandic[i];
+					if(obj.itemName == this.obj.jingyanyaoqiu) {
+						vm.jingyan = obj.itemCode;
 					}
 				}
-			})
-			//职称要求
-		 getDicTable(true, "005", function(data) {
-				vm.zhichengdic = data.result;
-				if (this.obj) {
-					if (this.obj.professionalId) {
-						vm.zhicheng = this.obj.professionalId;
-					}
+			}
+		})
+		//职称要求
+		getDicTable(true, "005", function(data) {
+			vm.zhichengdic = data.result;
+			if(this.obj) {
+				if(this.obj.professionalId) {
+					vm.zhicheng = this.obj.professionalId;
 				}
-			})
-			//年龄要求
-		 getDicTable(true, "012", function(data) {
+			}
+		})
+		//年龄要求
+		getDicTable(true, "012", function(data) {
 			vm.agedic = data.result;
-			if (this.obj) {
-				if (this.obj.ageId) {
+			if(this.obj) {
+				if(this.obj.ageId) {
 					vm.age = this.obj.ageId;
 				}
 			}
 		})
-		 getUserInfo(localStorage.userId, function(data) {
-			if (data.result.regStatus != 1) {
+		getUserInfo(localStorage.userId, function(data) {
+			if(data.result.regStatus != 1) {
 				window.location.href = "../register/register.html";
 				return;
 			} else {
-				if (data.result.type == 2) {
-					if (data.result.regist == 0) {
+				if(data.result.type == 2) {
+					if(data.result.regist == 0) {
 						window.location.href = "../register/companyregister.html";
 						return;
 					} else {
-						if (data.result.expire == 0) {
+						if(data.result.expire == 0) {
 							alert("您的注册申请正在审核中,审核通过后会有消息提醒");
 							window.location.href = "../index.html";
 							return;
@@ -520,7 +520,7 @@
 			}
 			userInfo = data.result;
 			$('#app').show();
-			if (userInfo.type == 1) {
+			if(userInfo.type == 1) {
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
 				$('#wdyxgs').show();
@@ -576,8 +576,8 @@
 				fabu: function() {
 					var selectobj = document.getElementsByName("Fruit");
 					var check_val = [];
-					for (k in selectobj) {
-						if (selectobj[k].checked)
+					for(k in selectobj) {
+						if(selectobj[k].checked)
 							check_val.push(selectobj[k].value);
 					}
 					console.log(check_val);
@@ -596,42 +596,42 @@
 					console.log("性别" + vm.gender);
 					console.log("年龄" + vm.age);
 					console.log("详情" + vm.content);
-					if (!checkEmail() || !checkTel()) {
+					if(!checkEmail() || !checkTel()) {
 						return false;
 					}
-					if (vm.title == "") {
+					if(vm.title == "") {
 						myAlert('请填写职位名称')
 						return;
 					}
-					if ($("#selectjobvalue option:selected").text() == '请选择') {
+					if($("#selectjobvalue option:selected").text() == '请选择') {
 						myAlert('请选择岗位类别')
 						return
 					}
-					if ($('.select-xizi').val() == '') {
+					if($('.select-xizi').val() == '') {
 						myAlert('请选择薪资水平')
 						return;
 					}
-					if ($("#selectcity option:selected").text() == '请选择') {
+					if($("#selectcity option:selected").text() == '请选择') {
 						myAlert('请选择工作城市')
 						return;
 					}
-					if (vm.address == "") {
+					if(vm.address == "") {
 						myAlert('请填写详细地址')
 						return
 					}
-					if (vm.content == "") {
+					if(vm.content == "") {
 						myAlert('请填写职位和岗位要求')
 						return;
 					}
-					if (vm.quantity == "") {
+					if(vm.quantity == "") {
 						myAlert('请填写招聘人数')
 						return;
 					}
-					if (vm.contact == "") {
+					if(vm.contact == "") {
 						myAlert('请填写联系人姓名')
 						return;
 					}
-					if (isrepetition) {
+					if(isrepetition) {
 						return;
 					}
 					isrepetition = true;
@@ -639,7 +639,7 @@
 						var dataa, urlstr;
 						var Request = new QueryString();
 						var itemid = Request["id"];
-						if (itemid) {
+						if(itemid) {
 							urlstr = '/webZp/editZhaopin';
 							dataa = {
 								"publishId": itemid,
@@ -692,7 +692,7 @@
 						post(urlstr, dataa,
 							function(data) {
 								isrepetition = false;
-								if (data.result_code == '1') {
+								if(data.result_code == '1') {
 									myAlert("发布成功!");
 									window.location.replace("../zhaopin/zhaopindetail.html?id=" + data.result
 										.publishId)
@@ -708,7 +708,7 @@
 
 		function checkEmail() {
 			var email = vm.email;
-			if (!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+			if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
 				myAlert("email格式不正确！请重新输入!");
 				return false;
 			}
@@ -716,7 +716,7 @@
 		}
 
 		function checkTel() {
-			if (!(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(vm.phone))) {
+			if(!(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(vm.phone))) {
 				myAlert("电话格式不正确!");
 				return false;
 			}
@@ -745,11 +745,11 @@
 
 		function selectGangweiA() {
 			var firstid;
-			for (var key in this.jobList) {
+			for(var key in this.jobList) {
 				var dataArr = this.jobList[key];
-				for (var i = 0; i < dataArr.length; i++) {
+				for(var i = 0; i < dataArr.length; i++) {
 					var midObj = dataArr[i];
-					if (midObj.itemCode == this.obj.postId) {
+					if(midObj.itemCode == this.obj.postId) {
 						firstid = midObj.itemCode;
 					}
 				}
@@ -766,11 +766,11 @@
 		function selectFuli() {
 			var selectobj = document.getElementsByName("Fruit");
 			setTimeout(function() {
-				for (k in selectobj) {
-					if (selectobj[k].value) {
-						for (var i = 0; i < this.fuli.length; i++) {
+				for(k in selectobj) {
+					if(selectobj[k].value) {
+						for(var i = 0; i < this.fuli.length; i++) {
 							var fuliitem = this.fuli[i];
-							if (selectobj[k].value == fuliitem) {
+							if(selectobj[k].value == fuliitem) {
 								selectobj[k].checked = true;
 							}
 						}
