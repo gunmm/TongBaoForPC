@@ -200,28 +200,12 @@
 				<div class="fabutitle">招标详细信息</div>
 				<hr/>
 				<div class="fabucontent">
-					<div class="key_value">
+					<div class="key_value" style="width: 100%;">
 						<div class="keytext">
 							<p><span style="color:#FF0000;">*</span><span> 招标标题：</span></p>
 						</div>
-						<div class="valuetext">
-							<input type="text" placeholder="招标标题" value="" v-model="title" />
-						</div>
-					</div>
-					<div class="key_value">
-						<div class="keytext">
-							<p><span style="color:#FF0000;">*</span><span> 联系人：</span></p>
-						</div>
-						<div class="valuetext">
-							<input type="text" value="" placeholder="联系人" v-model="contact" />
-						</div>
-					</div>
-					<div class="key_value">
-						<div class="keytext">
-							<p><span style="color:#FF0000;">*</span><span> 联系电话：</span></p>
-						</div>
-						<div class="valuetext">
-							<input type="tel" value="" placeholder="请填写联系电话" v-model="phone" onchange="checkTel()" />
+						<div class="valuetext" style="width: 770px;">
+							<input type="text" placeholder="请填写招标标题" value="" v-model="title" />
 						</div>
 					</div>
 					<div class="key_value">
@@ -234,18 +218,34 @@
 					</div>
 					<div class="key_value">
 						<div class="keytext">
-							<p><span style="color:#FF0000;">*</span><span> 单价：</span></p>
+							<p><span style="color:#FF0000;">*</span><span> 联系人：</span></p>
 						</div>
 						<div class="valuetext">
+							<input type="text" value="" placeholder="联系人" v-model="contact" />
+						</div>
+					</div>
+					<div class="key_value" style="width: 25%;">
+						<div class="keytext" style="width: 50%;">
+							<p><span style="color:#FF0000;">*</span><span> 单价：</span></p>
+						</div>
+						<div class="valuetext" style="width: 50%;">
 							<input type="number" value="" placeholder="单价" v-model="price" onkeyup="checkfushu()" />
+						</div>
+					</div>
+					<div class="key_value" style="width: 25%;">
+						<div class="keytext" style="width: 50%;padding: 0px;width: 60px;line-height: 50px;margin: 0px;">
+							<p><span style="color:#FF0000;">*</span><span> 单位：</span></p>
+						</div>
+						<div class="valuetext" style="width: 50%;">
+							<input type="text" value="" placeholder="单位" v-model="unit" onchange="checkint()" />
 						</div>
 					</div>
 					<div class="key_value">
 						<div class="keytext">
-							<p><span style="color:#FF0000;">*</span><span> 单位：</span></p>
+							<p><span style="color:#FF0000;">*</span><span> 联系电话：</span></p>
 						</div>
 						<div class="valuetext">
-							<input type="text" value="" placeholder="单位" v-model="unit" onchange="checkint()" />
+							<input type="tel" value="" placeholder="请填写联系电话" v-model="phone" onchange="checkTel()" />
 						</div>
 					</div>
 					<div class="clear" />
@@ -271,7 +271,7 @@
 							<p><span style="color:#FF0000;">*</span><span> 有效期至：</span></p>
 						</div>
 						<div class="valuetext">
-							<input type="date" value="" placeholder="单位" v-model="end_at" onblur="checkEndAt()" />
+							<input type="date" value="" v-model="end_at" onblur="checkEndAt()" />
 						</div>
 					</div>
 					<div class="key_value">

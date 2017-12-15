@@ -209,12 +209,12 @@
 				<div class="fabutitle">供应详细信息</div>
 				<hr/>
 				<div class="fabucontent">
-					<div class="key_value">
+					<div class="key_value" style="width: 100%;">
 						<div class="keytext">
 							<p><span style="color:#FF0000;">*</span><span> 供应标题：</span></p>
 						</div>
-						<div class="valuetext">
-							<input type="text" placeholder="供应标题" value="" v-model="title" />
+						<div class="valuetext" style="width: 770px;">
+							<input type="text" placeholder="请填写供应标题" value="" v-model="title" />
 						</div>
 					</div>
 					<div class="key_value">
@@ -233,28 +233,29 @@
 							<input type="text" placeholder="请填写联系人" value="" v-model="contact" />
 						</div>
 					</div>
+					
+					<div class="key_value" style="width: 25%;">
+						<div class="keytext" style="width: 50%;">
+							<p><span style="color:#FF0000;">*</span><span> 单价：</span></p>
+						</div>
+						<div class="valuetext" style="width: 50%;">
+							<input type="number" placeholder="请填写单价" value="" v-model="price" />
+						</div>
+					</div>
+					<div class="key_value" style="width: 25%;">
+						<div class="keytext"  style="width: 50%;padding: 0px;width: 60px;line-height: 50px;">
+							<p><span style="color:#FF0000;">*</span><span> 单位：</span></p>
+						</div>
+						<div class="valuetext"  style="width: 50%;">
+							<input type="text" placeholder="请填写单位" value="" v-model="unit" />
+						</div>
+					</div>
 					<div class="key_value">
 						<div class="keytext">
 							<p><span style="color:#FF0000;">*</span><span> 电话：</span></p>
 						</div>
 						<div class="valuetext">
 							<input type="tel" placeholder="请填写联系电话" value="" v-model="phone" />
-						</div>
-					</div>
-					<div class="key_value">
-						<div class="keytext">
-							<p><span style="color:#FF0000;">*</span><span> 单价：</span></p>
-						</div>
-						<div class="valuetext">
-							<input type="number" placeholder="请填写单价" value="" v-model="price" />
-						</div>
-					</div>
-					<div class="key_value">
-						<div class="keytext">
-							<p><span style="color:#FF0000;">*</span><span> 单位：</span></p>
-						</div>
-						<div class="valuetext">
-							<input type="text" placeholder="请填写单位" value="" v-model="unit" />
 						</div>
 					</div>
 					<div class="clear"></div>
@@ -280,7 +281,7 @@
 							<p><span style="color:#FF0000;">*</span><span> 有效期至：</span></p>
 						</div>
 						<div class="valuetext">
-							<input type="date" value="" placeholder="单位" v-model="end_at" onblur="checkEndAt()" />
+							<input type="date" value="" v-model="end_at" onblur="checkEndAt()" />
 						</div>
 					</div>
 					<div class="key_value">
