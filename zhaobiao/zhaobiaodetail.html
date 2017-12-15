@@ -421,7 +421,7 @@
 						<div class="a1-3">
 							<span>类别：{{category}}<i></i></span>
 							<span>单价：<span style="color: #D58512;font-weight: bold;">{{price==''?'已招标文件为主':price}}{{price==''?'':'元/'+unit}}</span><i></i></span>
-							<span>数量：<span style="color: #D58512;font-weight: bold;">{{quantity}}{{unit}}</span></span>
+							<span>数量：<span style="color: #D58512;font-weight: bold;">{{quantity=='-1'?'已招标文件为主':quantity+unit}}</span></span>
 						</div>
 						<div class="a1-3">
 							<span>联系人：{{contact}}<i></i></span>
@@ -498,7 +498,7 @@
 									<div class="mt-5">
 										<span>单价：<span style="color: #D58512;font-weight: bold;">{{price==''?'已招标文件为主':price}}{{price==''?'':'元/'+unit}}</span><i></i></span>
 										&nbsp;&nbsp;&nbsp;
-										<span>数量：<span style="color: #D58512;font-weight: bold;">{{quantity}}{{unit}}</span></span>
+										<span>数量：<span style="color: #D58512;font-weight: bold;">{{quantity=='-1'?'已招标文件为主':quantity+unit}}</span></span>
 									</div>
 									<span class="mt-5" style="color: gray;">{{item.orgName}} · {{item.city}}</span>
 								</div>

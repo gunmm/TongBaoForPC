@@ -499,6 +499,9 @@
 			$(this).addClass("active")
 			var text2 = $(this).text();
 			var text1 = $("#province").text();
+			if(text1.indexOf('-') > 0) {
+				text1 = text1.split('-')[0];
+			}
 			$("#province").html(text1 + "-" + text2);
 			$(".citylist2").slideUp();
 		})
@@ -519,6 +522,9 @@
 			$(this).addClass("active")
 			var text2 = $(this).text();
 			var text1 = $("#job1").text();
+			if(text1.indexOf('-') > 0) {
+				text1 = text1.split('-')[0];
+			}
 			$("#job1").html(text1 + "-" + text2);
 			$(".citylist2").slideUp();
 		})
