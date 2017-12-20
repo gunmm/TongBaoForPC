@@ -283,8 +283,8 @@
 					<div style="width: 140px;">{{item.city}}</div>
 					<div style="width: 210px;">{{item.orgName}}</div>
 					<div style="width: 160px;">{{item.category}}</div>
-					<div style="width: 130px;">{{item.quantity==-1||item.quantity==''?'已招标文件为主 单位：':item.quantity}}{{item.unit}}</div>
-					<div style="width: 130px;">{{item.price==''?'面议':item.price+'元'}}/{{item.unit}}</div>
+					<div style="width: 130px;">{{item.quantity==-1||item.quantity==''?'以供应文件为主 单位：':item.quantity}}{{item.unit}}</div>
+					<div style="width: 130px;">{{!item.price?'面议':item.price+'元'}}/{{item.unit}}</div>
 				</a>
 			</div>
 

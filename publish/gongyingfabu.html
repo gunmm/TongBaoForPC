@@ -587,10 +587,10 @@
 							return;
 						}
 					})
-					if(yes == 0) {
-						myAlert('参数规格填写不完整!');
-						return;
-					}
+//					if(yes == 0) {
+//						myAlert('参数规格填写不完整!');
+//						return;
+//					}
 					if(isrepetition) {
 						return;
 					}
@@ -708,6 +708,9 @@
 		}
 
 		function checkfushu() {
+			if(vm.price == -1) {
+				return true;
+			}
 			if(vm.price != '' && !(/^\d+(\.\d{2})?$/.test(vm.price))) {
 				myAlert("请输入数字");
 				return false;

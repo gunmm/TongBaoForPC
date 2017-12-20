@@ -32,13 +32,16 @@
 				font-size: 14px;
 				background: 150px center no-repeat #fff;
 			}
+			
 			.none {
 				display: none;
 			}
+			
 			.filter {
 				width: 1000px;
 				margin: auto;
 			}
+			
 			.filter-btn {
 				background: dodgerblue;
 				width: 120px;
@@ -51,23 +54,27 @@
 				text-align: center;
 				border-radius: 10px;
 			}
+			
 			.list1 {
 				width: 100%;
 				padding: 10px;
 				display: inline-flex;
 				background-color: darkslategray;
 			}
+			
 			.list1 div {
 				font-weight: bold;
 				font-size: 15px;
 				color: white;
 			}
+			
 			.list2 {
 				width: 100%;
 				padding: 10px;
 				display: flex;
 				flex-direction: row;
 			}
+			
 			.li:hover {
 				background: #eee;
 			}
@@ -213,8 +220,8 @@
 							<div style="width: 140px;">{{item.city}}</div>
 							<div style="width: 210px;">{{item.orgName}}</div>
 							<div style="width: 160px;">{{item.category}}</div>
-							<div style="width: 130px;">{{item.quantity==-1||item.quantity==''?'已招标文件为主 单位：':item.quantity}}{{item.unit}}</div>
-							<div style="width: 130px;">{{item.price==''?'面议':item.price+'元'}}/{{item.unit}}</div>
+							<div style="width: 130px;">{{item.quantity==-1||item.quantity==''?'以供应文件为主 单位：':item.quantity}}{{item.unit}}</div>
+							<div style="width: 130px;">{{!item.price?'面议':item.price+'元'}}/{{item.unit}}</div>
 						</a>
 						<div :id="item.id" class="none" style="width: 100%;height: 40px;line-height: 40px;">
 							<a target="_blank" :href='"../gongying/gongyingdetail.html?id="+item.id' style="width: 880px;height: 100%;"></a>
@@ -251,9 +258,9 @@
 				}
 			}
 		})
-		 getUserInfo(localStorage.userId, function(data) {
+		getUserInfo(localStorage.userId, function(data) {
 			userInfo = data.result;
-			if (userInfo.type == 1) {
+			if(userInfo.type == 1) {
 				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
@@ -266,7 +273,7 @@
 				$('#jlgl').show();
 			}
 		})
-		 post('/webUser/Publish', {
+		post('/webUser/Publish', {
 			pageNo: vm.page,
 			pageSize: vm.pagesize,
 			messageType: 5
@@ -297,7 +304,7 @@
 
 		function delete1(obj) {
 			var id = $(obj).parent()[0].id;
-			if (confirm('确定删除吗?')) {
+			if(confirm('确定删除吗?')) {
 				post('/webUser/DeleteById', {
 					id: id
 				}, function(data) {
@@ -339,7 +346,7 @@
 					_this2.find('.third-nav').hide();
 				});
 			}, function() {
-				if (_this1) {
+				if(_this1) {
 					_this1.find('.second-nav').hide();
 				}
 			});

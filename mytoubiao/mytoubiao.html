@@ -32,10 +32,12 @@
 				font-size: 14px;
 				background: 150px center no-repeat #fff;
 			}
+			
 			.filter {
 				width: 1000px;
 				margin: auto;
 			}
+			
 			.filter-btn {
 				background: dodgerblue;
 				width: 120px;
@@ -48,26 +50,31 @@
 				text-align: center;
 				border-radius: 10px;
 			}
+			
 			.list1 {
 				width: 100%;
 				padding: 10px;
 				display: inline-flex;
 				background-color: darkslategray;
 			}
+			
 			.list1 div {
 				font-weight: bold;
 				font-size: 15px;
 				color: white;
 			}
+			
 			.list2 {
 				width: 100%;
 				padding: 10px;
 				display: flex;
 				flex-direction: row;
 			}
+			
 			.li:hover {
 				background: #eee;
 			}
+			
 			.i {
 				width: 100%;
 				height: 100%;
@@ -77,6 +84,7 @@
 				z-index: 1000;
 				display: flex;
 			}
+			
 			.ul {
 				position: relative;
 				margin: 0px auto;
@@ -84,11 +92,13 @@
 				overflow: hidden;
 				height: 180px;
 			}
+			
 			.shenglue {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
+			
 			.shenglue2 {
 				position: relative;
 				max-height: 50px;
@@ -100,6 +110,7 @@
 				-webkit-line-clamp: 2;
 				-webkit-box-orient: vertical;
 			}
+			
 			.none {
 				display: none;
 			}
@@ -245,8 +256,8 @@
 							<div style="width: 140px;">{{item.zhaobiao.city}}</div>
 							<div style="width: 210px;">{{item.zhaobiao.orgName}}</div>
 							<div style="width: 160px;">{{item.zhaobiao.category}}</div>
-							<div style="width: 130px;">{{item.zhaobiao.quantity==-1||item.zhaobiao.quantity==''?'已招标文件为主 单位：':item.zhaobiao.quantity}}{{item.zhaobiao.unit}}</div>
-							<div style="width: 130px;">{{item.zhaobiao.price==''?'面议':item.zhaobiao.price+'元'}}/{{item.zhaobiao.unit}}</div>
+							<div style="width: 130px;">{{item.zhaobiao.quantity==-1||item.zhaobiao.quantity==''?'以招标文件为主 单位：':item.zhaobiao.quantity}}{{item.zhaobiao.unit}}</div>
+							<div style="width: 130px;">{{!item.price?'以招标文件为主':item.price}}{{!item.price?'':'元/'+item.unit}}</div>
 						</a>
 						<div class="pd-10 none" style="width: 100%;">
 							<p class="f-15" style="font-weight: bold;">投标价格：{{item.toubiaoPrice}}元/{{item.unit}}</p>
@@ -282,9 +293,9 @@
 			},
 			methods: {}
 		})
-		 getUserInfo(localStorage.userId, function(data) {
+		getUserInfo(localStorage.userId, function(data) {
 			userInfo = data.result;
-			if (userInfo.type == 1) {
+			if(userInfo.type == 1) {
 				$('#qiuzhi_fb').show();
 				$('#sc_zhaopin').show();
 				$('#wddy_zhaopin').show();
@@ -297,7 +308,7 @@
 				$('#jlgl').show();
 			}
 		})
-		 post('/webUser/MyToubiao', {
+		post('/webUser/MyToubiao', {
 			pageNo: vm.page,
 			pageSize: vm.pagesize
 		}, function(data) {
@@ -326,7 +337,7 @@
 
 		function delete1(obj) {
 			var id = $(obj).parent().parent()[0].id;
-			if (confirm('确定删除吗?')) {
+			if(confirm('确定删除吗?')) {
 				post('/webUser/DeletedMyToubiaoById', {
 					id: id
 				}, function(data) {
@@ -352,7 +363,7 @@
 					_this2.find('.third-nav').hide();
 				});
 			}, function() {
-				if (_this1) {
+				if(_this1) {
 					_this1.find('.second-nav').hide();
 				}
 			});
